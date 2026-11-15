@@ -221,9 +221,9 @@
    "license": "MIT",
    "versions": [
     {
-     "version": "1.0.0",
+     "version": "1.0.1",
      "lua_api": 1,
-     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "commit": "b79c76afdd5581525751948821ee059aba7f07b8",
      "files": [
       {
        "path": "agenda.lua",
@@ -233,7 +233,7 @@
       {
        "path": "app.json",
        "size": 244,
-       "sha256": "5dc62c7b515443eefc81831d6262d02c5fe854727d5172a23529cf2c2f7fe67c"
+       "sha256": "07321945b2547b04016846451238377bb9ba1650a14a5e07eb75d10642338382"
       },
       {
        "path": "gcal.lua",
@@ -242,8 +242,8 @@
       },
       {
        "path": "main.lua",
-       "size": 12615,
-       "sha256": "563e2ec0abfda6a86551af7b26144159b78afcd13bf0edd875a0b1e34a733b49"
+       "size": 13550,
+       "sha256": "d4baf3d38f76482805931cd5e7600effe918c4309f2514fa9e4a2c64e41ecfaf"
       }
      ],
      "other_files": [
@@ -254,8 +254,8 @@
       },
       {
        "path": "README.md",
-       "size": 3758,
-       "sha256": "0df521369384e8036ece1149ab2ef7567c76452f36b0b285f35a384407dc447e"
+       "size": 3685,
+       "sha256": "ec4c480f0fcff94b40999f55abd32b9f8c210a08a8ddddaf19c07855ac5322fa"
       },
       {
        "path": "alert.png",
