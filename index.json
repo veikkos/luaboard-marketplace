@@ -8,14 +8,14 @@
    "license": "MIT",
    "versions": [
     {
-     "version": "1.0.0",
+     "version": "1.1.0",
      "lua_api": 1,
-     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "commit": "45272cc135cfebb4554bb2e375946d45b389e787",
      "files": [
       {
        "path": "app.json",
        "size": 231,
-       "sha256": "8385e74ff35afbafb53f9b9f0a9457cde0e862ea2c619decdd97e1623e3a5dab"
+       "sha256": "c354221c9e5499b2ac86b89488b4cd5ae6e758ec0e38d68b7c91802a696fa2a2"
       },
       {
        "path": "bmw_login.lua",
@@ -24,8 +24,8 @@
       },
       {
        "path": "car.lua",
-       "size": 14800,
-       "sha256": "727d4992f8f15fd87fbda096aacafe28110b6837576894e26c414648402219e3"
+       "size": 14729,
+       "sha256": "1c30564fe4a8dae3bef07bb7b34ca01b131cfd05f251d2e1396a3e3d0e8979f6"
       },
       {
        "path": "cardata.lua",
