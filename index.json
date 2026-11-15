@@ -716,19 +716,19 @@
    "license": "MIT",
    "versions": [
     {
-     "version": "1.0.0",
+     "version": "1.0.1",
      "lua_api": 1,
-     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "commit": "e6bae2867ee4f3d44dbfdd1c3966b3bd817b0acc",
      "files": [
       {
        "path": "app.json",
        "size": 216,
-       "sha256": "9d4efc1f505b7546ad3a3d2acaf49fb6197296aa1eb650bc74cd200eec434828"
+       "sha256": "74f4a8121a500d2e33a36f5cef3cc97e5e4f23254e59a1e5ce45c5fc13be5171"
       },
       {
        "path": "main.lua",
-       "size": 14772,
-       "sha256": "f97b9b569fc906919a3c452993053d587c7c6fb13f4800f1c9376f908302885a"
+       "size": 14939,
+       "sha256": "0ec484ea5d97cf6f721fd8dfa60b2da6dae40e21f86ea74083c0f03aa4e81a83"
       }
      ],
      "other_files": [
@@ -744,13 +744,13 @@
       },
       {
        "path": "days.png",
-       "size": 7076,
-       "sha256": "05a72e7c0a67b05c7d7efc5a1bfad1b8291b008504ed136e2c0ab6a29a2dd0d2"
+       "size": 2359,
+       "sha256": "7db9d9fcc9a549fd7e2560fb682ae43be4fb1289e568e8f41bb0f0ad74514344"
       },
       {
        "path": "screenshot.png",
-       "size": 5574,
-       "sha256": "3503e00b1d3c3e7fc9375873745d1bc9868dd6bc47cab46163cbca6af3f98c24"
+       "size": 2056,
+       "sha256": "cdd38bc888f2989dbf01e69e80506a61f688cdd8a341b49ef5938d09a578f777"
       },
       {
        "path": "secrets.env.example",
