@@ -1,0 +1,765 @@
+{
+ "format": 1,
+ "apps": {
+  "bmw_cardata": {
+   "title": "BMW CarData",
+   "description": "Your BMW's charge, range and charging state, live from BMW's CarData stream. Not affiliated with BMW.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 231,
+       "sha256": "8385e74ff35afbafb53f9b9f0a9457cde0e862ea2c619decdd97e1623e3a5dab"
+      },
+      {
+       "path": "bmw_login.lua",
+       "size": 6333,
+       "sha256": "269397a4d5142c843d3ddfc871e69e64d87b8cccaa2c033c9940bf20e0f90f82"
+      },
+      {
+       "path": "car.lua",
+       "size": 14800,
+       "sha256": "727d4992f8f15fd87fbda096aacafe28110b6837576894e26c414648402219e3"
+      },
+      {
+       "path": "cardata.lua",
+       "size": 6857,
+       "sha256": "9b77999885a5586a331af3e804ad5daa7c1cecf7a2a21aa339e2a00f617940d1"
+      },
+      {
+       "path": "main.lua",
+       "size": 24220,
+       "sha256": "0c3ec40c5e0bba336949cfe53f4c6d747692a41b488a94fa03e716d5ec21c384"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 4373,
+       "sha256": "f19f49e67e105a3ae86eafcea05ee5085616b0bffff3d99ef9a0fc7f94501cd9"
+      },
+      {
+       "path": "login.png",
+       "size": 1591,
+       "sha256": "778b440acf135771a0861413a20128127c297da5c005ce753089e4e85c2c3ac0"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 1694,
+       "sha256": "5cf3c264a4703b96b68af9b13ca83c775bb20b22dbfcb59371f53547f8f68c89"
+      },
+      {
+       "path": "secrets.env.example",
+       "size": 141,
+       "sha256": "d1b7fdff9692926960dc7649fcf7fd649e7774526c29aebc8d5d9d111b25495a"
+      },
+      {
+       "path": "status.png",
+       "size": 2072,
+       "sha256": "17d1a809943684a8c4e20191223b9ba3953a2107413dd81eb36a7b43f7b3fb2d"
+      }
+     ]
+    }
+   ]
+  },
+  "clock": {
+   "title": "Clock",
+   "description": "The time and date, digital or analog, in the device's time zone.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 188,
+       "sha256": "2e2bc84de23bd9eba74148e216b789a03b307e07ad51218ebd30f46ddf15da51"
+      },
+      {
+       "path": "main.lua",
+       "size": 5913,
+       "sha256": "cbd25280827a81a4fc9f5f7f50e82aa2710dee0e4d21262c0cf8b6b28a8530aa"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 776,
+       "sha256": "bf422db04ecb0fe8af6c472e74668e873aa35b12b59923cd282997195d2b3187"
+      },
+      {
+       "path": "analog.png",
+       "size": 5627,
+       "sha256": "2f1590242dd883eb172e2ec8c4795b072b17a3e8499e20fb2ada6cff33a89dff"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 1447,
+       "sha256": "cc2a34f902769dec25bae0e8b6d56a1d6237eaf2c7bea8c5b02018a4e76b43b5"
+      }
+     ]
+    }
+   ]
+  },
+  "dashboard": {
+   "title": "Dashboard",
+   "description": "Knob and battery gauges, USB and charging lights, the touch buttons.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 196,
+       "sha256": "8d511508caf56f70e60c17a575bca6e93ce180c5a0fdd722509d0aa9669351dd"
+      },
+      {
+       "path": "main.lua",
+       "size": 1530,
+       "sha256": "1ace3f2c72eea7b7bdf77ef03bc48517a8dbc362760cdb7b4664b67261fd0c30"
+      },
+      {
+       "path": "widgets.lua",
+       "size": 1558,
+       "sha256": "ea029577f3ca114cb555129adc8d834549901eb3660b699d65057a36a3e916d6"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 636,
+       "sha256": "3e2d0d0698f9757f8589c34a97885ac85e7ca43598d4ab5d1308b1e3b629c1e7"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 4224,
+       "sha256": "041eeafc4df5ee478e41c46a84c95482481603ef5a6519a2227cef93009d862e"
+      }
+     ]
+    }
+   ]
+  },
+  "di2": {
+   "title": "Di2",
+   "description": "Gear position and battery of a Shimano Di2 groupset (12-speed), from the rear derailleur over Bluetooth. Read only.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 237,
+       "sha256": "105e7cbd0ec307ce7bb9525f168aa1438e0270b239dabce18a9898767d6d4deb"
+      },
+      {
+       "path": "main.lua",
+       "size": 6267,
+       "sha256": "8de569085ea99c4c4870b5eaf4c219b787dc82292123696b20a7f044af08bce3"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 2306,
+       "sha256": "d6bc86ecca6adf908c8e54f970459f704d0855049d06e8711df2b0bb46f8fa26"
+      },
+      {
+       "path": "cores3se.png",
+       "size": 118312,
+       "sha256": "a946babe6a3fb34f6e8e69dbcae522938f49021bf3df023973f41a9c4ec98ebc"
+      },
+      {
+       "path": "sim_device.json",
+       "size": 1467,
+       "sha256": "f9c5270c7f31085d2d82149e097ffcbb04ae4ca56169c15b80f712d98ce97c21"
+      }
+     ]
+    }
+   ]
+  },
+  "gcal": {
+   "title": "Google Calendar",
+   "description": "Your next meetings from Google Calendar, quietly; a pulsing red banner when an event's notification comes due.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "agenda.lua",
+       "size": 7757,
+       "sha256": "08ea1c216afce3e467985ca2c58ee38c304fa56407bd70a05b79ad3349a55464"
+      },
+      {
+       "path": "app.json",
+       "size": 244,
+       "sha256": "5dc62c7b515443eefc81831d6262d02c5fe854727d5172a23529cf2c2f7fe67c"
+      },
+      {
+       "path": "gcal.lua",
+       "size": 4022,
+       "sha256": "016816cb7a753619ac0f99bee5e21cfddf831898f591102737a184f5b3d350ec"
+      },
+      {
+       "path": "main.lua",
+       "size": 12615,
+       "sha256": "563e2ec0abfda6a86551af7b26144159b78afcd13bf0edd875a0b1e34a733b49"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 3758,
+       "sha256": "0df521369384e8036ece1149ab2ef7567c76452f36b0b285f35a384407dc447e"
+      },
+      {
+       "path": "alert.png",
+       "size": 15559,
+       "sha256": "25935ae4885221284a63f41bc7c4318c16244b17bb5e471409377bb426d8d8e3"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 16067,
+       "sha256": "276ebcaffa2821bde0a08962ba9e6de55deb379e7efa9e3784c998e581e7a86c"
+      },
+      {
+       "path": "secrets.env.example",
+       "size": 183,
+       "sha256": "a97cd9daadfee1ef39ed1e5027c144217dff61b0a4dc64b45b2dddcc7524f426"
+      }
+     ]
+    }
+   ]
+  },
+  "github": {
+   "title": "GitHub",
+   "description": "Your GitHub repos on a desk board: the latest workflow run, open pull requests and reviews waiting for you. Needs your own GitHub App.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 259,
+       "sha256": "4acafd5d3ccdffbef098577421a89db6bd8bd4aa762da05a55199825fa66db38"
+      },
+      {
+       "path": "github.lua",
+       "size": 6325,
+       "sha256": "8b4b6fe509826bc36595a0e850e62671dd55f0902cae66cb970e1fb1d9692f15"
+      },
+      {
+       "path": "main.lua",
+       "size": 11697,
+       "sha256": "3eca5218799c691a5d5ba54b7f18ff24144d90f78170230b6c2a430a4f7e881a"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 4120,
+       "sha256": "c152e9ff1dbfb7f1b955cc40612eb6701eb06bdd577b99e7fef0d77b53384a50"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 6193,
+       "sha256": "cf1320e72acfa320793d9c3eaf0eeac150c7e0ad0127afb47c508c46d938b2c7"
+      },
+      {
+       "path": "secrets.env.example",
+       "size": 314,
+       "sha256": "e0c60c26b338657907ee277fb4b86ccddf3e362fd8ab5a945fbf5c98782d9373"
+      }
+     ]
+    }
+   ]
+  },
+  "ha_env": {
+   "title": "Room Sensor",
+   "description": "Temperature and humidity from an ENV unit on Port A, in Home Assistant over MQTT.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 211,
+       "sha256": "d89abde68bdb6bdbfe539b2673d3c4a6cea34e5cc7847797a5253b85c1134a9d"
+      },
+      {
+       "path": "main.lua",
+       "size": 5239,
+       "sha256": "233246796c80eb1e82502630bac394cb6a636a1e728d5cf6ab3115cf33d527f5"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 2033,
+       "sha256": "6d492b59c8ce90dc5402d4d2f2fb235593ffcf35c7b38cee0570b85b29170a2c"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 4012,
+       "sha256": "040d194b4d1a5351dc53de687a600a18887b28f55c8ef12cd058587bfeafed5f"
+      },
+      {
+       "path": "secrets.env.example",
+       "size": 154,
+       "sha256": "4f4f7a94435ff106e36368914b7e3931902897727a30dce4aaf508dfa96b4124"
+      }
+     ]
+    }
+   ]
+  },
+  "heart_rate": {
+   "title": "Heart Rate",
+   "description": "Heart rate from a Bluetooth chest strap (the standard Heart Rate service), by zone, with a 2-minute chart. Read only.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 246,
+       "sha256": "9517479caf242d6ae0bf3302be9ab024a81451e9d5ce8f6b725c9a2914618911"
+      },
+      {
+       "path": "main.lua",
+       "size": 11339,
+       "sha256": "c86be6abc64d6967392b688264be14796a0c98160e18f971e2657c9416a46e4e"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 3022,
+       "sha256": "6e5a0571bf243b160e21fc94dfd691f3ce6b71b6f43d20d90e71484fd82c5824"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 1694,
+       "sha256": "5b88e74a72934894c3ba79723a6f1a37b5b41129d942a8059c97d53b37075e65"
+      },
+      {
+       "path": "settings.png",
+       "size": 3841,
+       "sha256": "f392f7f9d06fb5c8c6db9a1c1293c76d17ef82f29e4fb22eb0a003bf9daf723b"
+      },
+      {
+       "path": "sim_device.json",
+       "size": 502,
+       "sha256": "245167048037a2402f6ca404888d1d61d5b9b74323d15918f9e3db9774f7e853"
+      }
+     ]
+    }
+   ]
+  },
+  "hello": {
+   "title": "Hello",
+   "description": "The smallest useful script: a greeting and a counter. Tap to change color.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 198,
+       "sha256": "e3d03af8d897a8cca9ec77a16ada63fdeb583253a888ee5109b22f986de62e63"
+      },
+      {
+       "path": "main.lua",
+       "size": 894,
+       "sha256": "d598cade6fd503e3bcd88e334b516f1248ab5915bc760f2d88766382410f652b"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 503,
+       "sha256": "6994fbbe7d13729cc94fc70e12cb4d27133c9f8c3c164b3af83164ad74b254f9"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 2292,
+       "sha256": "c4c9b24a7d8e36ae54fe11a276f239ea8710474f7f13d245bb4b58ab84cbcb9e"
+      }
+     ]
+    }
+   ]
+  },
+  "paint": {
+   "title": "Paint",
+   "description": "Finger painting. Pick a color at the top; A clears, B toggles a big brush.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 198,
+       "sha256": "fe4766764f29e6e7a9431973e2b74c646fc89778cb9a280337a5a97cba303b90"
+      },
+      {
+       "path": "main.lua",
+       "size": 1609,
+       "sha256": "5582ebbb9ae596cae904ed4a929a87e6c22ddbe9958087034adc87876fb8abf5"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 507,
+       "sha256": "28a373934b30d6ff201e4f0eadbd0c8ddcef60820e5d4228aec5b1d906e18a99"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 5385,
+       "sha256": "3993e6c92eccabd87dcb418135d61d63c56407fa0bac0ac26292c06041f76416"
+      }
+     ]
+    }
+   ]
+  },
+  "spot_price_fi": {
+   "title": "Spot Price Finland",
+   "description": "Electricity spot price in Finland, c/kWh incl. VAT, today and tomorrow. Data: porssisahko.net",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 230,
+       "sha256": "ef8b4f05825a3c402ab2b0e89d843d881c01326d3ca5cc2aff4d87a33477ae2f"
+      },
+      {
+       "path": "main.lua",
+       "size": 14756,
+       "sha256": "e9b611eb03cb00ac94cb3abec517b15ca3a67fa137e359fb3058ee008afad3b1"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 2133,
+       "sha256": "5a9ba37f64629ab6b8dce3e368f40c31026fb61c0882058ce74e7600408887a1"
+      },
+      {
+       "path": "cores3se.png",
+       "size": 10144,
+       "sha256": "edda707acc3ab112fc7a12ea3d27791763c9ce0550f3e9d1d63c07182d9017ae"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 5881,
+       "sha256": "4b322a70a1f8343b126e201c8e6bd81be3512d3ac7e8ccc4be9aa857ce82c78c"
+      }
+     ]
+    }
+   ]
+  },
+  "spotify": {
+   "title": "Spotify",
+   "description": "Now playing, with cover art and controls",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 166,
+       "sha256": "e69908209fde1c488baa8e82779314d684bde9a7136c6023737f97554848961b"
+      },
+      {
+       "path": "main.lua",
+       "size": 11839,
+       "sha256": "d1cdc6bfbf426a70706cc09779efd77c9e526dd61cae82a372a7b9aa390cf930"
+      },
+      {
+       "path": "spotify.lua",
+       "size": 4539,
+       "sha256": "c9a83d8e1c213db25089d691b74cabf989d07fe7186985a6022ae19f606f99d2"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 2227,
+       "sha256": "43e033e053020a47fad0d0f8d2ce2e833d1c3080c2f35b612c56a8ca55194dd6"
+      },
+      {
+       "path": "cores3.png",
+       "size": 76455,
+       "sha256": "c4f067132f84508837faed4a2d5d6ecbb36569e6b3deecdfb66e2186ed27a038"
+      },
+      {
+       "path": "secrets.env.example",
+       "size": 180,
+       "sha256": "fa6b1b0e08b70227aed98542cd68ed7c8ff7dd7f980ddf3a44a621299eed36ad"
+      }
+     ]
+    }
+   ]
+  },
+  "stocks": {
+   "title": "Stocks",
+   "description": "US stock and ETF prices and the day's chart: S&P 500, Nasdaq 100, Dow and Russell 2000 by default. Needs your own free Alpaca keys.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 256,
+       "sha256": "003f35d5c9be5aea9bb25784e03a84c36c63638023e9119c05a92d9bfb2fde8a"
+      },
+      {
+       "path": "main.lua",
+       "size": 18539,
+       "sha256": "508f67544a4b811e23fbb8c823fb668481199fc2b456772fa437f4be1e696f3c"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 3464,
+       "sha256": "2c37c674b37e915877a0885e36fede74cb8389fcbe45c8257acd83acd87dbbb9"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 2396,
+       "sha256": "ab959cd223df6cd8a7e419aaf6f21bfc5af9e4cfc8809accdfcf2999e72c63c6"
+      },
+      {
+       "path": "secrets.env.example",
+       "size": 278,
+       "sha256": "7b284ccdf700059fd901facfa37b50d6d0d7cfd710aa076e2c3d2f14ac1b876e"
+      }
+     ]
+    }
+   ]
+  },
+  "timer": {
+   "title": "Timer",
+   "description": "A countdown that beeps when it's up. Keeps the time you set, the recent ones and a running timer across restarts, and saves the battery while it waits.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 275,
+       "sha256": "32bca9891f92615623203764968e71edd24513c5787390001ae4abfcae693d07"
+      },
+      {
+       "path": "main.lua",
+       "size": 14629,
+       "sha256": "a1bc0709184d4d9ad75a8dcb695c76e63021b51368d04d2ba120b472b8fe1b29"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 2943,
+       "sha256": "91d374354f3aafb82eda38dea431c946ac4a2dfcadc4f901eb00d7c5e1105269"
+      },
+      {
+       "path": "alarm.png",
+       "size": 2995,
+       "sha256": "def947f927042cc6b83ca544ec7a62850cfa35932450a13d698d743d9321d86c"
+      },
+      {
+       "path": "running.png",
+       "size": 3309,
+       "sha256": "04ec2b05d6926c3081700ea495d7b705f9f835d9d277cb919e49f05e25029a5d"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 3547,
+       "sha256": "26c5739f5c64985e2fa6185704ae456eb12db0793a09bc0d2aefc6980451abf3"
+      }
+     ]
+    }
+   ]
+  },
+  "weather": {
+   "title": "Weather",
+   "description": "The weather now, the next 24 hours and the next 7 days for one place. Data: open-meteo.com",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 216,
+       "sha256": "9d4efc1f505b7546ad3a3d2acaf49fb6197296aa1eb650bc74cd200eec434828"
+      },
+      {
+       "path": "main.lua",
+       "size": 14772,
+       "sha256": "f97b9b569fc906919a3c452993053d587c7c6fb13f4800f1c9376f908302885a"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 2478,
+       "sha256": "12a2f4ca24788823ce2dd10b26bb96af5ae35f53e9ef1d1ec740d203dd43a6de"
+      },
+      {
+       "path": "days.png",
+       "size": 7076,
+       "sha256": "05a72e7c0a67b05c7d7efc5a1bfad1b8291b008504ed136e2c0ab6a29a2dd0d2"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 5574,
+       "sha256": "3503e00b1d3c3e7fc9375873745d1bc9868dd6bc47cab46163cbca6af3f98c24"
+      },
+      {
+       "path": "secrets.env.example",
+       "size": 224,
+       "sha256": "a36866872758c27ef23a41b8f7ef0b203cdcea76ab86e59cde5e2a48d20fee42"
+      }
+     ]
+    }
+   ]
+  }
+ }
+}
