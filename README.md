@@ -1,8 +1,8 @@
 # luaboard marketplace
 
-**luaboard and its marketplace are a work in progress. For now luaboard runs
-only in the simulator; the release for the real board is near. Things change
-and break without notice.**
+luaboard and its marketplace are a work in progress. For now luaboard runs
+only in the simulator, and the release for the real board is near. Things
+change and break without notice.
 
 Apps for [luaboard](https://github.com/veikkos/luaboard), Lua 5.4 on the
 M5Stack CoreS3, CoreS3 Lite and CoreS3 SE. Each folder is one app, with a
@@ -10,9 +10,14 @@ README that says what it does and how to set it up.
 
 ## Installing an app
 
-Clone this repository, then install an app from its folder with the luaboard
-studio (open the folder, then Install) or the command-line tool. Commands in
-the app READMEs run from the root of the clone:
+On the board, open Marketplace in the home menu, pick an app and tap
+Install. The board also offers updates of the apps it has.
+
+From a computer, clone this repository, then install an app from its folder
+with the luaboard studio (open the folder, then Install) or the command-line
+tool. Commands in the app READMEs run from the root of the clone, except the
+simulator's (`cmake ...`), which run from a luaboard checkout, where this
+repository is `marketplace/`:
 
 ```sh
 git clone https://github.com/veikkos/luaboard-marketplace
@@ -28,8 +33,7 @@ setup screen until it has them.
 
 - Set each one from a computer, then open the app again:
   `luaboard secrets set <app> <name> <value>`. `luaboard secrets` lists
-  what an app has (names only). This works however the app was installed,
-  from the board's Marketplace too.
+  what an app has (names only). This works however the app was installed.
 - Working on an app from a clone: copy its `secrets.env.example` to
   `secrets.env` in the same folder and fill it in. Installing with the
   studio or `luaboard install` stores the values with the app, and

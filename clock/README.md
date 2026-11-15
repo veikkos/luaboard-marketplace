@@ -2,7 +2,7 @@
 
 The time and date in the device's time zone (`luaboard tz`), digital or
 analog. A shows the digital face, C the analog one, and B turns the seconds
-on or off. The button hints go after 5 seconds; touching the screen or a
+on or off. The button hints go after 5 seconds, and touching the screen or a
 button brings them back.
 
 The device gets the time from the network once it's on Wi-Fi, and after

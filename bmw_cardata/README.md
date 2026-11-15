@@ -26,7 +26,7 @@ You need to be the car's primary user in My BMW, with ConnectedDrive.
    Don't press "Authenticate device".
 3. Request access to the CarData API, wait a minute, then to CarData Stream.
 4. In "Configure data stream", tick these and save. Not every car has all
-   of them; skip the ones yours doesn't list.
+   of them, so skip the ones yours doesn't list.
 
 ```
 vehicle.drivetrain.batteryManagement.header
@@ -71,9 +71,9 @@ vehicle.vehicle.travelledDistance
 ```
 
 The door lock (`vehicle.cabin.door.lock.status`) and
-`vehicle.drivetrain.electricEngine.charging.level` aren't in the stream; the
-app reads them through the API at start. The lock is hidden once newer values
-arrive.
+`vehicle.drivetrain.electricEngine.charging.level` aren't in the stream, so
+the app reads them through the API at start. The lock is hidden once newer
+values arrive.
 
 ### On the board
 
@@ -90,7 +90,7 @@ arrive.
 ![login](login.png)
 
 The board renews the login itself. After 14 days without the app running,
-it asks for a new code; press `○` if a code ran out. To log out, hold the
+it asks for a new code. Press `○` if a code ran out. To log out, hold the
 screen and press `○`.
 
 ## Development
@@ -100,8 +100,8 @@ To work on the app, clone this repository:
 your copy of the folder on the board and starts it.
 
 Instead of `luaboard secrets set`, put `bmw_client=<client ID>` in
-`secrets.env` next to `main.lua` (copy `secrets.env.example`; git ignores
-it): installing from the folder stores it with the app.
+`secrets.env` next to `main.lua` (a copy of `secrets.env.example`, ignored by
+git): installing from the folder stores it with the app.
 
 ## Notes
 

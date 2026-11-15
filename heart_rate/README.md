@@ -63,7 +63,7 @@ your copy of the folder on the board and starts it.
 Without a strap, `sim_device.json` stands in for one in the simulator:
 
 ```sh
-BLE_DEVICE=marketplace/heart_rate/sim_device.json cmake --build --preset default --target run
+BLE_DEVICE=marketplace/heart_rate/sim_device.json cmake --build --preset default --target run   # in luaboard
 ```
 
 Send it a new reading, for example 150 bpm (flags `16`: skin contact, an RR

@@ -6,6 +6,12 @@ tomorrow.
 
 ![prices for today](screenshot.png)
 
+## Setup
+
+Get it from Marketplace on the board. Or, with the app's folder on a computer
+(this repository, cloned), use Install in the studio or
+`luaboard install spot_price_fi`.
+
 ## Data
 
 Prices come from the free API of [porssisahko.net](https://porssisahko.net)
@@ -24,12 +30,6 @@ fetch a minute. The app fetches the latest 48 hours once an hour, and every 10
 minutes after 14:00 until tomorrow's prices are out. After 14:00 that window
 starts at 01:00 Finnish time, so after a fetch it asks `price.json` for the
 missing slots of today, up to 8 at a time.
-
-## Setup
-
-Get it from Marketplace on the board. Or, with the app's folder on a computer
-(this repository, cloned), use Install in the studio or
-`luaboard install spot_price_fi`.
 
 ## Usage
 

@@ -88,8 +88,8 @@ in it (or Install in the studio) puts your copy of the folder on the board
 and starts it.
 
 Instead of `luaboard secrets set`, put `github_client`, `github_secret` (and
-`repos`) in `secrets.env` next to `main.lua` (copy `secrets.env.example`;
-git ignores it): installing from the folder stores them with the app.
+`repos`) in `secrets.env` next to `main.lua` (a copy of `secrets.env.example`,
+ignored by git): installing from the folder stores them with the app.
 
 ## Extending it
 

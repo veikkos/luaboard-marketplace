@@ -14,11 +14,12 @@ different from every other app's name, also ignoring case.
 - `main.lua`: where the app starts. More `.lua` files can sit next to it.
 - `app.json`: the app's details.
 - `LICENSE`: the app's license.
-- `README.md`: what the app does, then two sections. Setup is for people
-  using the app: getting it (Marketplace on the board, the studio or
-  `luaboard install`), and its keys and login, if any. Development is for
-  people working on it from a clone of this repository: `secrets.env`,
-  simulator commands, tests.
+- `README.md`: what the app does, then Setup, then any sections on using
+  it, then Development, and last notes on the code and the service's terms.
+  Setup is for people using the app: getting it (Marketplace on the board,
+  the studio or `luaboard install`), and its keys and login, if any.
+  Development is for people working on it from a clone of this repository:
+  `secrets.env` and simulator commands.
 - Optional: images (`.jpg`, `.jpeg`) and sounds (`.wav`) the app uses,
   screenshots (`.png`) for the README, `secrets.env.example`.
 
@@ -62,13 +63,14 @@ Never commit anyone's keys.
 An app that needs keys or a login:
 
 - ships a `secrets.env.example` with every secret's name and a comment saying
-  where to get it (never real values; `secrets.env` itself is gitignored),
+  where to get it (never real values, and `secrets.env` itself is
+  gitignored),
 - gives the `luaboard secrets set <app> <name> <value>` commands in its
   README's Setup section, and `secrets.env` in its Development section,
 - shows a setup screen when something is missing: at least what's missing
   and where the steps are (`github.com/veikkos/luaboard-marketplace`, or the
   app's own README address if it fits). Boards can install apps directly,
-  so this screen may be the first thing a user sees; the board's Marketplace
+  so this screen may be the first thing a user sees. The board's Marketplace
   page also shows the README's address and a QR code of it.
 
 ## index.json

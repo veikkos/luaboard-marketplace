@@ -15,7 +15,7 @@ Its free plan needs an account and your own keys, no money or trading.
 1. Sign up at alpaca.markets. A paper trading account is enough.
 2. On the dashboard's Home page, further down on the right, the API Keys
    box: Generate New Keys, and copy the key and the secret. The secret is
-   shown only once. (The box's Endpoint is for trading; the app doesn't
+   shown only once. (The box's Endpoint is for trading. The app doesn't
    use it.)
 3. Install the app from Marketplace on the board (or, from its folder on a
    computer, with the studio or `luaboard install stocks`).
@@ -55,8 +55,8 @@ runs.
 
 Alpaca's free plan has real-time prices from one exchange, IEX, not the
 consolidated prices of all US exchanges. For SPY and other heavily traded
-symbols the two stay close; a thinly traded stock can go minutes without an
-IEX trade. The plan allows 200 requests a minute.
+symbols the two stay close, but a thinly traded stock can go minutes without
+an IEX trade. The plan allows 200 requests a minute.
 
 The app asks for the latest prices every 15 seconds while the market is open
 and the day's 5-minute bars every 5 minutes, a request each for all symbols.
@@ -85,5 +85,6 @@ in it (or Install in the studio) puts your copy of the folder on the board
 and starts it.
 
 Instead of `luaboard secrets set`, put `alpaca_key`, `alpaca_secret` (and
-`symbols`) in `secrets.env` next to `main.lua` (copy `secrets.env.example`;
-git ignores it): installing from the folder stores them with the app.
+`symbols`) in `secrets.env` next to `main.lua` (a copy of
+`secrets.env.example`, ignored by git): installing from the folder stores them
+with the app.

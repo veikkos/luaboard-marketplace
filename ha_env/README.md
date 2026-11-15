@@ -39,15 +39,15 @@ To work on the app, clone this repository: `luaboard install ha_env --run`
 in it (or Install in the studio) puts your copy of the folder on the board
 and starts it.
 
-Instead of `luaboard secrets set`, put `mqtt_url`, `mqtt_user` and
-`mqtt_pass` in `secrets.env` next to `main.lua` (copy `secrets.env.example`;
-git ignores it): installing from the folder stores them with the app.
+Instead of `luaboard secrets set`, put `mqtt_url`, `mqtt_user` and `mqtt_pass`
+in `secrets.env` next to `main.lua` (a copy of `secrets.env.example`, ignored
+by git): installing from the folder stores them with the app.
 
 In the simulator, with a broker on this computer:
 
 ```sh
 mosquitto -p 1883          # brew install mosquitto, apt install mosquitto, ...
-cmake --build --preset default --target run     # the simulator
+cmake --build --preset default --target run     # the simulator, in luaboard
 luaboard sim-ctl porta=env env_temp=22.5        # in another terminal: plug in the unit
 ```
 

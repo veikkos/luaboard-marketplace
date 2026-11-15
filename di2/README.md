@@ -1,8 +1,8 @@
-# di2
+# Di2
 
 Gear position and battery level of a Shimano Di2 groupset, read from the
 rear derailleur over Bluetooth LE. Made for 12-speed road Di2 (tried with a
-105 Di2 RD-R7150); others may differ.
+105 Di2 RD-R7150). Others may differ.
 
 <img src="cores3se.png" width="400" alt="Small ring and 10th cog, battery at 70%, connected to the derailleur">
 
@@ -26,9 +26,9 @@ service. The gear position comes from Shimano's service
 notifies messages whose first byte says what they are. In those starting
 with `00`, bytes 4 to 7 (counting from 1) are the front gear, the number of
 front gears, the rear gear (1 is the biggest cog) and the number of rear
-gears; the derailleur sends one after every shift and about once a second
+gears. The derailleur sends one after every shift and about once a second
 besides. Others, starting `01` or `04`, are mostly `ff` bytes and are left
-alone. That was worked out by watching the values; Shimano doesn't
+alone. That was worked out by watching the values. Shimano doesn't
 document it.
 
 ## Development
@@ -41,7 +41,7 @@ Without the bike, `sim_device.json` stands in for the derailleur in the
 simulator:
 
 ```sh
-BLE_DEVICE=marketplace/di2/sim_device.json cmake --build --preset default --target run
+BLE_DEVICE=marketplace/di2/sim_device.json cmake --build --preset default --target run   # in luaboard
 ```
 
 To shift it, send the running simulator new gear messages, for example the

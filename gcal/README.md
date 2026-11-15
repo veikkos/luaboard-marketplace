@@ -11,29 +11,6 @@ the screen pulses red until you press `○`, tap the screen, or the meeting star
 
 ![alert](alert.png)
 
-## What alerts
-
-- Only notification reminders count, not email reminders. An event with
-  "default notifications" uses its calendar's defaults.
-- Notifications at 10 and 5 minutes alert twice; dismissing the first doesn't
-  silence the second.
-- Declined, all-day and "free" events are left out.
-- An "at time of event" notification stays up for 5 minutes after the start.
-- A dismissal survives an app restart. A moved meeting alerts again.
-- Alerts show only while the app runs, so make it the autostart app (hold B
-  on it in the menu, then Autostart).
-
-## Buttons
-
-| Button | Calm view | Alert | Calendar picker |
-|---|---|---|---|
-| `‹‹` | today | | up |
-| `○` | calendar picker (or log in again, when asked) | dismiss | tick / untick, or Done |
-| `››` | tomorrow | | down |
-
-The picker lists your calendars, with the primary one ticked at first. Done
-saves the choice on the device.
-
 ## Setup
 
 The device calls the Google Calendar API directly, read-only. You log in once
@@ -60,14 +37,37 @@ from luaboard studio.
    If Google says the app isn't verified, choose Advanced > Go to ....
 
 An External app in Testing mode gets logged out after 7 days. The device then
-asks for a login in the studio again; if nobody answers it shows *press o to
+asks for a login in the studio again. If nobody answers it shows *press o to
 log in* and retries after 15 minutes, doubling up to 4 hours. Publishing the
 app (Audience page, after filling in Branding) makes the login last.
 
 The login is kept in the app's secret `gcal` (`luaboard secrets rm gcal gcal`
 logs out), the calendar choice in `gcal_calendars` and dismissed alerts in
 `gcal_dismissed`. Clear data in the app's options deletes all of them plus the
-client ID and secret; set those again after it.
+client ID and secret, so set those again after it.
+
+## What alerts
+
+- Only notification reminders count, not email reminders. An event with
+  "default notifications" uses its calendar's defaults.
+- Notifications at 10 and 5 minutes alert twice. Dismissing the first doesn't
+  silence the second.
+- Declined, all-day and "free" events are left out.
+- An "at time of event" notification stays up for 5 minutes after the start.
+- A dismissal survives an app restart. A moved meeting alerts again.
+- Alerts show only while the app runs, so make it the autostart app (hold B
+  on it in the menu, then Autostart).
+
+## Buttons
+
+| Button | Calm view | Alert | Calendar picker |
+|---|---|---|---|
+| `‹‹` | today | | up |
+| `○` | calendar picker (or log in again, when asked) | dismiss | tick / untick, or Done |
+| `››` | tomorrow | | down |
+
+The picker lists your calendars, with the primary one ticked at first. Done
+saves the choice on the device.
 
 ## Development
 
@@ -75,10 +75,9 @@ To work on the app, clone this repository: `luaboard install gcal --run` in
 it (or Install in the studio) puts your copy of the folder on the board and
 starts it.
 
-Instead of `luaboard secrets set`, put `gcal_client=...` and
-`gcal_secret=...` in `secrets.env` next to `main.lua` (copy
-`secrets.env.example`; git ignores it): installing from the folder stores
-them with the app.
+Instead of `luaboard secrets set`, put `gcal_client=...` and `gcal_secret=...`
+in `secrets.env` next to `main.lua` (a copy of `secrets.env.example`, ignored
+by git): installing from the folder stores them with the app.
 
 ## Files
 

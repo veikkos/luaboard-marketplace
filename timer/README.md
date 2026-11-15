@@ -14,7 +14,7 @@ Get it from Marketplace on the board. Or, with the app's folder on a computer
 
 ## Setting it
 
-Tap `+` or `-` above or below the hours, minutes or seconds; hold one to
+Tap `+` or `-` above or below the hours, minutes or seconds. Hold one to
 keep going. Each field wraps around on its own (59 seconds up is 0, the
 minutes stay). The recent times are below: tap one to set it. Up to
 9:59:59.
@@ -45,14 +45,14 @@ screen, at the time it was started with, ready to start again with B.
 
 In the app's `store`: the time set (`last`), the last four started
 (`recent`) and the running or paused timer (`run`). They survive leaving
-the app, reboots and firmware updates; *Clear data* in the app's options
+the app, reboots and firmware updates. *Clear data* in the app's options
 (hold B on it in the menu) forgets them.
 
 A paused timer is kept as the time left. A running one is kept as the clock
 time it ends, so it needs the clock (`sys.time()`): from the network, or
 after a reset from the board's clock chip. If the time isn't known when the
 app starts, it waits for it. Coming back after it ended shows how long ago
-that was; it beeps only if that's less than a minute.
+that was. It beeps only if that's less than a minute.
 
 The app can't ring while another app runs, or while the board has been
 turned off by hand.
@@ -69,7 +69,7 @@ the clock, as keeping a running timer does. Pressing the power key
 meanwhile turns the device on with the timer still running.
 
 With nothing running, the device's Turn off after setting decides when a
-forgotten device turns off; while a timer runs or rings, the app holds
+forgotten device turns off. While a timer runs or rings, the app holds
 that off.
 
 ## Development
