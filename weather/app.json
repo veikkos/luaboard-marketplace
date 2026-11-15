@@ -1,0 +1,8 @@
+{
+  "title": "Weather",
+  "description": "The weather now, the next 24 hours and the next 7 days for one place. Data: open-meteo.com",
+  "version": "1.0.0",
+  "author": "Veikko",
+  "license": "MIT",
+  "lua_api": 1
+}

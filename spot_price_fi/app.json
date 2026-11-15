@@ -1,0 +1,8 @@
+{
+  "title": "Spot Price Finland",
+  "description": "Electricity spot price in Finland, c/kWh incl. VAT, today and tomorrow. Data: porssisahko.net",
+  "version": "1.0.0",
+  "author": "Veikko",
+  "license": "MIT",
+  "lua_api": 1
+}

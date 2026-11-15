@@ -1,0 +1,8 @@
+{
+  "title": "Clock",
+  "description": "The time and date, digital or analog, in the device's time zone.",
+  "version": "1.0.0",
+  "author": "Veikko",
+  "license": "MIT",
+  "lua_api": 1
+}

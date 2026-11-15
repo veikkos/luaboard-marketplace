@@ -1,0 +1,12 @@
+{
+  "id": "hr",
+  "name": "HR SIM",
+  "addr": "c4:52:0d:18:00:01",
+  "adv": "02 01 06 03 03 0d 18 07 09 48 52 20 53 49 4d",
+  "characteristics": [
+    { "service": "180a", "uuid": "2a29", "props": "read", "text": "luaboard" },
+    { "service": "180f", "uuid": "2a19", "props": "read notify", "value": "4b" },
+    { "service": "180d", "uuid": "2a37", "props": "notify", "value": "16 48 00 04", "on_subscribe": ["value"] },
+    { "service": "180d", "uuid": "2a38", "props": "read", "value": "01" }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Paint",
+  "description": "Finger painting. Pick a color at the top; A clears, B toggles a big brush.",
+  "version": "1.0.0",
+  "author": "Veikko",
+  "license": "MIT",
+  "lua_api": 1
+}

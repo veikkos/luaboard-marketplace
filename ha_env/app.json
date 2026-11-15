@@ -1,0 +1,8 @@
+{
+  "title": "Room Sensor",
+  "description": "Temperature and humidity from an ENV unit on Port A, in Home Assistant over MQTT.",
+  "version": "1.0.0",
+  "author": "Veikko",
+  "license": "MIT",
+  "lua_api": 1
+}

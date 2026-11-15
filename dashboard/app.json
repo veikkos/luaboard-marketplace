@@ -1,0 +1,8 @@
+{
+  "title": "Dashboard",
+  "description": "Knob and battery gauges, USB and charging lights, the touch buttons.",
+  "version": "1.0.0",
+  "author": "Veikko",
+  "license": "MIT",
+  "lua_api": 1
+}

@@ -1,0 +1,63 @@
+# Rebuild index.json after every push to main: boards read it to offer apps
+# and updates. Pull requests get the same checks without writing anything.
+# Commits made here with the GITHUB_TOKEN don't start this workflow again.
+name: Index
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Test the index script
+        run: python3 -m unittest discover -s tools -v
+      - name: Check every app
+        run: python3 tools/build_index.py --out "$RUNNER_TEMP/index.json"
+
+  index:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: index
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Test the index script
+        run: python3 -m unittest discover -s tools -v
+      - name: Build and commit index.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Build on the newest main. Its own commit is right for every app
+          # even when it is an earlier index commit: those change no app files.
+          # A push that lands meanwhile makes ours fail: try again on top of it.
+          for try in 1 2 3; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            python3 tools/build_index.py --commit "$(git rev-parse HEAD)"
+            if git diff --quiet -- index.json && [ -n "$(git ls-files index.json)" ]; then
+              echo "index.json unchanged"
+              exit 0
+            fi
+            git add index.json
+            git commit -q -m "Index for $(git rev-parse --short HEAD)"
+            if git push -q origin HEAD:main; then
+              exit 0
+            fi
+            echo "push failed, try $try of 3"
+          done
+          exit 1

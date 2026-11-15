@@ -1,0 +1,8 @@
+{
+  "title": "Heart Rate",
+  "description": "Heart rate from a Bluetooth chest strap (the standard Heart Rate service), by zone, with a 2-minute chart. Read only.",
+  "version": "1.0.0",
+  "author": "Veikko",
+  "license": "MIT",
+  "lua_api": 1
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Hello",
+  "description": "The smallest useful script: a greeting and a counter. Tap to change color.",
+  "version": "1.0.0",
+  "author": "Veikko",
+  "license": "MIT",
+  "lua_api": 1
+}

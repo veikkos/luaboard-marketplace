@@ -1,0 +1,23 @@
+{
+  "id": "di2",
+  "name": "RDR7150 SIM",
+  "addr": "c7:18:2c:51:4d:01",
+  "characteristics": [
+    { "service": "180a", "uuid": "2a29", "props": "read", "text": "SHIMANO" },
+    { "service": "180a", "uuid": "2a26", "props": "read", "text": "4.1.0.0" },
+    { "service": "180f", "uuid": "2a19", "props": "read notify", "value": "46" },
+    { "service": "000018ef-5348-494d-414e-4f5f424c4500", "uuid": "00002ac0-5348-494d-414e-4f5f424c4500",
+      "props": "read indicate", "value": "13 02 00 00 00 00 00 00" },
+    { "service": "000018ef-5348-494d-414e-4f5f424c4500", "uuid": "00002ac1-5348-494d-414e-4f5f424c4500",
+      "props": "notify", "value": "00 06 03 01 02 02 0c 02 ee 12 fd ee 12 05 00 12 00",
+      "on_subscribe": ["04 ff ff", "value", "01 ff ff ff ff ff ff ff 00 ff ff ff ff ff ff"] },
+    { "service": "000018ef-5348-494d-414e-4f5f424c4500", "uuid": "00002ac2-5348-494d-414e-4f5f424c4500",
+      "props": "indicate" },
+    { "service": "000018ef-5348-494d-414e-4f5f424c4500", "uuid": "00002ac3-5348-494d-414e-4f5f424c4500",
+      "props": "read indicate", "value": "00 00 ff 00 ff 00 00 ff 00 ff 00 00 ff 00 ff 00 00 ff" },
+    { "service": "000018ef-5348-494d-414e-4f5f424c4500", "uuid": "00002ac4-5348-494d-414e-4f5f424c4500",
+      "props": "indicate" },
+    { "service": "000018ff-5348-494d-414e-4f5f424c4500", "uuid": "00002af4-5348-494d-414e-4f5f424c4500",
+      "props": "read", "value": "6d 58 4b 51 95 68 4f 5c 86 a5 ce 8c ac 24 d9 e6" }
+  ]
+}

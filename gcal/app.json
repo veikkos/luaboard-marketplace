@@ -1,0 +1,8 @@
+{
+  "title": "Google Calendar",
+  "description": "Your next meetings from Google Calendar, quietly; a pulsing red banner when an event's notification comes due.",
+  "version": "1.0.0",
+  "author": "Veikko",
+  "license": "MIT",
+  "lua_api": 1
+}

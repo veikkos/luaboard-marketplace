@@ -1,0 +1,8 @@
+{
+  "title": "Timer",
+  "description": "A countdown that beeps when it's up. Keeps the time you set, the recent ones and a running timer across restarts, and saves the battery while it waits.",
+  "version": "1.0.0",
+  "author": "Veikko",
+  "license": "MIT",
+  "lua_api": 1
+}
