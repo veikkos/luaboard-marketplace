@@ -17,7 +17,7 @@ Its free plan needs an account and your own keys, no money or trading.
    box: Generate New Keys, and copy the key and the secret. The secret is
    shown only once. (The box's Endpoint is for trading; the app doesn't
    use it.)
-3. Install the app from Get apps on the board (or, from its folder on a
+3. Install the app from Marketplace on the board (or, from its folder on a
    computer, with the studio or `luaboard install stocks`).
 4. Give it the keys from a computer, then open the app again:
 

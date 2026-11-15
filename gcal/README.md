@@ -46,7 +46,7 @@ from luaboard studio.
 3. External only: add your Google account under Audience > Test users.
 4. Clients > Create client, type Desktop app, and copy the client ID and
    secret.
-5. Install the app from Get apps on the board (or, from its folder on a
+5. Install the app from Marketplace on the board (or, from its folder on a
    computer, with the studio or `luaboard install gcal`).
 6. Give it the client ID and secret from a computer, then open the app
    again:

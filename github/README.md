@@ -32,7 +32,7 @@ read access, and only to the repos you install the app on.
    generate a new client secret and copy it at once: GitHub shows it only
    that time. Key pairs aren't needed.
 6. Install App: choose the repos the board should show (or all of them).
-7. Install the app from Get apps on the board (or, from its folder on a
+7. Install the app from Marketplace on the board (or, from its folder on a
    computer, with the studio or `luaboard install github`).
 8. Give it the Client ID and the client secret from a computer, then open
    the app again:

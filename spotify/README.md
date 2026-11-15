@@ -13,7 +13,7 @@ under [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/).
 
 1. In the [Spotify developer dashboard](https://developer.spotify.com/dashboard),
    add `http://127.0.0.1:8888/callback` as a redirect URI.
-2. Install the app from Get apps on the board (or, from its folder on a
+2. Install the app from Marketplace on the board (or, from its folder on a
    computer, with the studio or `luaboard install spotify`).
 3. Give it your app's Client ID from a computer, then open the app again
    (no client secret is needed, PKCE):

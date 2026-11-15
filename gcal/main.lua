@@ -157,6 +157,20 @@ local function draw_buttons(a, b, c)
   text_right(312, 230, c, DIM)
 end
 
+-- Before the first fetch, while a login is wanted: what to do, in the
+-- middle of the screen (52 characters fit from x 8). Nil otherwise.
+local function login_lines()
+  if fetched_at then return nil end
+  if logging_in then
+    return { { "Not logged in yet. Log in from luaboard studio,", MID }, { "or on a computer run:", MID },
+             { "", MID }, { "luaboard browser", HI } }
+  end
+  if login_failed then
+    return { { "Not logged in: the login wasn't done in time.", MID }, { "", MID },
+             { "Press o to try again.", HI } }
+  end
+end
+
 -- The calm view from the top down to the list; returns nothing.
 local function draw_calm(now)
   local day = agenda.day_start(now, page) + 12 * 3600
@@ -165,6 +179,7 @@ local function draw_calm(now)
   if not fetched_at then
     UI.main, UI.title = "Google Calendar", nil
     disp.text(8, 44, UI.main, DIM, 2)
+    for i, l in ipairs(login_lines() or {}) do disp.text(8, 84 + (i - 1) * 16, l[1], l[2]) end
     return
   end
   local v = agenda.view(events, now, page)
@@ -276,12 +291,14 @@ local function draw(now)
   disp.clear()
   UI.status = status_text()
   if now then draw_calm(now) else UI.main, UI.title = "Google Calendar", nil; disp.text(8, 44, UI.main, DIM, 2) end
-  disp.text(8, 216, UI.status, DIM)
+  if not (now and login_lines()) then disp.text(8, 216, UI.status, DIM) end   -- (else it's in the middle)
   if alert then
     draw_banner(now, phase())
     draw_buttons("", "o dismiss", "")
   else
-    draw_buttons(page == 1 and "<< today" or "", UI.calendars and "o calendars" or "", page == 0 and "tomorrow >>" or "")
+    local paging = fetched_at ~= nil                -- nothing to page through before the first fetch
+    local o = UI.calendars and "o calendars" or login_failed and not logging_in and "o log in" or ""
+    draw_buttons(paging and page == 1 and "<< today" or "", o, paging and page == 0 and "tomorrow >>" or "")
   end
 end
 
@@ -319,7 +336,7 @@ local function button(b)
   if alert then
     if b == "B" then dismiss() end
   elseif UI.mode == "picker" then picker_press(b)
-  elseif b == "A" then page = 0 elseif b == "C" then page = 1
+  elseif b == "A" then page = 0 elseif b == "C" then page = fetched_at and 1 or 0
   elseif b == "B" then
     if login_failed and not logging_in then login_failed = false; refresh() else open_picker() end
   end

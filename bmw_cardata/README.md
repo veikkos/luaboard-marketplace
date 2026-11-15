@@ -77,7 +77,7 @@ arrive.
 
 ### On the board
 
-1. Install the app from Get apps on the board (or, from its folder on a
+1. Install the app from Marketplace on the board (or, from its folder on a
    computer, with the studio or `luaboard install bmw_cardata`).
 2. Give it your client ID from a computer, then open the app again:
 

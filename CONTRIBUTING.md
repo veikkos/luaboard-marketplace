@@ -15,7 +15,7 @@ different from every other app's name, also ignoring case.
 - `app.json`: the app's details.
 - `LICENSE`: the app's license.
 - `README.md`: what the app does, then two sections. Setup is for people
-  using the app: getting it (Get apps on the board, the studio or
+  using the app: getting it (Marketplace on the board, the studio or
   `luaboard install`), and its keys and login, if any. Development is for
   people working on it from a clone of this repository: `secrets.env`,
   simulator commands, tests.
@@ -68,7 +68,7 @@ An app that needs keys or a login:
 - shows a setup screen when something is missing: at least what's missing
   and where the steps are (`github.com/veikkos/luaboard-marketplace`, or the
   app's own README address if it fits). Boards can install apps directly,
-  so this screen may be the first thing a user sees; the board's Get apps
+  so this screen may be the first thing a user sees; the board's Marketplace
   page also shows the README's address and a QR code of it.
 
 ## index.json

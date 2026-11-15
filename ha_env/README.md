@@ -12,7 +12,7 @@ away.
 
 1. An MQTT broker that Home Assistant uses, e.g. the Mosquitto add-on, and a
    user for the device.
-2. Install the app from Get apps on the board (or, from its folder on a
+2. Install the app from Marketplace on the board (or, from its folder on a
    computer, with the studio or `luaboard install ha_env`).
 3. Tell it the broker from a computer, then open the app again (`mqtt_url`
    can be `mqtts://` for a broker with TLS):

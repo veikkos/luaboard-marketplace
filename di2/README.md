@@ -8,7 +8,7 @@ rear derailleur over Bluetooth LE. Made for 12-speed road Di2 (tried with a
 
 ## Setup
 
-Get it from Get apps on the board. Or, with the app's folder on a computer
+Get it from Marketplace on the board. Or, with the app's folder on a computer
 (this repository, cloned), use Install in the studio or
 `luaboard install di2`.
 

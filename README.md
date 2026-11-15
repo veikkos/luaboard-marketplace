@@ -29,12 +29,12 @@ setup screen until it has them.
 - Set each one from a computer, then open the app again:
   `luaboard secrets set <app> <name> <value>`. `luaboard secrets` lists
   what an app has (names only). This works however the app was installed,
-  from the board's Get apps too.
+  from the board's Marketplace too.
 - Working on an app from a clone: copy its `secrets.env.example` to
   `secrets.env` in the same folder and fill it in. Installing with the
   studio or `luaboard install` stores the values with the app, and
   `luaboard secrets push .` stores every app's `secrets.env` at once, for
-  the apps the board has (from Get apps too). `secrets.env` is never
+  the apps the board has (from Marketplace too). `secrets.env` is never
   committed.
 - Apps that log in to a service (Spotify, GitHub, Google Calendar) ask for
   it on the screen: log in from the studio's login window, or run
