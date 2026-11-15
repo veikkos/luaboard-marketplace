@@ -38,86 +38,43 @@ end
 
 ---------------------------------------------------------------- time
 -- sys.time() once the clock is set, else the API reply's Date header plus
--- sys.millis(). The market keeps New York time, computed here whatever the
--- device's time zone.
+-- sys.millis(). The market keeps New York time, whatever the device's time
+-- zone. An ET day is a day number (days since 1970-01-01), to compare and
+-- step through.
 
-local function days_from_civil(y, m, d)          -- days since 1970-01-01
-  if m <= 2 then y = y - 1 end
-  local era = y // 400
-  local yoe = y - era * 400
-  local doy = (153 * ((m + 9) % 12) + 2) // 5 + d - 1
-  local doe = yoe * 365 + yoe // 4 - yoe // 100 + doy
-  return era * 146097 + doe - 719468
-end
+local NY = "EST5EDT,M3.2.0,M11.1.0"
 
-local function civil_from_days(z)                 -- -> y, m, d
-  z = z + 719468
-  local era = z // 146097
-  local doe = z - era * 146097
-  local yoe = (doe - doe // 1460 + doe // 36524 - doe // 146096) // 365
-  local doy = doe - (365 * yoe + yoe // 4 - yoe // 100)
-  local mp = (5 * doy + 2) // 153
-  local d = doy - (153 * mp + 2) // 5 + 1
-  local m = mp < 10 and mp + 3 or mp - 9
-  return yoe + era * 400 + (m <= 2 and 1 or 0), m, d
-end
-
-local function iso_day(s)                         -- "2026-11-05T05:00:00Z" -> days
-  local y, mo, d = (s or ""):match("^(%d+)-(%d+)-(%d+)")
-  return y and days_from_civil(tonumber(y), tonumber(mo), tonumber(d))
-end
-
-local function iso_time(s)                        -- "2026-11-05T14:30:00Z", UTC
-  local h, mi, se = (s or ""):match("T(%d+):(%d+):(%d+)")
-  local day = iso_day(s)
-  return day and h and day * 86400 + h * 3600 + mi * 60 + se
-end
-
-local function iso(t)                             -- UTC seconds -> "2026-11-05T14:30:00Z"
-  local y, m, d = civil_from_days(t // 86400)
-  local s = t % 86400
-  return string.format("%04d-%02d-%02dT%02d:%02d:%02dZ", y, m, d, s // 3600, s % 3600 // 60, s % 60)
-end
-
-local MONTHS = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
-local MONTH_NO = {}
-for i, m in ipairs(MONTHS) do MONTH_NO[m] = i end
-
-local function http_date(s)                       -- "Fri, 06 Nov 2026 13:27:00 GMT"
-  local d, mon, y, h, mi, se = (s or ""):match("(%d+) (%a+) (%d+) (%d+):(%d+):(%d+)")
-  if not d or not MONTH_NO[mon] then return nil end
-  return days_from_civil(tonumber(y), MONTH_NO[mon], tonumber(d)) * 86400 + h * 3600 + mi * 60 + se
-end
-
--- New York time: UTC-5, UTC-4 from the second Sunday of March to the first
--- Sunday of November (02:00 local both ways).
-local function et_offset(t)
-  local y = civil_from_days(t // 86400)
-  local function sunday(m, n)                     -- the nth Sunday of month m, in days
-    local first = days_from_civil(y, m, 1)
-    return first + (3 - first) % 7 + (n - 1) * 7  -- day 3 (1970-01-04) was a Sunday
-  end
-  local from, to = sunday(3, 2) * 86400 + 7 * 3600, sunday(11, 1) * 86400 + 6 * 3600
-  return (t >= from and t < to) and -4 * 3600 or -5 * 3600
-end
-
-local function et_day(t) return (t + et_offset(t)) // 86400 end
+local function day_of(d) return sys.time({ year = d.year, month = d.month, day = d.day }, "UTC") // 86400 end
+local function et_day(t) return day_of(sys.date(t, NY)) end
 
 -- UTC seconds of `mins` past midnight New York time on an ET day.
 local function at_et(day, mins)
-  return day * 86400 + mins * 60 - et_offset(day * 86400 + 12 * 3600)
+  local d = sys.date(day * 86400, "UTC")
+  return sys.time({ year = d.year, month = d.month, day = d.day, min = mins }, NY)
 end
 local OPEN, CLOSE = 9 * 60 + 30, 16 * 60          -- the regular session, 9:30 to 16:00
 
-local function hhmm(t)
-  local s = (t + et_offset(t)) % 86400
-  return string.format("%02d:%02d", s // 3600, s % 3600 // 60)
+local function iso_time(s) return type(s) == "string" and (sys.time(s)) or nil end  -- UTC seconds
+local function iso_day(s)                         -- a daily bar's "2026-11-05T05:00:00Z" -> its ET day
+  local t = iso_time(s)
+  return t and et_day(t)
 end
 
+local function iso(t)                             -- UTC seconds -> "2026-11-05T14:30:00Z"
+  local d = sys.date(t, "UTC")
+  return string.format("%04d-%02d-%02dT%02d:%02d:%02dZ", d.year, d.month, d.day, d.hour, d.min, d.sec)
+end
+
+local function hhmm(t)
+  local d = sys.date(t, NY)
+  return string.format("%02d:%02d", d.hour, d.min)
+end
+
+local MONTHS = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
 local WEEKDAYS = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
 local function day_name(day)
-  local _, m, d = civil_from_days(day)
-  return string.format("%s %s %d", WEEKDAYS[(day + 4) % 7 + 1], MONTHS[m], d)
+  local d = sys.date(day * 86400, "UTC")
+  return string.format("%s %s %d", WEEKDAYS[d.wday], MONTHS[d.month], d.day)
 end
 
 ---------------------------------------------------------------- state
@@ -153,12 +110,12 @@ local function api(path, q)
     return nil, "No connection"
   end
   if not sys.time() then
-    local t = http_date(hdr.date)
+    local t = hdr.date and sys.time(hdr.date)
     if t then clock_t, clock_ms = t, sys.millis() end
   end
   if st == 200 then
-    local ok, v = pcall(json.decode, body)
-    if ok and obj(v) then return v end
+    local v = json.decode(body)
+    if obj(v) then return v end
     return nil, "Bad reply"
   end
   print("stocks: " .. path .. " " .. st .. " " .. body:sub(1, 200))

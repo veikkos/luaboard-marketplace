@@ -88,22 +88,10 @@ local LOCK_TEXT = { LOCKED = "locked", SECURED = "locked", SELECTIVELOCKED = "pa
 local MAX_SEEN = 50
 local LOCK_STALE = 5 * 60    -- s: a lock this much older than the newest value is hidden
 
--- Days since 1970-01-01 for a date (proleptic Gregorian).
-local function days(y, m, d)
-  if m <= 2 then y = y - 1 end
-  local era = y // 400
-  local yoe = y - era * 400
-  local doy = (153 * (m + (m > 2 and -3 or 9)) + 2) // 5 + d - 1
-  local doe = yoe * 365 + yoe // 4 - yoe // 100 + doy
-  return era * 146097 + doe - 719468
-end
-
 -- "2025-07-28T05:16:53.000Z" -> UTC seconds, or nil.
 function M.parse_time(s)
   if type(s) ~= "string" then return nil end
-  local y, mo, d, h, mi, se = s:match("^(%d%d%d%d)-(%d%d)-(%d%d)T(%d%d):(%d%d):(%d%d)%.?%d*Z$")
-  if not y then return nil end
-  return days(tonumber(y), tonumber(mo), tonumber(d)) * 86400 + tonumber(h) * 3600 + tonumber(mi) * 60 + tonumber(se)
+  return (sys.time(s))
 end
 
 -- REST gives every value as a string; the stream as numbers and booleans.
@@ -289,7 +277,7 @@ end
 
 -- "YYYY-MM-DD", the UTC date of `now`.
 function M.utc_day(now)
-  local d = sys.date(now, true)
+  local d = sys.date(now, "UTC")
   return string.format("%04d-%02d-%02d", d.year, d.month, d.day)
 end
 
@@ -349,9 +337,9 @@ function M.encode(state)
 end
 
 function M.decode(text)
-  local ok, t = pcall(json.decode, text or "")
+  local t = json.decode(text or "")
   local state = {}
-  if not ok or type(t) ~= "table" then return state end
+  if type(t) ~= "table" then return state end
   for _, d in ipairs(M.DESCRIPTORS) do
     local e = t[d]
     if type(e) == "table" and e.v ~= nil and e.v ~= json.null then

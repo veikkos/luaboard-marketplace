@@ -16,77 +16,40 @@ local CX0, CX1, CY0, CY1 = 30, 314, 80, 196
 
 ---------------------------------------------------------------- time
 -- sys.time() once the clock is set, else the API reply's Date header plus
--- sys.millis(). Prices follow Finnish days, so Finnish time is computed here
--- regardless of the device's time zone.
+-- sys.millis(). Prices follow Finnish days, so Finnish time is used
+-- regardless of the device's time zone. A local day is a day number (days
+-- since 1970-01-01), to compare and step through.
 
-local function days_from_civil(y, m, d)          -- days since 1970-01-01
-  if m <= 2 then y = y - 1 end
-  local era = y // 400
-  local yoe = y - era * 400
-  local doy = (153 * ((m + 9) % 12) + 2) // 5 + d - 1
-  local doe = yoe * 365 + yoe // 4 - yoe // 100 + doy
-  return era * 146097 + doe - 719468
+local FI = "EET-2EEST,M3.5.0/3,M10.5.0/4"
+
+local function iso_time(s) return type(s) == "string" and (sys.time(s)) or nil end  -- UTC seconds
+
+local function local_day(t)
+  local d = sys.date(t, FI)
+  return sys.time({ year = d.year, month = d.month, day = d.day }, "UTC") // 86400
 end
-
-local function civil_from_days(z)                 -- -> y, m, d
-  z = z + 719468
-  local era = z // 146097
-  local doe = z - era * 146097
-  local yoe = (doe - doe // 1460 + doe // 36524 - doe // 146096) // 365
-  local doy = doe - (365 * yoe + yoe // 4 - yoe // 100)
-  local mp = (5 * doy + 2) // 153
-  local d = doy - (153 * mp + 2) // 5 + 1
-  local m = mp < 10 and mp + 3 or mp - 9
-  return yoe + era * 400 + (m <= 2 and 1 or 0), m, d
-end
-
-local function iso_time(s)                        -- "2026-11-07T22:45:00.000Z"
-  local y, mo, d, h, mi, se = s:match("(%d+)-(%d+)-(%d+)T(%d+):(%d+):(%d+)")
-  if not y then return nil end
-  return days_from_civil(tonumber(y), tonumber(mo), tonumber(d)) * 86400 + h * 3600 + mi * 60 + se
-end
-
-local MONTHS = { Jan = 1, Feb = 2, Mar = 3, Apr = 4, May = 5, Jun = 6,
-                 Jul = 7, Aug = 8, Sep = 9, Oct = 10, Nov = 11, Dec = 12 }
-
-local function http_date(s)                       -- "Fri, 06 Nov 2026 13:27:00 GMT"
-  local d, mon, y, h, mi, se = (s or ""):match("(%d+) (%a+) (%d+) (%d+):(%d+):(%d+)")
-  if not d or not MONTHS[mon] then return nil end
-  return days_from_civil(tonumber(y), MONTHS[mon], tonumber(d)) * 86400 + h * 3600 + mi * 60 + se
-end
-
--- Finnish time: UTC+2, UTC+3 from the last Sunday of March to the last
--- Sunday of October (01:00 UTC both ways).
-local function fi_offset(t)
-  local y = civil_from_days(t // 86400)
-  local function last_sunday(m, d)
-    local days = days_from_civil(y, m, d)
-    return (days - (days + 4) % 7) * 86400 + 3600  -- (days + 4) % 7: 0 = Sunday
-  end
-  return (t >= last_sunday(3, 31) and t < last_sunday(10, 31)) and 3 * 3600 or 2 * 3600
-end
-
-local function local_day(t) return (t + fi_offset(t)) // 86400 end
 
 -- UTC start of a local day, and its length (23 or 25 h when the clocks change).
-local function day_start(day) local t = day * 86400; return t - fi_offset(t - 3 * 3600) end
+local function day_start(day)
+  local d = sys.date(day * 86400, "UTC")
+  return sys.time({ year = d.year, month = d.month, day = d.day }, FI)
+end
 local function day_len(day) return day_start(day + 1) - day_start(day) end
 
 local function iso(t)                             -- UTC seconds -> "2026-11-05T22:00:00.000Z"
-  local y, m, d = civil_from_days(t // 86400)
-  local s = t % 86400
-  return string.format("%04d-%02d-%02dT%02d:%02d:%02d.000Z", y, m, d, s // 3600, s % 3600 // 60, s % 60)
+  local d = sys.date(t, "UTC")
+  return string.format("%04d-%02d-%02dT%02d:%02d:%02d.000Z", d.year, d.month, d.day, d.hour, d.min, d.sec)
 end
 
 local function hhmm(t)
-  local s = (t + fi_offset(t)) % 86400
-  return string.format("%02d:%02d", s // 3600, s % 3600 // 60)
+  local d = sys.date(t, FI)
+  return string.format("%02d:%02d", d.hour, d.min)
 end
 
 local WEEKDAYS = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
 local function day_name(day)
-  local _, m, d = civil_from_days(day)
-  return string.format("%s %d.%d.", WEEKDAYS[(day + 4) % 7 + 1], d, m)
+  local d = sys.date(day * 86400, "UTC")
+  return string.format("%s %d.%d.", WEEKDAYS[d.wday], d.day, d.month)
 end
 
 ---------------------------------------------------------------- state
@@ -235,7 +198,7 @@ local function chart_body()
   local function x_of(ts) return CX0 + (ts - d0) * (CX1 - CX0) // dl end
   for h = 0, dl // 3600 - 1, 6 do                  -- hour labels: 00, 06, 12, 18
     local x = x_of(d0 + h * 3600)
-    local hs = (d0 + h * 3600 + fi_offset(d0 + h * 3600)) % 86400 // 3600
+    local hs = sys.date(d0 + h * 3600, FI).hour
     disp.line(x, CY1 + 1, x, CY1 + 3, DIMMER)
     disp.text(x, CY1 + 6, string.format("%02d", hs), DIMMER, 1)
   end
@@ -309,8 +272,8 @@ local function fill_today()
     if not have[ts] and asked < 8 then
       asked = asked + 1
       local st, body = http.get(API .. "price.json?date=" .. iso(ts + 60), { ["Accept"] = "application/json" })
-      local ok, data = pcall(json.decode, body or "")
-      if st == 200 and ok and type(data) == "table" and type(data.price) == "number" then
+      local data = json.decode(body or "")
+      if st == 200 and type(data) == "table" and type(data.price) == "number" then
         added[#added + 1] = { t = ts, p = data.price }
       end
     end
@@ -330,8 +293,8 @@ local function fetch()
   elseif st ~= 200 then
     status = "HTTP " .. st
   else
-    local ok, data = pcall(json.decode, body)
-    if not ok or type(data) ~= "table" or type(data.prices) ~= "table" then
+    local data = json.decode(body)
+    if type(data) ~= "table" or type(data.prices) ~= "table" then
       status = "bad reply"
     else
       local list = {}
@@ -339,7 +302,7 @@ local function fetch()
         local t = type(e.startDate) == "string" and iso_time(e.startDate)
         if t and type(e.price) == "number" then list[#list + 1] = { t = t, p = e.price } end
       end
-      local t = http_date(headers and headers["date"])
+      local t = headers and headers["date"] and sys.time(headers["date"])
       if t then clock_t, clock_ms = t, sys.millis() end
       merge(list)
       fill_today()
@@ -359,7 +322,7 @@ end
 local function next_wait()
   local t = now()
   if status ~= "ok" or not t then return 60 * 1000 end
-  if not has_tomorrow() and (t + fi_offset(t)) % 86400 // 3600 >= 14 then
+  if not has_tomorrow() and sys.date(t, FI).hour >= 14 then
     return 10 * 60 * 1000                          -- tomorrow's are due
   end
   return 60 * 60 * 1000                            -- prices change once a day

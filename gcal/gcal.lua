@@ -43,12 +43,12 @@ function Cal:_get(path, query)
   local st, body = self.login:request{ url = self.api .. path .. '?' .. http.form(query) }
   if not st then return nil, body end
   if st ~= 200 then
-    local ok, t = pcall(json.decode, body)
-    local msg = ok and type(t) == 'table' and type(t.error) == 'table' and t.error.message
+    local t = json.decode(body)
+    local msg = type(t) == 'table' and type(t.error) == 'table' and t.error.message
     return nil, 'HTTP ' .. st .. (msg and (': ' .. tostring(msg)) or '')
   end
-  local ok, t = pcall(json.decode, body)
-  if not ok or type(t) ~= 'table' then return nil, 'bad answer from Google' end
+  local t = json.decode(body)
+  if type(t) ~= 'table' then return nil, 'bad answer from Google' end
   return t
 end
 
@@ -69,7 +69,7 @@ function Cal:calendars()
 end
 
 local function rfc3339(t)
-  local d = sys.date(t, true)
+  local d = sys.date(t, 'UTC')
   return string.format('%04d-%02d-%02dT%02d:%02d:%02dZ', d.year, d.month, d.day, d.hour, d.min, d.sec)
 end
 

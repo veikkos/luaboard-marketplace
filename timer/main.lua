@@ -39,8 +39,8 @@ local function int(v, lo, hi)                   -- a stored number, or nil if it
 end
 
 local function load_json(key)
-  local ok, v = pcall(json.decode, store.get(key) or "null")
-  return ok and type(v) == "table" and v or nil
+  local v = json.decode(store.get(key) or "null")
+  return type(v) == "table" and v or nil
 end
 
 -- Global so tests (and `luaboard eval`) can look in.

@@ -3,39 +3,21 @@
 -- Times are UTC seconds; local time comes from the device's time zone.
 local M = {}
 
-local MIN, HOUR, DAY = 60, 3600, 86400
+local MIN, HOUR = 60, 3600
 
 ---------------------------------------------------------------- time
-
-local function days_from_civil(y, m, d)          -- days since 1970-01-01
-  if m <= 2 then y = y - 1 end
-  local era = y // 400
-  local yoe = y - era * 400
-  local doy = (153 * ((m + 9) % 12) + 2) // 5 + d - 1
-  local doe = yoe * 365 + yoe // 4 - yoe // 100 + doy
-  return era * 146097 + doe - 719468
-end
 
 -- RFC 3339 ("2026-11-06T17:30:00+02:00", "...Z", "...00.250Z") -> UTC seconds.
 -- nil for a date without a time (all-day events) or anything else.
 function M.parse_time(s)
-  if type(s) ~= "string" then return nil end
-  local y, mo, d, h, mi, se, rest = s:match("^(%d+)-(%d+)-(%d+)T(%d+):(%d+):(%d+)%.?%d*(.*)$")
-  if not y then return nil end
-  local t = days_from_civil(tonumber(y), tonumber(mo), tonumber(d)) * DAY + h * HOUR + mi * MIN + se
-  if rest == "Z" then return t end
-  local sign, oh, om = rest:match("^([+-])(%d%d):?(%d%d)$")
-  if not sign then return nil end
-  local off = oh * HOUR + om * MIN
-  return sign == "+" and t - off or t + off
+  if type(s) ~= "string" or not s:find("T", 1, true) then return nil end
+  return (sys.time(s))
 end
-
-local function since_midnight(d) return d.hour * HOUR + d.min * MIN + d.sec end
 
 -- Local midnight (UTC seconds) of the day of t, plus `days` days.
 function M.day_start(t, days)
-  local noon = t - since_midnight(sys.date(t)) + (days or 0) * DAY + 12 * HOUR
-  return noon - since_midnight(sys.date(noon))   -- noon: safe across clock changes
+  local d = sys.date(t)
+  return sys.time({ year = d.year, month = d.month, day = d.day + (days or 0) })
 end
 
 function M.hhmm(t)

@@ -106,7 +106,7 @@ local function connect(dev)
   local c, err = ble.connect(dev.addr)
   if not c then return err end
   local ok
-  ok, err = ble.wait_connected(c)
+  ok, err = c:wait_connected()
   if ok then
     store.set("addr", dev.addr)
     local b = c:read("180f", "2a19")         -- battery: optional

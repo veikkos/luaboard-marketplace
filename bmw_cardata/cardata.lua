@@ -30,8 +30,8 @@ end
 -- May a call be made today? Returns the budget record to keep once BMW has
 -- answered (a call that never reached BMW isn't counted), or nil.
 local function budget(cap)
-  local ok, rec = pcall(json.decode, store.get("rest_budget") or "")
-  local allowed, new = car.budget_take(ok and rec or nil, sys.time(), cap)
+  local rec = json.decode(store.get("rest_budget") or "")
+  local allowed, new = car.budget_take(rec, sys.time(), cap)
   return allowed and new or nil
 end
 
@@ -48,8 +48,7 @@ function C:rest(access, method, path, body, raw)
   if not st then return nil, text end
   store.set("rest_budget", json.encode(rec))
   if raw then return st, text end
-  local ok, v = pcall(json.decode, text or "")
-  return st, ok and v or nil
+  return st, (json.decode(text or ""))
 end
 
 local function failed(st, v)
@@ -150,8 +149,8 @@ function C:stream(tok, vin, on_data)
   })
   if not c then return nil, err end
   local ok, serr = c:subscribe(tok.gcid .. "/" .. vin, function(_, message)
-    local okj, msg = pcall(json.decode, message)
-    if not okj or type(msg) ~= "table" then
+    local msg = json.decode(message)
+    if type(msg) ~= "table" then
       print("bmw: a message that isn't JSON (" .. #message .. " bytes)")
     elseif msg.vin ~= nil and msg.vin ~= vin then
       print("bmw: a message for another car")

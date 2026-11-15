@@ -287,8 +287,8 @@ local function get_json(url)
   local st, body = http.get(url, { Accept = "application/json" })
   if not st then return nil, "no connection" end
   if st ~= 200 then return nil, "HTTP " .. st end
-  local ok, t = pcall(json.decode, body)
-  if not ok or type(t) ~= "table" then return nil, "bad reply" end
+  local t = json.decode(body)
+  if type(t) ~= "table" then return nil, "bad reply" end
   return t
 end
 
@@ -301,7 +301,7 @@ local function find_place()
   if not name or name == "" then return { name = "Helsinki", lat = 60.1699, lon = 24.9384 } end
   local saved = store.get("geo")
   saved = saved and json.decode(saved)
-  if saved and saved.q == name then return saved end
+  if type(saved) == "table" and saved.q == name then return saved end
   local t, err = get_json(GEO .. "search?count=1&name=" .. http.urlencode(name))
   if not t then return nil, err end
   local r = type(t.results) == "table" and t.results[1]

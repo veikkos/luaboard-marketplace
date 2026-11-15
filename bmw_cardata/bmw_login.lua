@@ -49,8 +49,8 @@ local function post(url, fields)
   local st, body = http.post(url, http.form(fields), {
     ['Content-Type'] = 'application/x-www-form-urlencoded', Accept = 'application/json' })
   if not st then return nil, nil, body end
-  local ok, t = pcall(json.decode, body)
-  if not ok or type(t) ~= 'table' then t = {} end
+  local t = json.decode(body)
+  if type(t) ~= 'table' then t = {} end
   return st, t
 end
 

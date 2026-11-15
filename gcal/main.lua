@@ -35,8 +35,8 @@ local alert                       -- agenda.alert_due() result showing now, or n
 -- Dismissed alerts, kept across restarts: { [key] = event start }.
 local dismissed = {}
 do
-  local ok, t = pcall(json.decode, secrets.get("gcal_dismissed") or "{}")
-  if ok and type(t) == "table" then
+  local t = json.decode(secrets.get("gcal_dismissed") or "{}")
+  if type(t) == "table" then
     for k, v in pairs(t) do if type(k) == "string" then dismissed[k] = tonumber(v) or 0 end end
   end
 end
@@ -71,9 +71,9 @@ function refresh() want_fetch = true end
 -- The calendars to show: the ones in the secret gcal_calendars (a JSON list
 -- of ids) that still exist, else the primary one.
 local function chosen(cals)
-  local ok, ids = pcall(json.decode, secrets.get("gcal_calendars") or "[]")
+  local ids = json.decode(secrets.get("gcal_calendars") or "[]")
   local want = {}
-  for _, id in ipairs(ok and type(ids) == "table" and ids or {}) do want[id] = true end
+  for _, id in ipairs(type(ids) == "table" and ids or {}) do want[id] = true end
   local out = {}
   for _, c in ipairs(cals) do if want[c.id] then out[#out + 1] = c end end
   if #out == 0 then

@@ -36,18 +36,10 @@ function M.new(o)
   return self
 end
 
--- "2026-11-10T18:22:01Z" -> UTC seconds
-local function days_from_civil(y, m, d)
-  if m <= 2 then y = y - 1 end
-  local era = y // 400
-  local yoe = y - era * 400
-  local doy = (153 * ((m + 9) % 12) + 2) // 5 + d - 1
-  return era * 146097 + yoe * 365 + yoe // 4 - yoe // 100 + doy - 719468
-end
+-- "2026-11-10T18:22:01Z" -> UTC seconds, or nil
 function M.time(s)
-  local y, mo, d, h, mi, se = tostring(s):match("^(%d+)-(%d+)-(%d+)T(%d+):(%d+):(%d+)")
-  if not y then return nil end
-  return days_from_civil(tonumber(y), tonumber(mo), tonumber(d)) * 86400 + h * 3600 + mi * 60 + se
+  if type(s) ~= "string" then return nil end
+  return (sys.time(s))
 end
 
 -- GET a path of the API, decoded. nil, message, status on errors. Search has
@@ -62,8 +54,8 @@ function Gh:get(path)
     Accept = "application/vnd.github+json", ["X-GitHub-Api-Version"] = "2022-11-28" } }
   if not st then return nil, body end
   if st == 200 then
-    local ok, t = pcall(json.decode, body)
-    if ok and type(t) == "table" then return t end
+    local t = json.decode(body)
+    if type(t) == "table" then return t end
     return nil, "bad reply", st
   end
   if (st == 403 or st == 429) and (h["x-ratelimit-remaining"] == "0" or h["retry-after"]) then
@@ -73,8 +65,8 @@ function Gh:get(path)
     self.retry_at[limit] = sys.millis() + wait * 1000
     return nil, "rate limited, waiting " .. wait .. " s", st
   end
-  local ok, t = pcall(json.decode, body)
-  local msg = ok and type(t) == "table" and t.message or ("HTTP " .. st)
+  local t = json.decode(body)
+  local msg = type(t) == "table" and t.message or ("HTTP " .. st)
   return nil, msg, st
 end
 

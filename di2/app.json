@@ -1,7 +1,7 @@
 {
   "title": "Di2",
   "description": "Gear position and battery of a Shimano Di2 groupset (12-speed), from the rear derailleur over Bluetooth. Read only.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Veikko",
   "license": "MIT",
   "lua_api": 1

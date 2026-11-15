@@ -50,8 +50,8 @@ function Sp:_call(method, path, body)
     self.retry_at = sys.millis() + wait * 1000
     return nil, 'rate limited, retrying in ' .. wait .. ' s', st
   end
-  local ok, t = pcall(json.decode, b)
-  local msg = ok and type(t) == 'table' and type(t.error) == 'table' and t.error.message or ('HTTP ' .. st)
+  local t = json.decode(b)
+  local msg = type(t) == 'table' and type(t.error) == 'table' and t.error.message or ('HTTP ' .. st)
   if st == 403 then msg = msg .. ' (playback control needs Spotify Premium)' end
   if st == 404 then msg = 'no active Spotify device: start playing somewhere first' end
   return nil, msg, st
@@ -65,6 +65,7 @@ function Sp:player()
   if not st then return nil, b end
   if st == 204 or b == '' then return false end
   local p = json.decode(b)
+  if type(p) ~= 'table' then return nil, 'bad answer from Spotify' end
   local it = p.item
   if not it or it == json.null then return false end
   local artist, album, images

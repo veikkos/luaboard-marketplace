@@ -1,7 +1,7 @@
 {
   "title": "BMW CarData",
   "description": "Your BMW's charge, range and charging state, live from BMW's CarData stream. Not affiliated with BMW.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Veikko",
   "license": "MIT",
   "lua_api": 1
