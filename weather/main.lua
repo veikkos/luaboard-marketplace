@@ -256,9 +256,12 @@ local function draw_days()
     if i > 1 then disp.line(8, y - 2, 312, y - 2, GRID) end
     disp.text(8, y + 6, name, day == today and ACCENT or FG, 2)
     icon(d.weather_code[i], 92, y + 11, 10, true, BG)
-    disp.text(112, y + 9, code_info(d.weather_code[i])[1], DIM, 1)
+    -- the rain goes under the description: beside it, a long one ("Freezing
+    -- drizzle") or a low like -12 leaves it no room
     local mm = d.precipitation_sum[i] or 0
-    if mm >= 0.1 then text_right(238, y + 9, string.format("%.1f mm", mm), RAIN, 1) end
+    local wet = mm >= 0.1
+    disp.text(112, wet and y + 3 or y + 9, code_info(d.weather_code[i])[1], DIM, 1)
+    if wet then disp.text(112, y + 14, string.format("%.1f mm", mm), RAIN, 1) end
     text_right(268, y + 6, deg(d.temperature_2m_min[i]), DIM, 2)
     text_right(312, y + 6, deg(d.temperature_2m_max[i]), FG, 2)
   end
