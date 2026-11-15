@@ -1,6 +1,5 @@
 -- car.lua: the car's state as BMW CarData reports it, and what the screen
--- shows of it. No network or drawing here; tested on the simulator by
--- pc-tool/tests/e2e/data/bmw_car_test.lua.
+-- shows of it. No network or drawing here.
 --
 -- The state is a table: descriptor -> { v = value, ts = UTC seconds or nil }.
 -- Its `_seen` field remembers unknown descriptors already reported.

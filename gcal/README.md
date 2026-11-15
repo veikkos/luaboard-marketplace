@@ -85,8 +85,7 @@ them with the app.
 - `main.lua`: screen, buttons, fetching every 5 minutes, alerts, picker.
 - `gcal.lua`: the Calendar API client.
 - `agenda.lua`: times, event filtering, what to show, which alert is due. No
-  drawing or network code; tested on the simulator by
-  `pc-tool/tests/e2e/data/gcal_agenda_test.lua`.
+  drawing or network code.
 
 You need your own Google account and Cloud project, under Google's terms.
 Not affiliated with or endorsed by Google.
