@@ -214,6 +214,68 @@
     }
    ]
   },
+  "football": {
+   "title": "Football",
+   "description": "Live scores, today's games and the latest results for the football leagues and teams you choose. Needs your own free football-data.org key.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "89ec47683494b6be0654c2a0f34f3f9d01e00cbf",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 266,
+       "sha256": "d0ca3d4ee152bbb6132a795a81266f8405836e3daa4e2089b708b65ac79b674e"
+      },
+      {
+       "path": "games.lua",
+       "size": 6911,
+       "sha256": "f1f30deb0a122dcfeb570fcf16ff6d19c2d814b8b9d48025b23e7db7c1e8f5c3"
+      },
+      {
+       "path": "main.lua",
+       "size": 15009,
+       "sha256": "03e251bc6a30d10afe6115515a5210855a07d31e1a8b050119320e695eb789ec"
+      },
+      {
+       "path": "pics.lua",
+       "size": 4142,
+       "sha256": "bbac1c54298624ba1fc28fcbdcab5de132fb76897cf4d6a8963e8bbc598b3ba9"
+      },
+      {
+       "path": "web.lua",
+       "size": 2795,
+       "sha256": "d16ac286356b928a4525b430798a529d77f5ab0b15fececfc40a52a032810891"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 3995,
+       "sha256": "efb5206b3578b689188ba05d95a2eb865acc87acbfbbd4e17307252978fb0b28"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 5315,
+       "sha256": "c0609491cd6c670712e02dd7e7daf72da33e2c222c975d43c54c56a9cafbd697"
+      },
+      {
+       "path": "secrets.env.example",
+       "size": 338,
+       "sha256": "4b6a7211e44f734852734eddc7a70d9aa9e0e95255670c309172c311a5643e45"
+      }
+     ]
+    }
+   ]
+  },
   "gcal": {
    "title": "Google Calendar",
    "description": "Your next meetings from Google Calendar, quietly; a pulsing red banner when an event's notification comes due.",
