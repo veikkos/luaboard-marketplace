@@ -469,6 +469,73 @@
     }
    ]
   },
+  "news": {
+   "title": "News",
+   "description": "Top headlines from an RSS or Atom feed you choose, with pictures. Refreshes itself.",
+   "author": "Veikko",
+   "license": "MIT",
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 1,
+     "commit": "4fd572cc1a461dcb67098d16266f677621b88e4b",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 206,
+       "sha256": "64030d7c3859930c635890582b9ff1176d58bd79aa6ab763605f33020838e48a"
+      },
+      {
+       "path": "feed.lua",
+       "size": 7057,
+       "sha256": "62645004e027b6af112f94175d691cbdc32e42d1742e0dbc6632ca0795ee3578"
+      },
+      {
+       "path": "main.lua",
+       "size": 13432,
+       "sha256": "2ad0d134b2ad4b8aa6092e444ca1acae0d232d92b06c1a4ce9398c9ec99f4b6b"
+      },
+      {
+       "path": "pics.lua",
+       "size": 8315,
+       "sha256": "5811275422b072238c83f02e5ff2ee5f229ef0f5a8ea6392467a8b6705c4ad94"
+      },
+      {
+       "path": "web.lua",
+       "size": 2487,
+       "sha256": "054c91d65fa5a1e526c091639662c77868e7ced47820b0779c2acbf142ef2907"
+      },
+      {
+       "path": "wrap.lua",
+       "size": 2235,
+       "sha256": "71922ec22dfd52432a921692f866dad89116661aa5203e08e2303fa7215cd1b3"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 3274,
+       "sha256": "f6d6cf01e64461d057653f6746031c7592fe6b5f6c7baebbc2244b78a774ebb1"
+      },
+      {
+       "path": "screenshot.png",
+       "size": 14278,
+       "sha256": "e1b55b42af5fce0073727d7a2dd99c07c1ca0e7c9b3184eebd740b2782d95f00"
+      },
+      {
+       "path": "secrets.env.example",
+       "size": 170,
+       "sha256": "5ee144bb9b460a4bd11b0d394f5e30388cfa4247b20b6818055791fd7664fb27"
+      }
+     ]
+    }
+   ]
+  },
   "paint": {
    "title": "Paint",
    "description": "Finger painting. Pick a color at the top; A clears, B toggles a big brush.",
