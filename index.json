@@ -221,14 +221,14 @@
    "license": "MIT",
    "versions": [
     {
-     "version": "1.0.0",
+     "version": "1.0.1",
      "lua_api": 1,
-     "commit": "89ec47683494b6be0654c2a0f34f3f9d01e00cbf",
+     "commit": "954d614aafe214370acde474ca5fd64ec2ca3e7e",
      "files": [
       {
        "path": "app.json",
        "size": 266,
-       "sha256": "d0ca3d4ee152bbb6132a795a81266f8405836e3daa4e2089b708b65ac79b674e"
+       "sha256": "57a4833a5bdf593962a308aaa647b63d7eb0aebb74626aa6f1e4fdc3973b5853"
       },
       {
        "path": "games.lua",
@@ -247,8 +247,8 @@
       },
       {
        "path": "web.lua",
-       "size": 2795,
-       "sha256": "d16ac286356b928a4525b430798a529d77f5ab0b15fececfc40a52a032810891"
+       "size": 2431,
+       "sha256": "aabb37d1541fcb66f8a0f6ac07fa5c4df6340deeaa6f53f591cf9292052060e7"
       }
      ],
      "other_files": [
@@ -259,13 +259,8 @@
       },
       {
        "path": "README.md",
-       "size": 3995,
-       "sha256": "efb5206b3578b689188ba05d95a2eb865acc87acbfbbd4e17307252978fb0b28"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 5315,
-       "sha256": "c0609491cd6c670712e02dd7e7daf72da33e2c222c975d43c54c56a9cafbd697"
+       "size": 3999,
+       "sha256": "6fc55f6dfd397ebb8333ddda426eaad7cf81a07161be1852c1a572c1fa63e385"
       },
       {
        "path": "secrets.env.example",
@@ -397,19 +392,19 @@
    "license": "MIT",
    "versions": [
     {
-     "version": "1.0.0",
+     "version": "1.0.1",
      "lua_api": 1,
-     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "commit": "954d614aafe214370acde474ca5fd64ec2ca3e7e",
      "files": [
       {
        "path": "app.json",
        "size": 211,
-       "sha256": "d89abde68bdb6bdbfe539b2673d3c4a6cea34e5cc7847797a5253b85c1134a9d"
+       "sha256": "8ebbd185134e8b03d23536b5b0d5bb32b87a869880cbe6f5e5322a174a218547"
       },
       {
        "path": "main.lua",
-       "size": 5239,
-       "sha256": "233246796c80eb1e82502630bac394cb6a636a1e728d5cf6ab3115cf33d527f5"
+       "size": 5079,
+       "sha256": "5d9bb453e4977acb77faa1cc4799e73430e626dfa041e5363e21b63e6046e197"
       }
      ],
      "other_files": [
@@ -420,13 +415,8 @@
       },
       {
        "path": "README.md",
-       "size": 2033,
-       "sha256": "6d492b59c8ce90dc5402d4d2f2fb235593ffcf35c7b38cee0570b85b29170a2c"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 4012,
-       "sha256": "040d194b4d1a5351dc53de687a600a18887b28f55c8ef12cd058587bfeafed5f"
+       "size": 2031,
+       "sha256": "4f9c010afab5ad53679bea3a9f8997e3ebca38b2d64755e16306c89acdd7bd09"
       },
       {
        "path": "secrets.env.example",
@@ -538,19 +528,19 @@
    "license": "MIT",
    "versions": [
     {
-     "version": "1.0.0",
+     "version": "1.0.1",
      "lua_api": 1,
-     "commit": "4fd572cc1a461dcb67098d16266f677621b88e4b",
+     "commit": "954d614aafe214370acde474ca5fd64ec2ca3e7e",
      "files": [
       {
        "path": "app.json",
        "size": 206,
-       "sha256": "64030d7c3859930c635890582b9ff1176d58bd79aa6ab763605f33020838e48a"
+       "sha256": "90b61987ed4049dff1a80f276f8f26ca5b36360b8f6885870b3bc68342ac010d"
       },
       {
        "path": "feed.lua",
-       "size": 7057,
-       "sha256": "62645004e027b6af112f94175d691cbdc32e42d1742e0dbc6632ca0795ee3578"
+       "size": 6058,
+       "sha256": "134d2b407c42499987ca2004997f60201de0a6bd5b59cad2ad9ca0cd346f6a5f"
       },
       {
        "path": "main.lua",
@@ -564,8 +554,8 @@
       },
       {
        "path": "web.lua",
-       "size": 2487,
-       "sha256": "054c91d65fa5a1e526c091639662c77868e7ced47820b0779c2acbf142ef2907"
+       "size": 2110,
+       "sha256": "1d2ce9124a11630425dc472032f2f2ec1b320466eefb850e34fca732238c9c63"
       },
       {
        "path": "wrap.lua",
@@ -581,13 +571,8 @@
       },
       {
        "path": "README.md",
-       "size": 3274,
-       "sha256": "f6d6cf01e64461d057653f6746031c7592fe6b5f6c7baebbc2244b78a774ebb1"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 14278,
-       "sha256": "e1b55b42af5fce0073727d7a2dd99c07c1ca0e7c9b3184eebd740b2782d95f00"
+       "size": 3252,
+       "sha256": "0b8bfd535686271a51bf7b8f483fe31d9916fd20b3667824210e869a667fd3e9"
       },
       {
        "path": "secrets.env.example",
