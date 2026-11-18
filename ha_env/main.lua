@@ -16,7 +16,13 @@ local mqtt = require("mqtt")
 local json = require("json")
 
 local EVERY_S = 30
-local URL = secrets.get("mqtt_url")                  -- nil: show the readings only
+-- A secret, nil when it isn't set or is left empty (as in secrets.env.example).
+local function secret(k)
+  local v = secrets.get(k)
+  return v ~= "" and v or nil
+end
+
+local URL = secret("mqtt_url")                      -- nil: show the readings only
 
 local ID = sys.info().id
 local BASE = "luaboard/" .. ID
@@ -109,7 +115,7 @@ task(function()
   local c, err
   repeat
     c, err = mqtt.connect(URL, {
-      username = secrets.get("mqtt_user"), password = secrets.get("mqtt_pass"),
+      username = secret("mqtt_user"), password = secret("mqtt_pass"),
       will = { topic = STATUS, payload = "offline", retain = true },
       on_connect = function(cl) state = "connected"; announce(cl); draw() end,
       on_close = function() state = "offline"; draw() end,
