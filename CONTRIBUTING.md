@@ -47,6 +47,15 @@ included, stays in the repository. Other subfolders are not used.
 - `lua_api` is the luaboard Lua API version the app is written for (see
   LUA_API.md).
 - `license` names the app's license, like `MIT`.
+- `title` is the app's name in the menu.
+- `description` says what the app does, in a sentence or two. The board
+  shows it in three lines of 48 characters (the app's options), and for an
+  app that needs setup, in four lines of 26 beside a QR code (its
+  Marketplace page). Every character counts as one, `ä` and `W` too: the
+  font gives each the same width.
+- The board keeps at most 31 bytes of `title` and `author` and 23 of
+  `license` (UTF-8: `ä` is two). The checks refuse text that the board
+  would cut, and a description that doesn't fit its lines.
 
 ## Licensing
 

@@ -168,6 +168,38 @@ class BuildIndexTest(unittest.TestCase):
         _, errors = build_index.build_index(self.r.root, git(self.r.root, "rev-parse", "HEAD"), None)
         self.assertEqual(errors, ["bad: secrets.env.example line 1: expected NAME=value"])
 
+    def test_board_lines(self):
+        lines = build_index.board_lines
+        self.assertEqual(lines("", 10), 0)
+        self.assertEqual(lines("aaaa bbbb", 9), 1)                 # fits whole
+        self.assertEqual(lines("aaaa bbbb", 8), 2)                 # breaks at the space
+        self.assertEqual(lines("aaaa bbbbb cc", 10), 2)            # a space right after the line breaks there
+        self.assertEqual(lines("abcdefghijkl", 5), 3)              # no space: mid-word
+        self.assertEqual(lines("ääää ääää", 4), 2)                 # a character is one, whatever its bytes
+        self.assertEqual(lines("WWWW iiii", 4), 2)                 # ... and whatever its looks (one font cell)
+        self.assertEqual(lines("aaaa\nbbbb", 9), 1)                # a line break reads as a space
+
+    def test_text_the_board_shows(self):
+        fits = "x" * 47 + " " + "y" * 47 + " " + "z" * 48              # 3 lines of 48
+        self.r.app("ok", meta={"title": "T" * 31, "description": fits, "version": "1.0.0", "author": "A" * 31,
+                               "license": "MIT", "lua_api": 1})
+        self.r.app("wordy", meta={"title": "Wordy", "description": fits + " more", "version": "1.0.0",
+                                  "license": "MIT", "lua_api": 1})
+        self.r.app("setup", extra={"secrets.env.example": "key=\n"},
+                   meta={"title": "Setup", "description": "w" * 26 * 4 + " x", "version": "1.0.0",
+                         "license": "MIT", "lua_api": 1})
+        self.r.app("long", meta={"title": "Ö" * 16, "description": "d", "version": "1.0.0", "author": "a",
+                                 "license": "L" * 24, "lua_api": 1})
+        self.r.commit()
+        _, errors = build_index.build_index(self.r.root, git(self.r.root, "rev-parse", "HEAD"), None)
+        self.assertEqual(sorted(errors), [
+            "long: license is 24 bytes, at most 23",
+            "long: title is 32 bytes, at most 31",
+            "setup: description takes 5 lines of 26 characters beside the QR code on its Marketplace page, "
+            "the board shows 4",
+            "wordy: description takes 4 lines of 48 characters in its options, the board shows 3",
+        ])
+
     def test_untracked_files_ignored(self):
         d = self.r.app("hello")
         self.r.commit()

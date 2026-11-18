@@ -31,6 +31,15 @@ BOARD_EXTS = (".jpg", ".jpeg", ".png", ".wav")
 NAME = re.compile(r"^[A-Za-z0-9_.-]{1,23}$")
 VERSION = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 
+# What the board keeps of app.json's text, in UTF-8 bytes, and the room
+# its screens give a description: lines of characters in the app's
+# options, and beside the QR code on the Marketplace page of an app that
+# needs setup. The same numbers as APP_*_MAX and APP_DESC_* in luaboard's
+# app/src/app_config.h.
+DESC_ROOM = (3, 48)
+DESC_QR_ROOM = (4, 26)
+TEXT_MAX = {"title": 31, "description": DESC_ROOM[0] * DESC_ROOM[1] * 3, "author": 31, "license": 23}
+
 
 def is_board_file(name: str) -> bool:
     """Whether a file goes to the board (the same rule as the luaboard CLI)."""
@@ -53,6 +62,38 @@ def required_secrets(text: str, app: str, err) -> list[str]:
         if not value:
             keys.append(name)
     return keys
+
+
+def board_lines(text: str, cols: int) -> int:
+    """The lines the board wraps text into at `cols` characters a line, as
+    its menu does (text_wrap_cols): each line breaks at the last space
+    within it, or mid-word when there is none. Control characters count as
+    spaces, as the board reads them; every character is one."""
+    s = re.sub(r"[\x00-\x1f]", " ", text)
+    lines = 0
+    while s:
+        lines += 1
+        if len(s) <= cols:
+            break
+        b = cols
+        while b > 0 and s[b] != " ":
+            b -= 1
+        s = s[b if b > 0 else cols:].lstrip(" ")
+    return lines
+
+
+def check_text(meta: dict, app: str, setup: bool, err) -> None:
+    """app.json's text within what the board keeps and shows."""
+    for key, most in TEXT_MAX.items():
+        n = len(str(meta.get(key, "")).encode("utf-8"))
+        if n > most:
+            err(f"{app}: {key} is {n} bytes, at most {most}")
+    desc = str(meta.get("description", ""))
+    rooms = [(DESC_ROOM, "in its options")] + [(DESC_QR_ROOM, "beside the QR code on its Marketplace page")] * setup
+    for (lines, cols), where in rooms:
+        n = board_lines(desc, cols)
+        if n > lines:
+            err(f"{app}: description takes {n} lines of {cols} characters {where}, the board shows {lines}")
 
 
 def parse_version(s) -> tuple | None:
@@ -104,6 +145,7 @@ def read_app(root: Path, app: str) -> tuple[dict, list[str]]:
         err(f"{app}: no main.lua")
     setup = "secrets.env.example" in names and required_secrets(
         (root / app / "secrets.env.example").read_text(encoding="utf-8"), app, err)
+    check_text(meta, app, bool(setup), err)
     info = {
         "title": str(meta.get("title", "")),
         "description": str(meta.get("description", "")),
