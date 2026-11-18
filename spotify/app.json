@@ -1,7 +1,7 @@
 {
   "title": "Spotify",
   "description": "Now playing, with cover art and controls",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Veikko",
   "license": "MIT",
   "lua_api": 1

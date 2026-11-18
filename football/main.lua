@@ -45,14 +45,6 @@ UI = {
 
 local function now() return sys.time() end
 
-local function hhmm(t)
-  local d = sys.date(t, TZ)
-  return string.format("%02d:%02d", d.hour, d.min)
-end
-
-local WEEKDAY = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
-local function weekday(t) return WEEKDAY[sys.date(t, TZ).wday] or "" end
-
 local cut = games.cut
 
 local function score(g)
@@ -69,18 +61,11 @@ local function draw_header()
   disp.text(4, 3, "Football", DIM)
   local right = W - 4
   local t = now()
-  if t then
-    local c = hhmm(t)
-    right = right - disp.text_width(c)
-    disp.text(right, 3, c, DIM)
-  end
+  if t then right = right - disp.text(right, 3, sys.date("%H:%M", t, TZ), DIM, 1, nil, "right") end
   local note, color
   if UI.status ~= "ok" and UI.status ~= "loading" then note, color = UI.status, ACCENT
-  elseif UI.upd then note, color = "upd " .. hhmm(UI.upd), DIMMER end
-  if note then
-    right = right - 6 - disp.text_width(note)
-    disp.text(right, 3, note, color)
-  end
+  elseif UI.upd then note, color = "upd " .. sys.date("%H:%M", UI.upd, TZ), DIMMER end
+  if note then disp.text(right - 6, 3, note, color, 1, nil, "right") end
 end
 
 ---------------------------------------------------------------- list
@@ -105,27 +90,26 @@ local function draw_row(g, y)
   local st, key = games.status(g, t, TZ)
   disp.text(6, y + 7, st, COLOR[key])
   local sub = g.comp                     -- today: the competition; other days: the weekday
-  if g.group == 4 or g.group == 5 or #UI.games == 0 then sub = weekday(g.utc) end
+  if g.group == 4 or g.group == 5 or #UI.games == 0 then sub = sys.date("%a", g.utc, TZ) end
   disp.text(6, y + 21, sub, DIMMER)
   draw_crest(g.home, 44, y + 8)
   local hn = cut(g.home.short, 13)
-  disp.text(146 - disp.text_width(hn), y + 14, hn, FG)
+  disp.text(146, y + 14, hn, FG, 1, nil, "right")
   local sc = score(g)
-  disp.text(182 - disp.text_width(sc, 2) // 2, y + 11, sc, key == "live" and LIVE or FG, 2)
+  disp.text(182, y + 11, sc, key == "live" and LIVE or FG, 2, nil, "center")
   disp.text(218, y + 14, cut(g.away.short, 12), FG)
   draw_crest(g.away, 294, y + 8)
 end
 
 local function draw_empty()
   if UI.status == "loading" then
-    disp.text((W - disp.text_width("Loading...", 2)) // 2, 110, "Loading...", DIM, 2)
+    disp.text(W // 2, 110, "Loading...", DIM, 2, nil, "center")
   elseif UI.status == "ok" then
-    disp.text((W - disp.text_width("No games", 2)) // 2, 110, "No games", DIM, 2)
+    disp.text(W // 2, 110, "No games", DIM, 2, nil, "center")
   else
-    local a, b = "The scores didn't load", "Trying again in a minute"
-    disp.text((W - disp.text_width(a, 2)) // 2, 96, a, FG, 2)
-    disp.text((W - disp.text_width(UI.status, 2)) // 2, 124, UI.status, ACCENT, 2)
-    disp.text((W - disp.text_width(b)) // 2, 150, b, DIM)
+    disp.text(W // 2, 96, "The scores didn't load", FG, 2, nil, "center")
+    disp.text(W // 2, 124, UI.status, ACCENT, 2, nil, "center")
+    disp.text(W // 2, 150, "Trying again in a minute", DIM, 1, nil, "center")
   end
 end
 
@@ -157,24 +141,16 @@ end
 
 local BIG = 64
 
--- Up to two lines of about `n` characters, broken at spaces.
+-- Up to two lines of `n` characters, broken at spaces.
 local function two_lines(s, n)
-  local a, b = "", ""
-  for w in s:gmatch("%S+") do
-    if b == "" and #a + #w + (a == "" and 0 or 1) <= n then a = a == "" and w or a .. " " .. w
-    else b = b == "" and w or b .. " " .. w end
-  end
-  return a, cut(b, n)
+  local l = disp.wrap(s, 6 * n - 1)
+  return l[1] or "", cut(table.concat(l, " ", 2), n)
 end
 
 local function draw_big_crest(team, x, y)
   local px = team.id and UI.crests64[team.id]
   if px then disp.image(x, y, BIG, BIG, px)
   else pics.badge(x, y, BIG, team.tla, BADGE) end
-end
-
-local function center(s, y, color, scale)
-  disp.text((W - disp.text_width(s, scale or 1)) // 2, y, s, color, scale or 1)
 end
 
 local function draw_detail()
@@ -186,19 +162,18 @@ local function draw_detail()
   for i, team in ipairs({ g.home, g.away }) do
     local a, b = two_lines(team.name, 16)
     local cx = i == 1 and 24 + BIG // 2 or W - 24 - BIG // 2
-    disp.text(cx - disp.text_width(a) // 2, 90, a, FG)
-    disp.text(cx - disp.text_width(b) // 2, 100, b, FG)
+    disp.text(cx, 90, a, FG, 1, nil, "center")
+    disp.text(cx, 100, b, FG, 1, nil, "center")
   end
   local st, key = games.status(g, t, TZ)
-  center(score(g), 34, key == "live" and LIVE or FG, 4)
-  center(st, 70, COLOR[key], 2)
+  disp.text(W // 2, 34, score(g), key == "live" and LIVE or FG, 4, nil, "center")
+  disp.text(W // 2, 70, st, COLOR[key], 2, nil, "center")
   local y = 124
-  local function line(s, color) center(s, y, color or DIM); y = y + 16 end
+  local function line(s, color) disp.text(W // 2, y, s, color or DIM, 1, nil, "center"); y = y + 16 end
   if g.ht.h and g.ht.a and key ~= "dim" then line("Half time " .. g.ht.h .. "-" .. g.ht.a, FG) end
   if g.pens then line("Penalties " .. g.pens.h .. "-" .. g.pens.a, FG) end
   line((g.comp_name or g.comp) .. (g.matchday and ("  Matchday " .. g.matchday) or ""))
-  local d = sys.date(g.utc, TZ)
-  line(string.format("%s %d.%d. %02d:%02d", weekday(g.utc), d.day, d.month, d.hour, d.min))
+  line(sys.date("%a %-d.%-m. %H:%M", g.utc, TZ))
   if UI.venue then line(UI.venue) end
 end
 

@@ -90,10 +90,6 @@ end)
 
 ---------------------------------------------------------------- drawing
 
-local function centered(y, s, color, scale)
-  disp.text((W - disp.text_width(s, scale)) // 2, y, s, color, scale)
-end
-
 -- Grey while disconnected: the level may be out of date.
 local function battery(x, y, pct, live)
   disp.rect(x, y, 40, 20, DIM)
@@ -148,15 +144,16 @@ local function draw()
   battery(10, 8, st.battery, live)
   local dot = st.phase == "live" and disp.rgb(70, 200, 90) or st.phase == "connect" and disp.ORANGE or OFF
   local name = st.name or "Di2"
-  disp.circle(W - 16 - disp.text_width(name) - 10, 17, 4, dot, true)
-  disp.text(W - 16 - disp.text_width(name), 14, name, DIM)
+  local nw = disp.text(W - 16, 14, name, DIM, 1, nil, "right")
+  disp.circle(W - 16 - nw - 10, 17, 4, dot, true)
 
   rings(70, 100, st.front, st.fronts, live and ON or DIM)
   cassette(134, 100, st.rear, st.rears, live and ON or DIM)
 
   if not live then
-    centered(204, st.phase == "connect" and "Connecting..." or "Looking for Di2...", disp.WHITE, 2)
-    centered(226, st.msg or (st.phase == "search" and "shift once to wake it" or ""), DIM)
+    local what = st.phase == "connect" and "Connecting..." or "Looking for Di2..."
+    disp.text(W // 2, 204, what, disp.WHITE, 2, nil, "center")
+    disp.text(W // 2, 226, st.msg or (st.phase == "search" and "shift once to wake it" or ""), DIM, 1, nil, "center")
   end
 end
 

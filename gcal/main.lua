@@ -143,18 +143,10 @@ local function status_text()
   return ""
 end
 
-local function text_right(x, y, s, color, scale)
-  disp.text(x - disp.text_width(s, scale), y, s, color, scale)
-end
-
-local function text_center(y, s, color, scale)
-  disp.text(160 - disp.text_width(s, scale) // 2, y, s, color, scale)
-end
-
 local function draw_buttons(a, b, c)
   disp.text(8, 230, a, DIM)
-  text_center(230, b, DIM)
-  text_right(312, 230, c, DIM)
+  disp.text(160, 230, b, DIM, 1, nil, "center")
+  disp.text(312, 230, c, DIM, 1, nil, "right")
 end
 
 -- Before the first fetch, while a login is wanted: what to do, in the
@@ -175,7 +167,7 @@ end
 local function draw_calm(now)
   local day = agenda.day_start(now, page) + 12 * 3600
   disp.text(8, 8, agenda.day_name(day), DIM, 2)
-  text_right(312, 8, agenda.hhmm(now), MID, 2)
+  disp.text(312, 8, agenda.hhmm(now), MID, 2, nil, "right")
   if not fetched_at then
     UI.main, UI.title = "Google Calendar", nil
     disp.text(8, 44, UI.main, DIM, 2)

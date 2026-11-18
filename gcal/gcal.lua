@@ -68,10 +68,7 @@ function Cal:calendars()
   return out
 end
 
-local function rfc3339(t)
-  local d = sys.date(t, 'UTC')
-  return string.format('%04d-%02d-%02dT%02d:%02d:%02dZ', d.year, d.month, d.day, d.hour, d.min, d.sec)
-end
+local function rfc3339(t) return sys.date('%Y-%m-%dT%H:%M:%SZ', t, 'UTC') end
 
 -- Events of one calendar (an entry of calendars()) between two UTC times,
 -- recurring ones expanded, through agenda.normalize().

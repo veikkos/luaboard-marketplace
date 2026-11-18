@@ -181,21 +181,16 @@ end
 
 ---------------------------------------------------------------- drawing
 
-local function center(y, s, col, scale, bg)
-  disp.text((W - disp.text_width(s, scale)) // 2, y, s, col, scale, bg)
-end
-
 local function hints(a, b, c, bg)
   disp.text(8, H - 14, "<< " .. a, DIM, 1, bg)
-  center(H - 14, "o " .. b, DIM, 1, bg)
-  local r = c .. " >>"
-  disp.text(W - 8 - disp.text_width(r), H - 14, r, DIM, 1, bg)
+  disp.text(W // 2, H - 14, "o " .. b, DIM, 1, bg, "center")
+  disp.text(W - 8, H - 14, c .. " >>", DIM, 1, bg, "right")
 end
 
 local function chip(id, x, y, w, h, label, scale, col, on)
   T.zones[id] = { x = x, y = y, w = w, h = h }
   disp.rect(x, y, w, h, on and CHIP_ON or CHIP, true)
-  disp.text(x + (w - disp.text_width(label, scale)) // 2, y + (h - 7 * scale) // 2, label, col, scale)
+  disp.text(x + w // 2, y + (h - 7 * scale) // 2, label, col, scale, nil, "center")
 end
 
 local SET_SCALE = 6                             -- 36 x 42 px per character
@@ -238,9 +233,9 @@ local function draw_running()
   local col = T.mode == "pause" and PAUSED or FG
   disp.text(10, 10, "Timer " .. fmt(T.total), DIM, 2)
   if s >= 3600 then
-    center(67, fmt(s), col, 6)
+    disp.text(W // 2, 67, fmt(s), col, 6, nil, "center")
   else
-    center(60, string.format("%02d:%02d", s // 60, s % 60), col, 8)
+    disp.text(W // 2, 60, string.format("%02d:%02d", s // 60, s % 60), col, 8, nil, "center")
   end
   local bx, by, bw, bh = 30, 136, W - 60, 10
   disp.rect(bx, by, bw, bh, DIMMER)
@@ -249,12 +244,11 @@ local function draw_running()
     disp.rect(bx + 1, by + 1, math.min(fill, bw - 2), bh - 2, T.mode == "pause" and PAUSED or ACCENT, true)
   end
   if T.mode == "pause" then
-    center(164, "Paused", PAUSED, 2)
+    disp.text(W // 2, 164, "Paused", PAUSED, 2, nil, "center")
   else
     local now = sys.time()
     if now then
-      local d = sys.date(now + s)
-      center(164, string.format("ends %02d:%02d", d.hour, d.min), DIM, 2)
+      disp.text(W // 2, 164, sys.date("ends %H:%M", now + s), DIM, 2, nil, "center")
     end
   end
   hints("reset", T.mode == "pause" and "resume" or "pause", "+1 min")
@@ -266,10 +260,10 @@ local function flash_on() return alarming() and (sys.millis() - T.done_at) % 100
 local function draw_done()
   local bg = flash_on() and FLASH or BG
   disp.clear(bg)
-  center(50, "Time's up", flash_on() and FG or ALERT, 4)
-  center(100, "+" .. fmt((sys.millis() - T.done_at) // 1000), FG, 6)
-  center(164, fmt(T.total) .. " timer", DIM, 2)
-  center(H - 14, "any button or touch: done", DIM, 1)
+  disp.text(W // 2, 50, "Time's up", flash_on() and FG or ALERT, 4, nil, "center")
+  disp.text(W // 2, 100, "+" .. fmt((sys.millis() - T.done_at) // 1000), FG, 6, nil, "center")
+  disp.text(W // 2, 164, fmt(T.total) .. " timer", DIM, 2, nil, "center")
+  disp.text(W // 2, H - 14, "any button or touch: done", DIM, 1, nil, "center")
 end
 
 local drawn                                     -- what the screen shows, as a key

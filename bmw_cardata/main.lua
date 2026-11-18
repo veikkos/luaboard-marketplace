@@ -47,26 +47,6 @@ end
 
 ---------------------------------------------------------------- drawing
 
-local function center(y, s, color, scale)
-  disp.text((disp.W - disp.text_width(s, scale or 1)) // 2, y, s, color, scale or 1)
-end
-
-local function right(x, y, s, color, scale)
-  disp.text(x - disp.text_width(s, scale or 1), y, s, color, scale or 1)
-end
-
--- Text in lines of at most `n` characters, broken at spaces.
-local function wrap(s, n)
-  local lines, line = {}, ""
-  for word in tostring(s):gmatch("%S+") do
-    if line == "" then line = word
-    elseif #line + 1 + #word <= n then line = line .. " " .. word
-    else lines[#lines + 1] = line line = word end
-  end
-  if line ~= "" then lines[#lines + 1] = line end
-  return lines
-end
-
 local function title(s)
   disp.text(12, 12, s, TEXT, 2)
 end
@@ -95,12 +75,12 @@ local function draw_login()
   disp.text(12, y + 22, "and enter the code:", TEXT, 1)
   disp.rect(12, 124, 296, 54, PANEL, true)
   disp.rect(12, 124, 296, 54, LINE)
-  center(134, UI.code or "", TEXT, 5)
+  disp.text(disp.W // 2, 134, UI.code or "", TEXT, 5, nil, "center")
   if UI.code_until then
     local min = math.max(0, (UI.code_until - sys.millis() + 59999) // 60000)
-    center(190, "The code is valid for " .. min .. " min.", TEXT, 1)
+    disp.text(disp.W // 2, 190, "The code is valid for " .. min .. " min.", TEXT, 1, nil, "center")
   end
-  if UI.status ~= "" then center(210, UI.status, WARN, 1) end
+  if UI.status ~= "" then disp.text(disp.W // 2, 210, UI.status, WARN, 1, nil, "center") end
 end
 
 local function draw_message(head, lines, color)
@@ -108,7 +88,7 @@ local function draw_message(head, lines, color)
   disp.text(12, 56, head, color, 2)
   local y = 88
   for _, s in ipairs(lines) do
-    for _, l in ipairs(wrap(s, 49)) do disp.text(12, y, l, SUB, 1) y = y + 14 end
+    for _, l in ipairs(disp.wrap(s, disp.W - 24)) do disp.text(12, y, l, SUB, 1) y = y + 14 end
     y = y + 6
   end
 end
@@ -145,8 +125,7 @@ local function header(v)
   UI.warning, UI.tyre_alarm = warn and true or false, tyres
   local age = v.age or (UI.live and "connected" or "offline")
   UI.header = age
-  local x = 308 - disp.text_width(age, 1)
-  disp.text(x, 15, age, v.stale and WARN or SUB, 1)
+  local x = 308 - disp.text(308, 15, age, v.stale and WARN or SUB, 1, nil, "right")
   disp.circle(x - 9, 18, 3, UI.live and BLUE or SUB, UI.live)
   if warn then warn_icon(x - 34, 9, 16) end
   local s, room = name(), (warn and x - 34 or x - 12) - 6 - 12
@@ -159,9 +138,9 @@ end
 local function footer()
   disp.rect(0, FOOTER_Y, disp.W, disp.H - FOOTER_Y, BG, true)
   if UI.status ~= "" then
-    local lines = wrap(UI.status, 49)
+    local lines = disp.wrap(UI.status, disp.W - 24)
     local y = #lines > 1 and 214 or 224
-    for i = 1, math.min(2, #lines) do center(y + (i - 1) * 12, lines[i], WARN, 1) end
+    for i = 1, math.min(2, #lines) do disp.text(disp.W // 2, y + (i - 1) * 12, lines[i], WARN, 1, nil, "center") end
     return
   end
   for p = 1, PAGES do disp.circle(160 - (PAGES - 1) * 6 + (p - 1) * 12, 230, 3, p == UI.page and TEXT or LINE, true) end
@@ -194,19 +173,20 @@ local function page1(v, main)
   local soc = v.soc and tostring(math.floor(v.soc + 0.5)) or "-"
   disp.text(12, y, soc, main, big)
   disp.text(12 + disp.text_width(soc, big) + 4, y + 7 * big - 21, "%", SUB, 3)
-  right(308, y + 7 * big - 21, v.range_km and car.fmt_km(v.range_km) or "- km", main, 3)
+  disp.text(308, y + 7 * big - 21, v.range_km and car.fmt_km(v.range_km) or "- km", main, 3, nil, "right")
   y = y + 7 * big + 4
   bar(v, 12, y, 296, 6)
   y = y + 12
   disp.text(12, y, v.charging or "-", v.is_charging and main or SUB, 2)
   if v.power_kw then
-    right(308, y, string.format("%.1f kW", v.power_kw) .. (v.method and (" " .. v.method) or ""), BLUE, 2)
+    local kw = string.format("%.1f kW", v.power_kw) .. (v.method and (" " .. v.method) or "")
+    disp.text(308, y, kw, BLUE, 2, nil, "right")
   end
   y = y + 17
   local left = v.is_charging and v.left or v.plug
   local target = v.target and ("target " .. math.floor(v.target + 0.5) .. " %")
   if left then disp.text(12, y, left, SUB, 1) end
-  if target then right(308, y, target, SUB, 1) end
+  if target then disp.text(308, y, target, SUB, 1, nil, "right") end
   UI.line1 = (left or "") .. " | " .. (target or "")
 end
 
@@ -224,7 +204,7 @@ local function page2(v, main)
     if v.tyres then
       local text, ty = v.tyres[i], wh[2] + 6
       if i % 2 == 1 then
-        right(x - 16, ty, text, low and WARN or main, 2)
+        disp.text(x - 16, ty, text, low and WARN or main, 2, nil, "right")
         if low then warn_icon(x - 16 - disp.text_width(text, 2) - 20, ty - 1, 16) end
       else
         disp.text(x + w + 16, ty, text, low and WARN or main, 2)
@@ -237,10 +217,12 @@ local function page2(v, main)
     UI.targets = (targets[1] or "-") .. "|" .. (targets[2] or "-")
     if targets[1] or targets[2] then
       for i = 1, 2 do
-        if targets[i] then right(x - 16, wheels[i * 2 - 1][2] + 24, "target " .. targets[i] .. " bar", SUB, 1) end
+        if targets[i] then
+          disp.text(x - 16, wheels[i * 2 - 1][2] + 24, "target " .. targets[i] .. " bar", SUB, 1, nil, "right")
+        end
       end
     else
-      right(x - 16, y + h // 2 - 4, "bar", SUB, 1)
+      disp.text(x - 16, y + h // 2 - 4, "bar", SUB, 1, nil, "right")
     end
   end
   disp.rect(x, y, w, h, LINE, true)
@@ -282,7 +264,7 @@ local function page2(v, main)
   for i, l in ipairs(lines) do
     local ly = 176 + (i - 1) * 12
     UI.below[i] = l[1]
-    center(ly, l[1], l[2], 1)
+    disp.text(disp.W // 2, ly, l[1], l[2], 1, nil, "center")
   end
 end
 

@@ -1,7 +1,7 @@
 {
   "title": "Football",
   "description": "Live scores, today's games and the latest results for the football leagues and teams you choose. Needs your own free football-data.org key.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Veikko",
   "license": "MIT",
   "lua_api": 1

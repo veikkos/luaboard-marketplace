@@ -55,27 +55,15 @@ local function is_new(st) return st.seen_ms and sys.millis() - st.seen_ms < NEW_
 -- The panel's word: the feed's first word ("Daily Planet" -> DAILY).
 local function feed_word() return UI.title:match("[^%s|:%-]+") or "" end
 
-local function centered(y, s, color, scale)
-  scale = scale or 1
-  disp.text((W - disp.text_width(s, scale)) // 2, y, s, color, scale)
-end
-
 ---------------------------------------------------------------- header
 
 local function draw_header()
   disp.rect(0, 0, W, TOP, HDR, true)
   local right = W - 4
   local t = now()
-  if t then
-    local d = sys.date(t)
-    local clock = string.format("%02d:%02d", d.hour, d.min)
-    right = right - disp.text_width(clock)
-    disp.text(right, 3, clock, DIM)
-  end
+  if t then right = right - disp.text(right, 3, sys.date("%H:%M", t), DIM, 1, nil, "right") end
   if UI.status ~= "ok" and UI.status ~= "loading" then
-    local note = UI.status
-    right = right - 6 - disp.text_width(note)
-    disp.text(right, 3, note, ACCENT)
+    right = right - 6 - disp.text(right - 6, 3, UI.status, ACCENT, 1, nil, "right")
   end
   local cols = (right - 4 - 6) // 6
   local title = wrap(UI.title, cols, 1)[1]
@@ -120,13 +108,13 @@ end
 
 local function draw_empty()
   if UI.status == "loading" then
-    centered(110, "Loading...", DIM, 2)
+    disp.text(W // 2, 110, "Loading...", DIM, 2, nil, "center")
   elseif UI.status == "ok" then
-    centered(110, "No stories in the feed", DIM, 2)
+    disp.text(W // 2, 110, "No stories in the feed", DIM, 2, nil, "center")
   else
-    centered(96, "The feed didn't load", FG, 2)
-    centered(124, UI.status, ACCENT, 2)
-    centered(150, "Trying again in a minute", DIM)
+    disp.text(W // 2, 96, "The feed didn't load", FG, 2, nil, "center")
+    disp.text(W // 2, 124, UI.status, ACCENT, 2, nil, "center")
+    disp.text(W // 2, 150, "Trying again in a minute", DIM, 1, nil, "center")
   end
 end
 

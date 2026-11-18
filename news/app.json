@@ -1,7 +1,7 @@
 {
   "title": "News",
   "description": "Top headlines from an RSS or Atom feed you choose, with pictures. Refreshes itself.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Veikko",
   "license": "MIT",
   "lua_api": 1

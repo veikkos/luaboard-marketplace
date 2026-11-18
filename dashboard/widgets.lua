@@ -23,8 +23,8 @@ function M.gauge(cx, cy, r, frac, label, value_text)
   local a = math.pi * (1 - clamp01(frac))
   disp.line(cx, cy, cx + math.floor(math.cos(a) * (r - 14)), cy - math.floor(math.sin(a) * (r - 14)), disp.WHITE)
   disp.circle(cx, cy, 4, disp.WHITE, true)
-  if label then disp.text(cx - disp.text_width(label, 2) // 2, cy + 10, label, disp.GRAY, 2) end
-  if value_text then disp.text(cx - disp.text_width(value_text, 2) // 2, cy - r // 2, value_text, disp.WHITE, 2) end
+  if label then disp.text(cx, cy + 10, label, disp.GRAY, 2, nil, "center") end
+  if value_text then disp.text(cx, cy - r // 2, value_text, disp.WHITE, 2, nil, "center") end
 end
 
 -- Indicator light with a label

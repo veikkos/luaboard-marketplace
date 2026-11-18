@@ -1,7 +1,7 @@
 {
   "title": "GitHub",
   "description": "Your GitHub repos on a desk board: the latest workflow run, open pull requests and reviews waiting for you. Needs your own GitHub App.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Veikko",
   "license": "MIT",
   "lua_api": 1

@@ -40,10 +40,6 @@ local last_poll_ms = -POLL_MS
 
 ---------------------------------------------------------------- drawing
 
-local function text_right(x, y, s, col, scale)
-  disp.text(x - disp.text_width(s, scale), y, s, col, scale)
-end
-
 local function fit(s, n)                       -- at most n characters (UTF-8)
   local len = utf8.len(s)
   if (len or #s) <= n then return s end
@@ -81,7 +77,7 @@ local function draw_header()
     disp.rect(312 - bw, 3, bw, 14, BADGE, true)
     disp.text(312 - bw + 6, 6, s, FG, 1)
   elseif n then
-    text_right(312, 6, "no reviews waiting", DIMMER, 1)
+    disp.text(312, 6, "no reviews waiting", DIMMER, 1, nil, "right")
   end
   disp.line(0, ROW_Y - 2, W, ROW_Y - 2, LINE)
 end
@@ -94,8 +90,8 @@ local function draw_row(i, r)
   else disp.circle(14, y + 10, 5, NEUTRAL); disp.circle(14, y + 10, 4, NEUTRAL) end
   local name = fit(r.name, 16)
   disp.text(28, y + 4, name, picked == r and ACCENT or FG, 2)
-  if r.prs and r.prs > 0 then text_right(276, y + 8, r.prs .. " PR", ACCENT, 1) end
-  if r.run then text_right(312, y + 8, age(r.run.at), DIM, 1) end
+  if r.prs and r.prs > 0 then disp.text(276, y + 8, r.prs .. " PR", ACCENT, 1, nil, "right") end
+  if r.run then disp.text(312, y + 8, age(r.run.at), DIM, 1, nil, "right") end
   disp.line(8, y + ROW_H - 1, 312, y + ROW_H - 1, LINE)
 end
 
@@ -237,10 +233,7 @@ local function load_repos()
   return true
 end
 
-local function hhmm()
-  local d = sys.date()
-  return d and string.format("%02d:%02d", d.hour, d.min) or ""
-end
+local function hhmm() return sys.date("%H:%M") or "" end
 
 local function poll()
   if polling then return end

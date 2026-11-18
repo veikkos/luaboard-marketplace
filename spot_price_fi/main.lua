@@ -36,21 +36,9 @@ local function day_start(day)
 end
 local function day_len(day) return day_start(day + 1) - day_start(day) end
 
-local function iso(t)                             -- UTC seconds -> "2026-11-05T22:00:00.000Z"
-  local d = sys.date(t, "UTC")
-  return string.format("%04d-%02d-%02dT%02d:%02d:%02d.000Z", d.year, d.month, d.day, d.hour, d.min, d.sec)
-end
-
-local function hhmm(t)
-  local d = sys.date(t, FI)
-  return string.format("%02d:%02d", d.hour, d.min)
-end
-
-local WEEKDAYS = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
-local function day_name(day)
-  local d = sys.date(day * 86400, "UTC")
-  return string.format("%s %d.%d.", WEEKDAYS[d.wday], d.day, d.month)
-end
+local function iso(t) return sys.date("%Y-%m-%dT%H:%M:%S.000Z", t, "UTC") end   -- "2026-11-05T22:00:00.000Z"
+local function hhmm(t) return sys.date("%H:%M", t, FI) end
+local function day_name(day) return sys.date("%a %-d.%-m.", day * 86400, "UTC") end
 
 ---------------------------------------------------------------- state
 
@@ -106,10 +94,6 @@ end
 
 local function price_str(p) return string.format("%.2f", p) end
 
-local function text_right(x, y, s, col, scale)
-  disp.text(x - disp.text_width(s, scale), y, s, col, scale)
-end
-
 local function draw_top()
   disp.rect(0, 0, W, 60, BG, true)
   local s, label
@@ -140,8 +124,8 @@ local function draw_top()
     local y = 4 + (i - 1) * 19
     disp.text(186, y + 4, r[1], DIM, 1)
     if r[3] then disp.text(208, y + 4, r[3], DIMMER, 1) end
-    if r[2] then text_right(312, y, price_str(r[2]), level(r[2]), 2)
-    else text_right(312, y, "-", DIMMER, 2) end
+    if r[2] then disp.text(312, y, price_str(r[2]), level(r[2]), 2, nil, "right")
+    else disp.text(312, y, "-", DIMMER, 2, nil, "right") end
   end
 end
 
@@ -158,7 +142,7 @@ local drawn_minute
 local function draw_clock()
   local t = now()
   disp.rect(270, 62, W - 270, 10, BG, true)
-  if t then text_right(312, 64, hhmm(t), FG, 1) end
+  if t then disp.text(312, 64, hhmm(t), FG, 1, nil, "right") end
   drawn_minute = t and t // 60
 end
 
@@ -177,7 +161,7 @@ local function chart_body()
     for i, l in ipairs(msg) do disp.text(CX0, 110 + (i - 1) * 14, l, DIM, 1) end
     return
   end
-  if status ~= "ok" then text_right(312 - 42, 64, status, disp.ORANGE, 1) end
+  if status ~= "ok" then disp.text(312 - 42, 64, status, disp.ORANGE, 1, nil, "right") end
 
   local lo, hi, avg = stats(list)
   local vmin, vmax = math.min(0, lo.p), math.max(hi.p, 1)
@@ -189,7 +173,7 @@ local function chart_body()
   for v = vmin, vmax, step do                      -- grid with labels
     local y = y_of(v)
     disp.line(CX0, y, CX1, y, v == 0 and DIMMER or GRID)
-    text_right(CX0 - 4, y - 3, tostring(v), DIMMER, 1)
+    disp.text(CX0 - 4, y - 3, tostring(v), DIMMER, 1, nil, "right")
   end
 
   local cur = slot_at(t)
@@ -227,11 +211,9 @@ local function draw_footer()
   disp.rect(0, 214, W, H - 214, BG, true)
   disp.line(0, 214, W, 214, GRID)
   disp.text(8, 218, "<< today", view == 0 and ACCENT or DIMMER, 1)
-  local mid = "o refresh"
-  disp.text((W - disp.text_width(mid)) // 2, 218, mid, DIMMER, 1)
-  text_right(312, 218, "tomorrow >>", view == 1 and ACCENT or DIMMER, 1)
-  local credit = "prices: porssisahko.net - c/kWh incl. VAT"
-  disp.text((W - disp.text_width(credit)) // 2, 230, credit, DIMMER, 1)
+  disp.text(W // 2, 218, "o refresh", DIMMER, 1, nil, "center")
+  disp.text(312, 218, "tomorrow >>", view == 1 and ACCENT or DIMMER, 1, nil, "right")
+  disp.text(W // 2, 230, "prices: porssisahko.net - c/kWh incl. VAT", DIMMER, 1, nil, "center")
 end
 
 local function draw_all()

@@ -33,30 +33,17 @@ local pressed
 local logging_in = false
 
 ----------------------------------------------------------------- drawing
--- Titles are UTF-8: lengths in characters, not bytes.
-local function len(s) return utf8.len(s) or #s end
-local function cut(s, n)                            -- the first n characters
-  if not utf8.len(s) then return s:sub(1, n) end
-  return s:sub(1, (utf8.offset(s, n + 1) or #s + 1) - 1)
-end
-
--- Word-wrap `s` to lines of at most `n` characters, at most `max` lines.
-local function wrap(s, n, max)
-  local lines, line = {}, ""
-  for word in s:gmatch("%S+") do
-    while len(word) > n do                          -- very long words are cut
-      if #line > 0 then lines[#lines + 1] = line; line = "" end
-      local head = cut(word, n)
-      lines[#lines + 1] = head; word = word:sub(#head + 1)
-    end
-    if #line == 0 then line = word
-    elseif len(line) + 1 + len(word) <= n then line = line .. " " .. word
-    else lines[#lines + 1] = line; line = word end
-  end
-  if #line > 0 then lines[#lines + 1] = line end
+-- The lines of `s` that fit `width` px at `scale`, at most `max`; the last
+-- one ends in ".." when there is more.
+local function wrap(s, width, max, scale)
+  local lines = disp.wrap(s, width, scale)
   if #lines > max then
-    lines = { table.unpack(lines, 1, max) }
-    lines[max] = cut(lines[max], n - 2) .. ".."
+    lines = table.move(lines, 1, max, 1, {})
+    local last = lines[max]
+    while #last > 0 and disp.text_width(last .. "..", scale) > width do
+      last = last:sub(1, (utf8.offset(last, -1) or #last) - 1)
+    end
+    lines[max] = last .. ".."
   end
   return lines
 end
@@ -96,25 +83,25 @@ end
 local function draw_info()
   disp.rect(TX, 0, W - TX, BAR_Y - 4, BG, true)
   local y = CY
-  local cols = (W - TX - 4) // 6                     -- characters per line at scale 1
+  local width = W - TX - 4
   if now.state == "idle" then
     disp.text(TX, y, "Nothing playing", DIM, 1)
   else
-    for _, l in ipairs(wrap(now.title, cols // 2, 3)) do
+    for _, l in ipairs(wrap(now.title, width, 3, 2)) do
       disp.text(TX, y, l, FG, 2); y = y + 18
     end
     y = y + 4
-    for _, l in ipairs(wrap(now.artist, cols, 2)) do
+    for _, l in ipairs(wrap(now.artist, width, 2)) do
       disp.text(TX, y, l, DIM); y = y + 10
     end
     y = y + 2
-    for _, l in ipairs(wrap(now.album, cols, 2)) do
+    for _, l in ipairs(wrap(now.album, width, 2)) do
       disp.text(TX, y, l, DIMMER); y = y + 10
     end
   end
   -- the device it's playing on, in green like Spotify's "Listening on ..."
   local line = status ~= "ok" and status or (now.device ~= "" and ("Playing on " .. now.device) or "")
-  local lines = wrap(line, cols, 2)
+  local lines = wrap(line, width, 2)
   for i, l in ipairs(lines) do
     disp.text(TX, CY + COVER - 18 + (i - 1) * 10 + (#lines == 1 and 10 or 0), l,
               status ~= "ok" and WARN or ACCENT)
@@ -138,7 +125,7 @@ local function draw_progress()
     disp.circle(x + fw, BAR_Y + 2, 5, FG, true)
     disp.text(CX, BAR_Y + 9, mmss(progress_ms()) .. "  ", DIM, 1, BG)
     local d = mmss(now.duration)
-    disp.text(CX + (W - 2 * CX) - disp.text_width(d), BAR_Y + 9, d, DIM, 1, BG)
+    disp.text(W - CX, BAR_Y + 9, d, DIM, 1, BG, "right")
   else
     disp.rect(CX, BAR_Y + 9, W - 2 * CX, 8, BG, true)
   end

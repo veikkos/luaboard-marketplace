@@ -20,16 +20,8 @@ function M.day_start(t, days)
   return sys.time({ year = d.year, month = d.month, day = d.day + (days or 0) })
 end
 
-function M.hhmm(t)
-  local d = sys.date(t)
-  return string.format("%02d:%02d", d.hour, d.min)
-end
-
-local WEEKDAYS = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
-function M.day_name(t)
-  local d = sys.date(t)
-  return string.format("%s %d.%d.", WEEKDAYS[d.wday], d.day, d.month)
-end
+function M.hhmm(t) return sys.date("%H:%M", t) end
+function M.day_name(t) return sys.date("%a %-d.%-m.", t) end
 
 -- "in 18 min", "in 1 h 20 min", "in 2 h"; minutes rounded up. "now" once t has come.
 function M.until_text(now, t)

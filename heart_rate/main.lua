@@ -150,13 +150,6 @@ end)
 
 ---------------------------------------------------------------- drawing
 
-local function centered(y, s, col, scale)
-  disp.text((W - disp.text_width(s, scale)) // 2, y, s, col, scale)
-end
-local function text_right(x, y, s, col, scale)
-  disp.text(x - disp.text_width(s, scale), y, s, col, scale)
-end
-
 local function battery(x, y, pct, live)
   disp.rect(x, y, 28, 14, DIM)
   disp.rect(x + 28, y + 4, 3, 6, DIM, true)
@@ -189,8 +182,8 @@ local function draw_top()
   battery(8, 6, HR.battery, live)
   local dot = live and disp.rgb(70, 200, 90) or HR.phase == "connect" and disp.ORANGE or DIMMER
   local name = HR.name or "Heart rate"
-  text_right(312, 9, name, DIM, 1)
-  disp.circle(312 - disp.text_width(name) - 8, 12, 3, dot, true)
+  local nw = disp.text(312, 9, name, DIM, 1, nil, "right")
+  disp.circle(312 - nw - 8, 12, 3, dot, true)
 end
 
 local function draw_reading()
@@ -220,7 +213,7 @@ local function draw_reading()
   if session.start and session.n > 0 then
     local line = string.format("%s  avg %d  max %d", mmss(sys.millis() - session.start),
                                session.sum // session.n, session.max)
-    text_right(312, 100, line, DIM, 1)
+    disp.text(312, 100, line, DIM, 1, nil, "right")
   end
 end
 
@@ -235,12 +228,12 @@ local function draw_chart()
     if v >= lo then
       local y = y_of(v)
       for x = CX0, CX1, 4 do disp.pixel(x, y, GRID) end
-      text_right(CX0 - 4, y - 3, tostring(v), DIMMER, 1)
+      disp.text(CX0 - 4, y - 3, tostring(v), DIMMER, 1, nil, "right")
     end
   end
   disp.line(CX0, CY1, CX1, CY1, GRID)
   disp.text(CX0, CY1 + 4, "-2 min", DIMMER, 1)
-  text_right(CX1, CY1 + 4, "now", DIMMER, 1)
+  disp.text(CX1, CY1 + 4, "now", DIMMER, 1, nil, "right")
   local n = #history
   local function x_of(i) return CX1 - (n - i) * (CX1 - CX0) // (CHART_S - 1) end
   for i = 2, n do
@@ -255,11 +248,13 @@ end
 
 local function draw_status()
   if HR.phase == "live" then
-    if not fresh() then centered(224, "waiting for a reading...", DIM, 1) end
+    if not fresh() then disp.text(W // 2, 224, "waiting for a reading...", DIM, 1, nil, "center") end
     return
   end
-  centered(214, HR.phase == "connect" and "Connecting..." or "Looking for a heart rate strap...", FG, 1)
-  centered(228, HR.msg or (HR.phase == "search" and "put it on: it wakes when it feels a heartbeat" or ""), DIM, 1)
+  local what = HR.phase == "connect" and "Connecting..." or "Looking for a heart rate strap..."
+  local hint = HR.msg or (HR.phase == "search" and "put it on: it wakes when it feels a heartbeat" or "")
+  disp.text(W // 2, 214, what, FG, 1, nil, "center")
+  disp.text(W // 2, 228, hint, DIM, 1, nil, "center")
 end
 
 -- Settings: A / C change the max heart rate (held: by 5), B is done, the
@@ -267,13 +262,14 @@ end
 local FORGET = { x = 60, y = 168, w = 200, h = 36 }
 
 local function draw_settings()
-  centered(20, "Max heart rate", FG, 2)
-  centered(56, tostring(HR.max_hr), ACCENT, 6)
-  centered(110, "<< -1      o done      +1 >>", DIM, 1)
-  centered(124, "hold << or >> for 5", DIMMER, 1)
+  disp.text(W // 2, 20, "Max heart rate", FG, 2, nil, "center")
+  disp.text(W // 2, 56, tostring(HR.max_hr), ACCENT, 6, nil, "center")
+  disp.text(W // 2, 110, "<< -1      o done      +1 >>", DIM, 1, nil, "center")
+  disp.text(W // 2, 124, "hold << or >> for 5", DIMMER, 1, nil, "center")
   disp.rect(FORGET.x, FORGET.y, FORGET.w, FORGET.h, GRID, true)
-  centered(FORGET.y + 14, store.get("addr") and "Forget this strap" or "No strap remembered", FG, 1)
-  centered(220, "zones: 50 60 70 80 90 % of max", DIMMER, 1)
+  local forget = store.get("addr") and "Forget this strap" or "No strap remembered"
+  disp.text(W // 2, FORGET.y + 14, forget, FG, 1, nil, "center")
+  disp.text(W // 2, 220, "zones: 50 60 70 80 90 % of max", DIMMER, 1, nil, "center")
 end
 
 local function draw()

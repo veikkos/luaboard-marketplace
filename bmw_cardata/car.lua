@@ -186,8 +186,7 @@ function M.view(state, now)
     if type(min) == "number" and min > 0 then
       local from = now and (e.ts or now)          -- the clock unknown: just the minutes
       if from then
-        local d = sys.date(from + math.floor(min * 60 + 0.5))
-        v.left = string.format("full at %d:%02d", d.hour, d.min)
+        v.left = sys.date("full at %-H:%M", from + math.floor(min * 60 + 0.5))
       else
         v.left = left_text(min)
       end
@@ -277,8 +276,7 @@ end
 
 -- "YYYY-MM-DD", the UTC date of `now`.
 function M.utc_day(now)
-  local d = sys.date(now, "UTC")
-  return string.format("%04d-%02d-%02d", d.year, d.month, d.day)
+  return sys.date("%Y-%m-%d", now, "UTC")
 end
 
 -- The daily REST budget: rec = { day = "YYYY-MM-DD" (UTC), n = calls }.

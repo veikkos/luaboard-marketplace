@@ -5,9 +5,7 @@ local color, count = 1, 0
 
 local function draw_count()
   disp.rect(0, 80, disp.W, 80, disp.BLACK, true)          -- erase old number
-  local s = tostring(count)
-  local w = disp.text_width(s, 8)
-  disp.text((disp.W - w) // 2, 92, s, colors[color], 8)   -- centered, 8x scale
+  disp.text(disp.W // 2, 92, count, colors[color], 8, nil, "center")   -- 8x scale
 end
 
 disp.clear(disp.BLACK)

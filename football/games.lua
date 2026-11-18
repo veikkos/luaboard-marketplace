@@ -38,8 +38,7 @@ function M.config(leagues, teams)
 end
 
 local function day(t, tz)                 -- "YYYY-MM-DD" of a time in tz
-  local d = sys.date(t, tz)
-  return string.format("%04d-%02d-%02d", d.year, d.month, d.day)
+  return sys.date("%Y-%m-%d", t, tz)
 end
 
 local function window(cfg, from, to)
@@ -164,8 +163,7 @@ function M.status(g, now, tz)
   if g.status == "FINISHED" and g.pens then return "PEN", "done" end
   if g.status == "FINISHED" or g.status == "AWARDED" then return SHORT[g.status], "done" end
   if SHORT[g.status] then return SHORT[g.status], "dim" end
-  local d = sys.date(g.utc, tz)
-  return string.format("%02d:%02d", d.hour, d.min), "dim"
+  return sys.date("%H:%M", g.utc, tz), "dim"
 end
 
 function M.next_delay(list, now)

@@ -1,7 +1,7 @@
 {
   "title": "Stocks",
   "description": "US stock and ETF prices and the day's chart: S&P 500, Nasdaq 100, Dow and Russell 2000 by default. Needs your own free Alpaca keys.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Veikko",
   "license": "MIT",
   "lua_api": 1

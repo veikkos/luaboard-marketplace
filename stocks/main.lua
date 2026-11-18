@@ -60,22 +60,9 @@ local function iso_day(s)                         -- a daily bar's "2026-11-05T0
   return t and et_day(t)
 end
 
-local function iso(t)                             -- UTC seconds -> "2026-11-05T14:30:00Z"
-  local d = sys.date(t, "UTC")
-  return string.format("%04d-%02d-%02dT%02d:%02d:%02dZ", d.year, d.month, d.day, d.hour, d.min, d.sec)
-end
-
-local function hhmm(t)
-  local d = sys.date(t, NY)
-  return string.format("%02d:%02d", d.hour, d.min)
-end
-
-local MONTHS = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
-local WEEKDAYS = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
-local function day_name(day)
-  local d = sys.date(day * 86400, "UTC")
-  return string.format("%s %s %d", WEEKDAYS[d.wday], MONTHS[d.month], d.day)
-end
+local function iso(t) return sys.date("%Y-%m-%dT%H:%M:%SZ", t, "UTC") end   -- "2026-11-05T14:30:00Z"
+local function hhmm(t) return sys.date("%H:%M", t, NY) end
+local function day_name(day) return sys.date("%a %b %-d", day * 86400, "UTC") end
 
 ---------------------------------------------------------------- state
 
@@ -193,14 +180,6 @@ end
 
 ---------------------------------------------------------------- drawing
 
-local function text_right(x, y, s, col, scale)
-  disp.text(x - disp.text_width(s, scale), y, s, col, scale)
-end
-
-local function centered(x0, w, y, s, col, scale)
-  disp.text(x0 + (w - disp.text_width(s, scale)) // 2, y, s, col, scale)
-end
-
 -- The price at the top: the latest trade, or once the market has closed,
 -- the closing price (the chart's last).
 local function shown(q) return UI.state == "closed" and q.close or q.price end
@@ -264,16 +243,16 @@ local function draw_top()
   UI.top = nil
   if not q then return end
   UI.top = { price = string.format("%.2f", shown(q)) }
-  text_right(312, 4, UI.top.price, FG, 3)
+  disp.text(312, 4, UI.top.price, FG, 3, nil, "right")
   local d, pct = change(q)
   if d then
-    text_right(312, 30, signed(d, "%.2f") .. " " .. signed(pct, "%.2f") .. "%", d >= 0 and UP or DOWN, 2)
+    disp.text(312, 30, signed(d, "%.2f") .. " " .. signed(pct, "%.2f") .. "%", d >= 0 and UP or DOWN, 2, nil, "right")
   end
   local ah = after_hours(q)
   if ah then
     local p = (ah - q.close) * 100 / q.close
     UI.top.after = string.format("After hours %.2f %s%%", ah, signed(p, "%.2f"))
-    text_right(312, 51, UI.top.after, DIM, 1)
+    disp.text(312, 51, UI.top.after, DIM, 1, nil, "right")
   end
 end
 
@@ -311,7 +290,7 @@ local function draw_chart()
   for h = 10, 16 do                               -- hours, New York time
     local x = x_of(at_et(chart_day, h * 60))
     disp.line(x, CY1 + 1, x, CY1 + 3, DIMMER)
-    centered(x - 10, 20, CY1 + 7, tostring(h), DIMMER, 1)
+    disp.text(x, CY1 + 7, tostring(h), DIMMER, 1, nil, "center")
   end
 
   -- The area between the price and the base: green above, red below.
@@ -349,15 +328,15 @@ local function draw_tiles()
     local x, sel = (i - 1) * tw, i == UI.sel
     disp.rect(x + 2, TY, tw - 4, H - TY - 2, sel and TILE_SEL or TILE, true)
     if sel then disp.rect(x + 2, TY, tw - 4, H - TY - 2, ACCENT) end
-    centered(x, tw, TY + 5, s, FG, 2)
+    disp.text(x + tw // 2, TY + 5, s, FG, 2, nil, "center")
     local q = quotes[s]
     local _, pct = change(q)
     if pct then
       local p = signed(pct, "%.1f") .. "%"
       local scale = disp.text_width(p, 2) <= tw - 16 and 2 or 1
-      centered(x, tw, TY + 24, p, pct >= 0 and UP or DOWN, scale)
+      disp.text(x + tw // 2, TY + 24, p, pct >= 0 and UP or DOWN, scale, nil, "center")
     end
-    if q then centered(x, tw, TY + 43, string.format("%.2f", shown(q)), DIM, 1) end
+    if q then disp.text(x + tw // 2, TY + 43, string.format("%.2f", shown(q)), DIM, 1, nil, "center") end
   end
 end
 

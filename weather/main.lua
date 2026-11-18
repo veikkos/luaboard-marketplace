@@ -37,21 +37,9 @@ local last_fetch_ms = -60000
 
 local function round(x) return math.floor(x + 0.5) end
 
-local function text_right(x, y, s, col, scale)
-  disp.text(x - disp.text_width(s, scale), y, s, col, scale)
-end
-
-local function centered(y, s, col, scale)
-  disp.text((W - disp.text_width(s, scale)) // 2, y, s, col, scale)
-end
-
 -- Local time of the place (Open-Meteo gives its UTC offset).
 local function local_secs(t) return t + (wx and wx.utc_offset_seconds or 0) end
-local function hhmm(t)
-  local s = local_secs(t) % 86400
-  return string.format("%02d:%02d", s // 3600, s % 3600 // 60)
-end
-local WEEKDAYS = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
+local function hhmm(t) return sys.date("%H:%M", local_secs(t), "UTC") end
 
 -- "6", "-12", "0" (never "-0")
 local function deg(v)
@@ -164,16 +152,15 @@ end
 local function draw_header(title)
   disp.text(8, 6, title, FG, 1)
   local right = UI.status ~= "ok" and UI.status or (wx and ("updated " .. hhmm(wx.current.time)) or "")
-  text_right(312, 6, right, UI.status ~= "ok" and disp.ORANGE or DIMMER, 1)
+  disp.text(312, 6, right, UI.status ~= "ok" and disp.ORANGE or DIMMER, 1, nil, "right")
 end
 
 local function draw_footer()
   disp.line(0, 214, W, 214, GRID)
   disp.text(8, 218, "<< now", UI.view == "now" and ACCENT or DIMMER, 1)
-  local mid = "o refresh"
-  disp.text((W - disp.text_width(mid)) // 2, 218, mid, DIMMER, 1)
-  text_right(312, 218, "7 days >>", UI.view == "days" and ACCENT or DIMMER, 1)
-  centered(230, "weather: open-meteo.com", DIMMER, 1)
+  disp.text(W // 2, 218, "o refresh", DIMMER, 1, nil, "center")
+  disp.text(312, 218, "7 days >>", UI.view == "days" and ACCENT or DIMMER, 1, nil, "right")
+  disp.text(W // 2, 230, "weather: open-meteo.com", DIMMER, 1, nil, "center")
 end
 
 -- A nice grid step for a temperature range.
@@ -202,7 +189,7 @@ local function draw_chart()
   for v = vmin, vmax, step do                       -- grid with labels
     local y = y_of(v)
     disp.line(CX0, y, CX1, y, GRID)
-    text_right(CX0 - 4, y - 3, deg(v), DIMMER, 1)
+    disp.text(CX0 - 4, y - 3, deg(v), DIMMER, 1, nil, "right")
   end
   local bw = math.max(2, (CX1 - CX0) // (n - 1) - 3)
   for i = 1, n do                                   -- rain: blue bars from the bottom
@@ -227,7 +214,7 @@ local function draw_chart()
   disp.text(CX0, CY0 - 12, "next 24 h", ACCENT, 1)
   local sum = 0
   for i = 1, n do sum = sum + (hr.precipitation[i] or 0) end
-  if sum >= 0.1 then text_right(CX1, CY0 - 12, string.format("rain %.1f mm", sum), RAIN, 1) end
+  if sum >= 0.1 then disp.text(CX1, CY0 - 12, string.format("rain %.1f mm", sum), RAIN, 1, nil, "right") end
 end
 
 local function draw_now()
@@ -252,7 +239,7 @@ local function draw_days()
   for i = 1, math.min(#d.time, 7) do
     local y = 22 + (i - 1) * 27
     local day = local_secs(d.time[i]) // 86400
-    local name = day == today and "Today" or WEEKDAYS[(day + 4) % 7 + 1]
+    local name = day == today and "Today" or sys.date("%a", day * 86400, "UTC")
     if i > 1 then disp.line(8, y - 2, 312, y - 2, GRID) end
     disp.text(8, y + 6, name, day == today and ACCENT or FG, 2)
     icon(d.weather_code[i], 92, y + 11, 10, true, BG)
@@ -262,8 +249,8 @@ local function draw_days()
     local wet = mm >= 0.1
     disp.text(112, wet and y + 3 or y + 9, code_info(d.weather_code[i])[1], DIM, 1)
     if wet then disp.text(112, y + 14, string.format("%.1f mm", mm), RAIN, 1) end
-    text_right(268, y + 6, deg(d.temperature_2m_min[i]), DIM, 2)
-    text_right(312, y + 6, deg(d.temperature_2m_max[i]), FG, 2)
+    disp.text(268, y + 6, deg(d.temperature_2m_min[i]), DIM, 2, nil, "right")
+    disp.text(312, y + 6, deg(d.temperature_2m_max[i]), FG, 2, nil, "right")
   end
 end
 
@@ -272,7 +259,7 @@ local function draw()
   local name = place and place.name or "Weather"
   draw_header(UI.view == "days" and ("7 days, " .. name) or name)
   if not wx then
-    centered(110, UI.status == "ok" and "" or UI.status, DIM, 2)
+    disp.text(W // 2, 110, UI.status == "ok" and "" or UI.status, DIM, 2, nil, "center")
   elseif UI.view == "days" then
     draw_days()
   else
