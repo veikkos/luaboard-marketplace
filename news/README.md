@@ -70,8 +70,7 @@ Instead of `luaboard secrets set`, put `feed` in `secrets.env` next to
 from the folder stores it with the app.
 
 The parts: `feed.lua` reads RSS and Atom with string patterns, `web.lua`
-does the downloads (redirects, relative addresses, one host's connections
-open at a time), `pics.lua` decodes a picture, crops it and resizes it to
+does the downloads (relative addresses, short notes for errors), `pics.lua` decodes a picture, crops it and resizes it to
 its box, `wrap.lua` breaks headlines into lines, and `main.lua` is the
 screens. The screenshot is of a made-up feed: luaboard's
 `pc-tool/demo/showcase/news` serves it, with pictures from NASA.

@@ -5,8 +5,9 @@
 -- discovery, so they appear in Home Assistant by themselves.
 --
 -- Settings come from secrets (secrets.env next to this file): mqtt_url
--- (mqtt:// or mqtts://), mqtt_user, mqtt_pass. The device keeps a random id
--- in `store`, so Home Assistant sees the same device after every restart.
+-- (mqtt:// or mqtts://), mqtt_user, mqtt_pass. The board's own id
+-- (sys.info().id) names it, so Home Assistant sees the same device after
+-- every restart.
 --
 -- Simulator: a broker on this computer (mosquitto -p 1883), a secrets.env with
 -- mqtt_url=mqtt://127.0.0.1, and start the simulator with --set porta=env.
@@ -17,12 +18,7 @@ local json = require("json")
 local EVERY_S = 30
 local URL = secrets.get("mqtt_url")                  -- nil: show the readings only
 
--- A stable id for this device, made once.
-local ID = store.get("id")
-if not ID then
-  ID = crypto.hex(crypto.random(3))
-  store.set("id", ID)
-end
+local ID = sys.info().id
 local BASE = "luaboard/" .. ID
 local STATUS = BASE .. "/status"
 
@@ -113,9 +109,10 @@ task(function()
   local c, err
   repeat
     c, err = mqtt.connect(URL, {
-      client_id = "luaboard-" .. ID,
       username = secrets.get("mqtt_user"), password = secrets.get("mqtt_pass"),
       will = { topic = STATUS, payload = "offline", retain = true },
+      on_connect = function(cl) state = "connected"; announce(cl); draw() end,
+      on_close = function() state = "offline"; draw() end,
     })
     if not c then
       state = "no broker, retrying"; draw()
@@ -123,9 +120,6 @@ task(function()
       sleep(10000)
     end
   until c
-  c.on_connect = function() state = "connected"; announce(c); draw() end
-  c.on_close = function() state = "offline"; draw() end
-  c.on_connect()
   client = c
   publish_reading()                                  -- the reading taken while connecting
   draw()

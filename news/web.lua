@@ -1,7 +1,6 @@
--- web: the app's GETs. Never raises: a feed's odd URL or a full socket table
--- comes back as nil, note. Follows redirects, resolves relative URLs, and
--- keeps at most one host's connections open (the board has room for four
--- TLS connections, and a feed's pictures can come from many hosts).
+-- web: the app's GETs. Never raises: an odd URL comes back as nil, note.
+-- Resolves relative URLs; http follows redirects and lets go of kept
+-- connections when the board is out of sockets.
 --
 --   web.get(url, [base]) -> body or nil, note, final
 --     note: a short reason for the screen ("offline", "HTTP 404", ...);
@@ -28,6 +27,8 @@ end
 local function describe(err)
   err = tostring(err):lower()
   if err:find("too big") then return "too big", true end
+  if err:find("url") then return "bad url", true end
+  if err:find("redirect") then return "too many redirects", true end
   if err:find("resolve") then return "no such host", false end
   if err:find("timeout") or err:find("timed out") then return "timed out", false end
   if err:find("tls") or err:find("ssl") or err:find("certificate") or err:find("handshake") then
@@ -36,29 +37,13 @@ local function describe(err)
   return "offline", false
 end
 
-local last_host
-
 function M.get(url, base)
   url = M.resolve(url, base)
-  for _ = 1, 4 do
-    if not url then return nil, "bad url", true end
-    local host = url:match("^https?://([^/?#]+)")
-    if host ~= last_host then
-      pcall(M.http.close_idle)
-      last_host = host
-    end
-    local ok, status, body, headers = pcall(M.http.get, url, HEADERS)
-    if not ok or not status then return nil, describe(ok and body or status) end
-    local loc = headers and headers.location
-    if status >= 300 and status < 400 and loc then
-      url = M.resolve(loc, url)
-    elseif status ~= 200 then
-      return nil, "HTTP " .. status, status >= 400 and status < 500
-    else
-      return body
-    end
-  end
-  return nil, "too many redirects", true
+  if not url then return nil, "bad url", true end
+  local ok, status, body = pcall(M.http.get, url, HEADERS)
+  if not ok or not status then return nil, describe(ok and body or status) end
+  if status ~= 200 then return nil, "HTTP " .. status, status >= 400 and status < 500 end
+  return body
 end
 
 return M

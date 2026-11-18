@@ -29,9 +29,9 @@ away.
 ## What it sends
 
 It measures every 30 seconds and publishes `{"temperature": 21.5,
-"humidity": 45}` to `luaboard/<id>/state`. The id is random, made on the
-first run and kept in `store`, so Home Assistant sees the same device after
-restarts. Clearing the app's data makes a new one.
+"humidity": 45}` to `luaboard/<id>/state`. The id is the board's own
+(`sys.info().id`, 12 hex digits), so Home Assistant sees the same device
+after restarts and reinstalls.
 
 ## Development
 

@@ -59,28 +59,12 @@ local function attr(t, name)
   return v and plain(v)
 end
 
-local MON = { jan = 1, feb = 2, mar = 3, apr = 4, may = 5, jun = 6,
-              jul = 7, aug = 8, sep = 9, oct = 10, nov = 11, dec = 12 }
-local ZONE = { gmt = "Z", ut = "Z", utc = "Z", z = "Z", [""] = "Z",
-               est = "-05:00", edt = "-04:00", cst = "-06:00", cdt = "-05:00",
-               mst = "-07:00", mdt = "-06:00", pst = "-08:00", pdt = "-07:00" }
-
--- UTC seconds of a feed's date: what sys.time reads (ISO 8601 and the like),
--- else RFC 822 with a numeric or named zone ("Mon, 16 Nov 2026 14:43:28 +0200").
+-- UTC seconds of a feed's date: ISO 8601 (Atom) or RFC 822 (RSS), as
+-- sys.time reads them.
 function M.date(s)
   s = s and plain(s)
   if not s or s == "" then return nil end
-  local t = sys.time(s)
-  if t then return t end
-  local d, mon, y, hh, mm, ss, z = s:match("^%a*,?%s*(%d+)%s+(%a+)%s+(%d+)%s+(%d+):(%d+):?(%d*)%s*(%S*)")
-  mon = mon and MON[mon:sub(1, 3):lower()]
-  if not mon then return nil end
-  y = tonumber(y); if y < 100 then y = y + 2000 end
-  local sign, zh, zm = z:match("^([+-])(%d%d):?(%d%d)$")
-  local off = sign and (sign .. zh .. ":" .. zm) or ZONE[z:lower()]
-  if not off then return nil end
-  return (sys.time(string.format("%04d-%02d-%02dT%02d:%02d:%02d%s",
-    y, mon, tonumber(d), tonumber(hh), tonumber(mm), tonumber(ss) or 0, off)))
+  return (sys.time(s))
 end
 
 local function is_image(t, url)
