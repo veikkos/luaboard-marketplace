@@ -43,7 +43,9 @@ function M.get(url, base, extra)
   for k, v in pairs(extra or {}) do headers[k] = v end
   url = M.resolve(url, base)
   if not url then return nil, "bad url", true end
-  local ok, status, body, rh = pcall(M.http.get, url, headers)
+  local private = {}                              -- (not to another server on a redirect)
+  for k in pairs(extra or {}) do private[#private + 1] = k end
+  local ok, status, body, rh = pcall(M.http.get, url, headers, { private_headers = private })
   if not ok or not status then return nil, describe(ok and body or status) end
   if status == 429 then
     return nil, "rate limit", false, math.max(5, tonumber(rh and rh["x-requestcounter-reset"]) or 60)
