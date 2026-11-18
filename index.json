@@ -6,6 +6,7 @@
    "description": "Your BMW's charge, range and charging state, live from BMW's CarData stream. Not affiliated with BMW.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": true,
    "versions": [
     {
      "version": "1.1.1",
@@ -78,6 +79,7 @@
    "description": "The time and date, digital or analog, in the device's time zone.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": false,
    "versions": [
     {
      "version": "1.0.0",
@@ -125,6 +127,7 @@
    "description": "Knob and battery gauges, USB and charging lights, the touch buttons.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": false,
    "versions": [
     {
      "version": "1.0.0",
@@ -172,6 +175,7 @@
    "description": "Gear position and battery of a Shimano Di2 groupset (12-speed), from the rear derailleur over Bluetooth. Read only.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": false,
    "versions": [
     {
      "version": "1.0.1",
@@ -219,6 +223,7 @@
    "description": "Live scores, today's games and the latest results for the football leagues and teams you choose. Needs your own free football-data.org key.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": true,
    "versions": [
     {
      "version": "1.0.2",
@@ -276,6 +281,7 @@
    "description": "Your next meetings from Google Calendar, quietly; a pulsing red banner when an event's notification comes due.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": true,
    "versions": [
     {
      "version": "1.0.2",
@@ -338,6 +344,7 @@
    "description": "Your GitHub repos on a desk board: the latest workflow run, open pull requests and reviews waiting for you. Needs your own GitHub App.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": true,
    "versions": [
     {
      "version": "1.0.1",
@@ -390,6 +397,7 @@
    "description": "Temperature and humidity from an ENV unit on Port A, in Home Assistant over MQTT.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": false,
    "versions": [
     {
      "version": "1.0.1",
@@ -432,6 +440,7 @@
    "description": "Heart rate from a Bluetooth chest strap (the standard Heart Rate service), by zone, with a 2-minute chart. Read only.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": false,
    "versions": [
     {
      "version": "1.0.1",
@@ -484,6 +493,7 @@
    "description": "The smallest useful script: a greeting and a counter. Tap to change color.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": false,
    "versions": [
     {
      "version": "1.0.0",
@@ -526,6 +536,7 @@
    "description": "Top headlines from an RSS or Atom feed you choose, with pictures. Refreshes itself.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": true,
    "versions": [
     {
      "version": "1.0.1",
@@ -588,6 +599,7 @@
    "description": "Finger painting. Pick a color at the top; A clears, B toggles a big brush.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": false,
    "versions": [
     {
      "version": "1.0.0",
@@ -630,6 +642,7 @@
    "description": "Electricity spot price in Finland, c/kWh incl. VAT, today and tomorrow. Data: porssisahko.net",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": false,
    "versions": [
     {
      "version": "1.0.1",
@@ -677,6 +690,7 @@
    "description": "Now playing, with cover art and controls",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": true,
    "versions": [
     {
      "version": "1.0.1",
@@ -729,6 +743,7 @@
    "description": "US stock and ETF prices and the day's chart: S&P 500, Nasdaq 100, Dow and Russell 2000 by default. Needs your own free Alpaca keys.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": true,
    "versions": [
     {
      "version": "1.0.1",
@@ -776,6 +791,7 @@
    "description": "A countdown that beeps when it's up. Keeps the time you set, the recent ones and a running timer across restarts, and saves the battery while it waits.",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": false,
    "versions": [
     {
      "version": "1.0.1",
@@ -828,6 +844,7 @@
    "description": "The weather now, the next 24 hours and the next 7 days for one place. Data: open-meteo.com",
    "author": "Veikko",
    "license": "MIT",
+   "needs_setup": false,
    "versions": [
     {
      "version": "1.0.2",
