@@ -5,7 +5,7 @@ score and minute, today's other games, and the latest results, for the
 leagues and teams you choose. Your teams come first and are marked. Tap a
 game for its detail.
 
-![Made-up clubs](screenshot.png)
+![Made-up clubs](img/screenshot.png)
 
 ## Setup
 

@@ -4,7 +4,7 @@ Heart rate from a Bluetooth LE chest strap, coloured by training zone, with
 the last two minutes as a chart, the strap's battery and the session's time,
 average and max. Tried with a Suunto chest strap.
 
-![168 bpm in zone 4, with the last two minutes](screenshot.png) ![settings](settings.png)
+![168 bpm in zone 4, with the last two minutes](img/screenshot.png) ![settings](img/settings.png)
 
 ## Setup
 

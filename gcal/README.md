@@ -4,12 +4,12 @@ Your next meetings on a desk display. The screen stays dim: the next meeting
 large with a countdown, the rest of the day small underneath. When nothing is
 left today it lists tomorrow's meetings.
 
-![calm view](screenshot.png)
+![calm view](img/screenshot.png)
 
 When one of an event's notifications comes due, it chimes and the top of
 the screen pulses red until you press `○`, tap the screen, or the meeting starts.
 
-![alert](alert.png)
+![alert](img/alert.png)
 
 ## Setup
 

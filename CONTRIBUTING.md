@@ -20,12 +20,12 @@ different from every other app's name, also ignoring case.
   the studio or `luaboard install`), and its keys and login, if any.
   Development is for people working on it from a clone of this repository:
   `secrets.env` and simulator commands.
-- Optional: images (`.jpg`, `.jpeg`) and sounds (`.wav`) the app uses,
-  screenshots (`.png`) for the README, `secrets.env.example`.
+- Optional: images (`.jpg`, `.jpeg`, `.png`) and sounds (`.wav`) the app
+  uses, screenshots for the README in `img/`, `secrets.env.example`.
 
-Only the `.lua` files, `app.json`, and the `.jpg`, `.jpeg` and `.wav` files go
-to the board. Everything else stays in the repository. Subfolders are not
-used.
+Only the `.lua` files, `app.json`, and the `.jpg`, `.jpeg`, `.png` and `.wav`
+files at the app's top level go to the board. Everything else, `img/`
+included, stays in the repository. Other subfolders are not used.
 
 ## app.json
 

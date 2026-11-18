@@ -3,7 +3,7 @@
 A BMW's charge and state from BMW's CarData stream, live as the car reports
 it. The board connects to BMW directly.
 
-![summary](screenshot.png) ![car](status.png)
+![summary](img/screenshot.png) ![car](img/status.png)
 
 1. Battery, range and charging.
 2. Tyre pressures, doors and windows, lock, odometer, climate.
@@ -87,7 +87,7 @@ values arrive.
 
 3. Open the address on the screen on your phone and enter the code.
 
-![login](login.png)
+![login](img/login.png)
 
 The board renews the login itself. After 14 days without the app running,
 it asks for a new code. Press `○` if a code ran out. To log out, hold the

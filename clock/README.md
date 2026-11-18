@@ -8,7 +8,7 @@ button brings them back.
 The device gets the time from the network once it's on Wi-Fi, and after
 that also from the board's clock chip.
 
-![digital face](screenshot.png) ![analog face](analog.png)
+![digital face](img/screenshot.png) ![analog face](img/analog.png)
 
 ## Setup
 

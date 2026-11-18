@@ -4,7 +4,7 @@ Gear position and battery level of a Shimano Di2 groupset, read from the
 rear derailleur over Bluetooth LE. Made for 12-speed road Di2 (tried with a
 105 Di2 RD-R7150). Others may differ.
 
-<img src="cores3se.png" width="400" alt="Small ring and 10th cog, battery at 70%, connected to the derailleur">
+<img src="img/cores3se.png" width="400" alt="Small ring and 10th cog, battery at 70%, connected to the derailleur">
 
 ## Setup
 

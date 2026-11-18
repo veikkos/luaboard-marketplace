@@ -5,7 +5,7 @@ story is big at the top, the next ones are listed under it. Tap a story for
 its summary. The app refreshes the feed by itself every 5 minutes, so it can
 be left running on a desk.
 
-![A made-up feed](screenshot.png)
+![A made-up feed](img/screenshot.png)
 
 ## Setup
 

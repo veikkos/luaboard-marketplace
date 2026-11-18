@@ -3,7 +3,7 @@
 The smallest useful app: a greeting and a counter. Tap the screen to change
 the color. A good place to start your own.
 
-![hello](screenshot.png)
+![hello](img/screenshot.png)
 
 ## Setup
 

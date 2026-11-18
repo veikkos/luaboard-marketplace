@@ -5,7 +5,7 @@ charging, and the three touch buttons lighting up when pressed. The gauges
 come from `widgets.lua`, so it also shows how an app is split into modules
 with `require`.
 
-![dashboard](screenshot.png)
+![dashboard](img/screenshot.png)
 
 ## Setup
 

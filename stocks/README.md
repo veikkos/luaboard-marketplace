@@ -5,7 +5,7 @@ previous close and the day's chart, with a tile for each symbol. By default
 the four ETFs that follow the big indexes: SPY (S&P 500), QQQ (Nasdaq 100),
 DIA (Dow Jones) and IWM (Russell 2000).
 
-![SPY during the day](screenshot.png)
+![SPY during the day](img/screenshot.png)
 
 ## Setup
 

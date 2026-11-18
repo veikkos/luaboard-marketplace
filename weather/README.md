@@ -4,7 +4,7 @@ The weather now and the next 24 hours for one place: temperature, feels-like
 and wind, with a chart of the temperature and rain. C shows the next 7 days.
 No account or API key needed.
 
-![now and the next 24 hours](screenshot.png) ![the next 7 days](days.png)
+![now and the next 24 hours](img/screenshot.png) ![the next 7 days](img/days.png)
 
 ## Setup
 

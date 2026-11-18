@@ -4,7 +4,7 @@ Finland's electricity spot price: the price now, the day's min, average and
 max, and a chart of the day's 15-minute prices, today and (from about 14:00)
 tomorrow.
 
-![prices for today](screenshot.png)
+![prices for today](img/screenshot.png)
 
 ## Setup
 

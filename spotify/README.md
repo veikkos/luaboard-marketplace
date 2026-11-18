@@ -3,11 +3,11 @@
 Now playing with cover art and previous / play-pause / next. The device calls
 the Spotify Web API directly over HTTPS. Playback control needs Premium.
 
-<img src="cores3.png" width="400" alt="Now playing on a CoreS3 in the simulator">
+<img src="img/cores3.png" width="400" alt="Now playing on a CoreS3 in the simulator">
 
 The screenshot shows the cover of Ghosts I–IV by Nine Inch Nails, released
 under [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/).
-`cores3.png` is shared under that license, not the app's MIT license.
+`img/cores3.png` is shared under that license, not the app's MIT license.
 
 ## Setup
 

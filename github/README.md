@@ -5,7 +5,7 @@ workflow run on its default branch, its open pull requests and how long ago
 that run started. At the top, the pull requests waiting for your review. A
 chime plays when a run fails, and another when it passes again.
 
-![the board](screenshot.png)
+![the board](img/screenshot.png)
 
 | Dot | |
 |---|---|

@@ -4,7 +4,7 @@ A countdown timer that beeps when it's up. It remembers the time you set and
 the last ones you started, and a running or paused timer is still there
 when you come back to the app or restart the board.
 
-![setting it](screenshot.png) ![running](running.png) ![time's up](alarm.png)
+![setting it](img/screenshot.png) ![running](img/running.png) ![time's up](img/alarm.png)
 
 ## Setup
 

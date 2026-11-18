@@ -6,7 +6,7 @@ Assistant's MQTT integration, the device and its two sensors appear by
 themselves (MQTT discovery), and show as unavailable when the device goes
 away.
 
-![readings without a broker set](screenshot.png)
+![readings without a broker set](img/screenshot.png)
 
 ## Setup
 

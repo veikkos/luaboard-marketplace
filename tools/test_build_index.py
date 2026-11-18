@@ -43,6 +43,7 @@ class Repo:
         (d / "LICENSE").write_text(MIT)
         (d / "README.md").write_text("# " + name + "\n")
         for path, data in (extra or {}).items():
+            (d / path).parent.mkdir(exist_ok=True)
             (d / path).write_bytes(data if isinstance(data, bytes) else data.encode())
         return d
 
@@ -130,13 +131,14 @@ class BuildIndexTest(unittest.TestCase):
         self.assertEqual([e["version"] for e in v], ["1.10.0"])
 
     def test_board_and_other_files(self):
-        self.r.app("hello", extra={"Pic.JPG": b"\xff\xd8", "s.wav": b"RIFF", "shot.png": b"\x89PNG",
-                                   "secrets.env.example": "k=\n", "sim_device.json": "{}"})
+        self.r.app("hello", extra={"Pic.JPG": b"\xff\xd8", "s.wav": b"RIFF", "logo.png": b"\x89PNG",
+                                   "img/shot.png": b"\x89PNG", "secrets.env.example": "k=\n",
+                                   "sim_device.json": "{}"})
         self.r.commit()
         v = self.r.build()["apps"]["hello"]["versions"][0]
-        self.assertEqual([f["path"] for f in v["files"]], ["Pic.JPG", "app.json", "main.lua", "s.wav"])
+        self.assertEqual([f["path"] for f in v["files"]], ["Pic.JPG", "app.json", "logo.png", "main.lua", "s.wav"])
         self.assertEqual([f["path"] for f in v["other_files"]],
-                         ["LICENSE", "README.md", "secrets.env.example", "shot.png", "sim_device.json"])
+                         ["LICENSE", "README.md", "secrets.env.example", "sim_device.json"])
 
     def test_untracked_files_ignored(self):
         d = self.r.app("hello")

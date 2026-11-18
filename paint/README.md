@@ -3,7 +3,7 @@
 Finger painting. Pick a color from the row at the top and draw. A clears the
 canvas and B switches to a big brush.
 
-![a few strokes](screenshot.png)
+![a few strokes](img/screenshot.png)
 
 ## Setup
 

@@ -24,7 +24,7 @@ from pathlib import Path
 
 FORMAT = 1
 NOT_APPS = {"tools"}
-BOARD_EXTS = (".jpg", ".jpeg", ".wav")
+BOARD_EXTS = (".jpg", ".jpeg", ".png", ".wav")
 NAME = re.compile(r"^[A-Za-z0-9_.-]{1,23}$")
 VERSION = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 
