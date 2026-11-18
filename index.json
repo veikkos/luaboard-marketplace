@@ -9,14 +9,14 @@
    "needs_setup": true,
    "versions": [
     {
-     "version": "1.1.1",
+     "version": "1.1.2",
      "lua_api": 1,
-     "commit": "880845c172b73e3998c1b5c152520bad9540a675",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 231,
-       "sha256": "3090773f0b0c10c128000a81612a5d9de39bcb1563cbd14abeea7dad017311d0"
+       "sha256": "2180ec74dfeb4b8e5d574f3bb3cddc69ca4245e0476c0a6992a190d54e83e276"
       },
       {
        "path": "bmw_login.lua",
@@ -25,8 +25,8 @@
       },
       {
        "path": "car.lua",
-       "size": 14156,
-       "sha256": "c032b2565f5850b31d4e28bc6bddace76f82ded8af40ea64d163acdd9eb5528e"
+       "size": 14052,
+       "sha256": "a37297fb70aafe9c2bdb9b34fb517e985ed6a2928365c3866ba82fdf6ad43b09"
       },
       {
        "path": "cardata.lua",
@@ -35,8 +35,8 @@
       },
       {
        "path": "main.lua",
-       "size": 24220,
-       "sha256": "0c3ec40c5e0bba336949cfe53f4c6d747692a41b488a94fa03e716d5ec21c384"
+       "size": 23896,
+       "sha256": "6f8203a693217125f0b5b1ad132fd7d18025c583d8888ba032eac16dd19cfbb0"
       }
      ],
      "other_files": [
@@ -47,28 +47,13 @@
       },
       {
        "path": "README.md",
-       "size": 4387,
-       "sha256": "07fe3de27fc473646fd6ce3e7c2cf328c5d5c3afe18497260e8db648fce1e9ab"
-      },
-      {
-       "path": "login.png",
-       "size": 1591,
-       "sha256": "778b440acf135771a0861413a20128127c297da5c005ce753089e4e85c2c3ac0"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 1694,
-       "sha256": "5cf3c264a4703b96b68af9b13ca83c775bb20b22dbfcb59371f53547f8f68c89"
+       "size": 4399,
+       "sha256": "4a0428ac66b21d3ab638f8cf1fa51595d7ac142b4c6a7684a0fb7561fd066300"
       },
       {
        "path": "secrets.env.example",
        "size": 141,
        "sha256": "d1b7fdff9692926960dc7649fcf7fd649e7774526c29aebc8d5d9d111b25495a"
-      },
-      {
-       "path": "status.png",
-       "size": 2072,
-       "sha256": "17d1a809943684a8c4e20191223b9ba3953a2107413dd81eb36a7b43f7b3fb2d"
       }
      ]
     }
@@ -82,19 +67,19 @@
    "needs_setup": false,
    "versions": [
     {
-     "version": "1.0.0",
+     "version": "1.0.1",
      "lua_api": 1,
-     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 188,
-       "sha256": "2e2bc84de23bd9eba74148e216b789a03b307e07ad51218ebd30f46ddf15da51"
+       "sha256": "c03f3e139116ac7b8cdf453c4b000de1a4d85edcb2c8b01470b396d0394b3c87"
       },
       {
        "path": "main.lua",
-       "size": 5913,
-       "sha256": "cbd25280827a81a4fc9f5f7f50e82aa2710dee0e4d21262c0cf8b6b28a8530aa"
+       "size": 5495,
+       "sha256": "2c20ff7b9ace5a5782f2571ff56ac99f13a2e8d3149216aa6984b3d523ac4883"
       }
      ],
      "other_files": [
@@ -105,18 +90,8 @@
       },
       {
        "path": "README.md",
-       "size": 776,
-       "sha256": "bf422db04ecb0fe8af6c472e74668e873aa35b12b59923cd282997195d2b3187"
-      },
-      {
-       "path": "analog.png",
-       "size": 5627,
-       "sha256": "2f1590242dd883eb172e2ec8c4795b072b17a3e8499e20fb2ada6cff33a89dff"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 1447,
-       "sha256": "cc2a34f902769dec25bae0e8b6d56a1d6237eaf2c7bea8c5b02018a4e76b43b5"
+       "size": 791,
+       "sha256": "03f1878d69e1ff3344dcd9ce05644e102e9e0b701c183b6b49638799d52da706"
       }
      ]
     }
@@ -130,14 +105,14 @@
    "needs_setup": false,
    "versions": [
     {
-     "version": "1.0.0",
+     "version": "1.0.1",
      "lua_api": 1,
-     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 196,
-       "sha256": "8d511508caf56f70e60c17a575bca6e93ce180c5a0fdd722509d0aa9669351dd"
+       "sha256": "16cbafc75ee5f059b7d1d5f4fbf6069161c35a0ce3aa3609d7a65fc0c431f124"
       },
       {
        "path": "main.lua",
@@ -146,8 +121,8 @@
       },
       {
        "path": "widgets.lua",
-       "size": 1558,
-       "sha256": "ea029577f3ca114cb555129adc8d834549901eb3660b699d65057a36a3e916d6"
+       "size": 1517,
+       "sha256": "362bc4df96ef38e8c0927581fdcc02bffd14d46972209ba136108c69d3194d6a"
       }
      ],
      "other_files": [
@@ -158,13 +133,8 @@
       },
       {
        "path": "README.md",
-       "size": 636,
-       "sha256": "3e2d0d0698f9757f8589c34a97885ac85e7ca43598d4ab5d1308b1e3b629c1e7"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 4224,
-       "sha256": "041eeafc4df5ee478e41c46a84c95482481603ef5a6519a2227cef93009d862e"
+       "size": 643,
+       "sha256": "a6b0bb5735f35c41b48f5b62d38f61de9d794e7db0c7cedb9656c1139d61e4dd"
       }
      ]
     }
@@ -178,19 +148,19 @@
    "needs_setup": false,
    "versions": [
     {
-     "version": "1.0.1",
+     "version": "1.0.2",
      "lua_api": 1,
-     "commit": "880845c172b73e3998c1b5c152520bad9540a675",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 237,
-       "sha256": "bdd020b2240ff170361e217fad5ee0057848eab8bca60b55421b95de447090f7"
+       "sha256": "0ddab416a14103814d1428c45235dc26e67165f5fbe7706c0a2a07a9b2632ee7"
       },
       {
        "path": "main.lua",
-       "size": 6264,
-       "sha256": "91bfb559965c15e7a0f2b80833e7ecb2b3c197a164fa14084d993029224d854a"
+       "size": 6203,
+       "sha256": "c893be05ba7d877fd199e9282598250ca50eb478da8d60bd4ef3ad19ec339176"
       }
      ],
      "other_files": [
@@ -201,13 +171,8 @@
       },
       {
        "path": "README.md",
-       "size": 2325,
-       "sha256": "7a2e9a1d1a20c3073846913ded0f4e296e3d1cb9dce176642edab8c749794ea6"
-      },
-      {
-       "path": "cores3se.png",
-       "size": 118312,
-       "sha256": "a946babe6a3fb34f6e8e69dbcae522938f49021bf3df023973f41a9c4ec98ebc"
+       "size": 2329,
+       "sha256": "114fea480a69f774aef16459ac5d52455ee29f303be946992c6d46f2e16a2e69"
       },
       {
        "path": "sim_device.json",
@@ -226,24 +191,24 @@
    "needs_setup": true,
    "versions": [
     {
-     "version": "1.0.2",
+     "version": "1.0.3",
      "lua_api": 1,
-     "commit": "56fa20f9bf8a5b2fa01088867dde777b9956c255",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 266,
-       "sha256": "df63e9beaf3439c8b78d44b53ba5831418794fa34e55e81d283668c63020262f"
+       "sha256": "f9145be90a1cdcb576419da531811a5a52d186e87eeee9fdff7ad9ff9917abc9"
       },
       {
        "path": "games.lua",
-       "size": 6911,
-       "sha256": "f1f30deb0a122dcfeb570fcf16ff6d19c2d814b8b9d48025b23e7db7c1e8f5c3"
+       "size": 6810,
+       "sha256": "5445e22d3784df7e4f23f4e2635f8ec524c425373d65a0a26f222e1598f10382"
       },
       {
        "path": "main.lua",
-       "size": 15009,
-       "sha256": "03e251bc6a30d10afe6115515a5210855a07d31e1a8b050119320e695eb789ec"
+       "size": 14350,
+       "sha256": "14eff38d80153d93aa2f8cc66563ae4fe076db877a4018273c4db87763e5364c"
       },
       {
        "path": "pics.lua",
@@ -284,29 +249,29 @@
    "needs_setup": true,
    "versions": [
     {
-     "version": "1.0.2",
+     "version": "1.0.3",
      "lua_api": 1,
-     "commit": "880845c172b73e3998c1b5c152520bad9540a675",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "agenda.lua",
-       "size": 6916,
-       "sha256": "55d96e4cf923e6c45f117cadc848d64b30bded57a025768ad771cdc7ef1e0d43"
+       "size": 6739,
+       "sha256": "edc78dd06df735bb54fe5046a2991455c111d5cff273d9cf1fd8c86d957fcf7c"
       },
       {
        "path": "app.json",
        "size": 244,
-       "sha256": "baf738d4eee1ef926a6fd62380ebea5e13296ea06fbf73c3ea5e65a570e1dfe3"
+       "sha256": "8e575d9564f7d506a5ba5904856566c346bfbc45ab655b274429d2c558d77960"
       },
       {
        "path": "gcal.lua",
-       "size": 3984,
-       "sha256": "cb0b7ea0e42dd570070bd1dd1f1b762bf97b3098118111539a0e6752515d8d3a"
+       "size": 3898,
+       "sha256": "59ee0fb7d27a8db5589361ddc96343b1667c05c3366016edc38a7226be86ac47"
       },
       {
        "path": "main.lua",
-       "size": 13514,
-       "sha256": "9dc3dbe8594418b769147ddd9373b49f6336754da294470e639aabe4935ae1a6"
+       "size": 13325,
+       "sha256": "5f62dd0dc21568039cd0e40e75adfd0d4d2714cb73ccb79b76fee3c994f6cf48"
       }
      ],
      "other_files": [
@@ -317,18 +282,8 @@
       },
       {
        "path": "README.md",
-       "size": 3693,
-       "sha256": "2921bd5f54b85f7d5c989b7149f5efa1386739c044c4d776abeee09c39daecaf"
-      },
-      {
-       "path": "alert.png",
-       "size": 15559,
-       "sha256": "25935ae4885221284a63f41bc7c4318c16244b17bb5e471409377bb426d8d8e3"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 16067,
-       "sha256": "276ebcaffa2821bde0a08962ba9e6de55deb379e7efa9e3784c998e581e7a86c"
+       "size": 3701,
+       "sha256": "29d05040cdcdb7a5fe4a8c4d7c0e18c50af79de2227227b471ee126aefa23717"
       },
       {
        "path": "secrets.env.example",
@@ -347,14 +302,14 @@
    "needs_setup": true,
    "versions": [
     {
-     "version": "1.0.1",
+     "version": "1.0.2",
      "lua_api": 1,
-     "commit": "880845c172b73e3998c1b5c152520bad9540a675",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 259,
-       "sha256": "bb62364c4257aae67188b1226c7ff82f3178223fde499e0073aa544868ab93c5"
+       "sha256": "d059ffc4e997b8bbf1bcd3dff2cd5f74f2076265223cb80da967890364444498"
       },
       {
        "path": "github.lua",
@@ -363,8 +318,8 @@
       },
       {
        "path": "main.lua",
-       "size": 11697,
-       "sha256": "3eca5218799c691a5d5ba54b7f18ff24144d90f78170230b6c2a430a4f7e881a"
+       "size": 11568,
+       "sha256": "5a6977b16060dd11a8a284edbaec893fdb13db726b4237ae8a554d59a349508e"
       }
      ],
      "other_files": [
@@ -375,13 +330,8 @@
       },
       {
        "path": "README.md",
-       "size": 4128,
-       "sha256": "1a9db8cc7184caa6051537679048dbba4a447d8907cb3fb543db4ae69c6cb766"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 6193,
-       "sha256": "cf1320e72acfa320793d9c3eaf0eeac150c7e0ad0127afb47c508c46d938b2c7"
+       "size": 4132,
+       "sha256": "14875cbc13a0b28a2be3d0a95344309da6802ec7783ac657bf8a1e1128247389"
       },
       {
        "path": "secrets.env.example",
@@ -443,19 +393,19 @@
    "needs_setup": false,
    "versions": [
     {
-     "version": "1.0.1",
+     "version": "1.0.2",
      "lua_api": 1,
-     "commit": "880845c172b73e3998c1b5c152520bad9540a675",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 246,
-       "sha256": "b8c4e7f2b16919d09ea65b67c9c50b415bcc42a8df5dced813c7986cea2523c0"
+       "sha256": "5606b7fd8c4eda7c89d6e4fe567be087d43fb74534b706da50a917ca75f2ae47"
       },
       {
        "path": "main.lua",
-       "size": 11336,
-       "sha256": "1db5caed4058ccd7aecb0ab8d6cce7e63684f0dcb8f74bb02a3e835c80b0917b"
+       "size": 11433,
+       "sha256": "73062b77d894f16360a8e12632968bdaab74a08b5733de74c1b57a08caf9dc6e"
       }
      ],
      "other_files": [
@@ -466,18 +416,8 @@
       },
       {
        "path": "README.md",
-       "size": 3041,
-       "sha256": "588cbb1a1a31d91455ba1372c4ef0494353d1beb375db12cb4f7b2e1f58c70ac"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 1694,
-       "sha256": "5b88e74a72934894c3ba79723a6f1a37b5b41129d942a8059c97d53b37075e65"
-      },
-      {
-       "path": "settings.png",
-       "size": 3841,
-       "sha256": "f392f7f9d06fb5c8c6db9a1c1293c76d17ef82f29e4fb22eb0a003bf9daf723b"
+       "size": 3049,
+       "sha256": "2efc985e8a68ede0dd82bca7925ad4f2f757417ff794252b9bd72f41869c1107"
       },
       {
        "path": "sim_device.json",
@@ -496,19 +436,19 @@
    "needs_setup": false,
    "versions": [
     {
-     "version": "1.0.0",
+     "version": "1.0.1",
      "lua_api": 1,
-     "commit": "1d47adb6837881aadb7409d7547d63a2a6f6c860",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 198,
-       "sha256": "e3d03af8d897a8cca9ec77a16ada63fdeb583253a888ee5109b22f986de62e63"
+       "sha256": "ca5e22d6b8a9694a454facc7cde49b66ac88ccea6a574cca1414a700283b0cd5"
       },
       {
        "path": "main.lua",
-       "size": 894,
-       "sha256": "d598cade6fd503e3bcd88e334b516f1248ab5915bc760f2d88766382410f652b"
+       "size": 835,
+       "sha256": "700a485c8644d0c746aedceed488f2051e6916a932646f4e1268c9e6f71e2617"
       }
      ],
      "other_files": [
@@ -519,13 +459,8 @@
       },
       {
        "path": "README.md",
-       "size": 503,
-       "sha256": "6994fbbe7d13729cc94fc70e12cb4d27133c9f8c3c164b3af83164ad74b254f9"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 2292,
-       "sha256": "c4c9b24a7d8e36ae54fe11a276f239ea8710474f7f13d245bb4b58ab84cbcb9e"
+       "size": 510,
+       "sha256": "c43815ac00e5c78b1953d8b40118fd6bb27858abbc3ef993d605bd6a283c91db"
       }
      ]
     }
@@ -539,14 +474,14 @@
    "needs_setup": true,
    "versions": [
     {
-     "version": "1.0.1",
+     "version": "1.0.2",
      "lua_api": 1,
-     "commit": "954d614aafe214370acde474ca5fd64ec2ca3e7e",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 206,
-       "sha256": "90b61987ed4049dff1a80f276f8f26ca5b36360b8f6885870b3bc68342ac010d"
+       "sha256": "efed90ab7eb4d636edcadbbd137fb62c51dab17590468cff5e7f9440cf8d4c2a"
       },
       {
        "path": "feed.lua",
@@ -555,8 +490,8 @@
       },
       {
        "path": "main.lua",
-       "size": 13432,
-       "sha256": "2ad0d134b2ad4b8aa6092e444ca1acae0d232d92b06c1a4ce9398c9ec99f4b6b"
+       "size": 13301,
+       "sha256": "07f8990aefca92fd9003842b4ace739e8aa27a84befd0f4e8d34aecc7d86dbdf"
       },
       {
        "path": "pics.lua",
@@ -570,8 +505,8 @@
       },
       {
        "path": "wrap.lua",
-       "size": 2235,
-       "sha256": "71922ec22dfd52432a921692f866dad89116661aa5203e08e2303fa7215cd1b3"
+       "size": 880,
+       "sha256": "5c3b265d0fe2431e48bef14664f23b8aac8074b9b76ff1584a962e75e486b520"
       }
      ],
      "other_files": [
@@ -645,19 +580,19 @@
    "needs_setup": false,
    "versions": [
     {
-     "version": "1.0.1",
+     "version": "1.0.2",
      "lua_api": 1,
-     "commit": "880845c172b73e3998c1b5c152520bad9540a675",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 230,
-       "sha256": "825be41f0915657bec5ed1d873b419a2a624e0c2db06e531670d880a91893898"
+       "sha256": "0fa3f1b674dddbdc52455b780c411de1ff0717fbcf1cd4bfcbb67d861904ed00"
       },
       {
        "path": "main.lua",
-       "size": 13037,
-       "sha256": "f1bb1d59319d6eaf2062edde9708b571b771b29c2162221425fae7c5f8edc659"
+       "size": 12632,
+       "sha256": "e3c60dced7807f51b4d2525a249ec4d344281a0a9a7d5138f6198725ca365696"
       }
      ],
      "other_files": [
@@ -668,18 +603,8 @@
       },
       {
        "path": "README.md",
-       "size": 2136,
-       "sha256": "ffe2e7469be501906f4c2d32550d881c927957bd09f7e9a0b31fc8e19431f142"
-      },
-      {
-       "path": "cores3se.png",
-       "size": 10144,
-       "sha256": "edda707acc3ab112fc7a12ea3d27791763c9ce0550f3e9d1d63c07182d9017ae"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 5881,
-       "sha256": "4b322a70a1f8343b126e201c8e6bd81be3512d3ac7e8ccc4be9aa857ce82c78c"
+       "size": 2140,
+       "sha256": "09613786e2df1da3f6e46c44b75a4cb1468b368764e142446eb4b1d4cc9ccb80"
       }
      ]
     }
@@ -693,19 +618,19 @@
    "needs_setup": true,
    "versions": [
     {
-     "version": "1.0.1",
+     "version": "1.0.2",
      "lua_api": 1,
-     "commit": "880845c172b73e3998c1b5c152520bad9540a675",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 166,
-       "sha256": "a1ecb29c5f37874ff1a002cd6a5398eb8fd810036886539ac6f6348d345b3f73"
+       "sha256": "b4859ef987a4de6e6d8712f41d93b0ef13d5ebe275cc485ce3a41538b2a2118b"
       },
       {
        "path": "main.lua",
-       "size": 11839,
-       "sha256": "d1cdc6bfbf426a70706cc09779efd77c9e526dd61cae82a372a7b9aa390cf930"
+       "size": 11194,
+       "sha256": "d2ad2cdd63c13abc11de76d17978de66723d4e0bc71f9e0bb44cd4d3a969f190"
       },
       {
        "path": "spotify.lua",
@@ -721,13 +646,8 @@
       },
       {
        "path": "README.md",
-       "size": 2235,
-       "sha256": "aefb4628012e6f741f54b10b4e63281ce27072884f11c10de59c95063ce6ba09"
-      },
-      {
-       "path": "cores3.png",
-       "size": 76455,
-       "sha256": "c4f067132f84508837faed4a2d5d6ecbb36569e6b3deecdfb66e2186ed27a038"
+       "size": 2243,
+       "sha256": "fda1f1f2b5c84ed4bb6ae96c6482fafe26315b51ec83d82db66509e7daba3035"
       },
       {
        "path": "secrets.env.example",
@@ -746,19 +666,19 @@
    "needs_setup": true,
    "versions": [
     {
-     "version": "1.0.1",
+     "version": "1.0.2",
      "lua_api": 1,
-     "commit": "880845c172b73e3998c1b5c152520bad9540a675",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 256,
-       "sha256": "b8feb297fd7f802b3602fa3d4291a1a4c6c337130c6e6eacec8481d40b557f1a"
+       "sha256": "bb224c327407f2529aa7ebb7f2d00bcb866171b6291f9db2f2f17a22e7b45bc0"
       },
       {
        "path": "main.lua",
-       "size": 16844,
-       "sha256": "5eca568781224f4800d8e57c4205fb2aeee984ff2763132193903d22b11c737f"
+       "size": 16300,
+       "sha256": "575d0c764fdd34d8270791233156e9b02a10a962f78aa1acdf7d14d702cd2f83"
       }
      ],
      "other_files": [
@@ -769,13 +689,8 @@
       },
       {
        "path": "README.md",
-       "size": 3475,
-       "sha256": "7b19597ed9f682585ddac078132468e4189c1b113598e4e9dfbca61516fed9b4"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 2396,
-       "sha256": "ab959cd223df6cd8a7e419aaf6f21bfc5af9e4cfc8809accdfcf2999e72c63c6"
+       "size": 3479,
+       "sha256": "ab1dc984fcf2e1a4ff51a968c8d0e533a2bfb4c5b2962bb546f1f76c0f4d3c57"
       },
       {
        "path": "secrets.env.example",
@@ -794,19 +709,19 @@
    "needs_setup": false,
    "versions": [
     {
-     "version": "1.0.1",
+     "version": "1.0.2",
      "lua_api": 1,
-     "commit": "880845c172b73e3998c1b5c152520bad9540a675",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 275,
-       "sha256": "b6365f5e61b878ab4f65b05ff0f198ef55126df7a033e310fdcb931575e7f551"
+       "sha256": "129a2512ab4e14699abf13e33f87a201359b3d6e2c49998a0882e443437e40a6"
       },
       {
        "path": "main.lua",
-       "size": 14611,
-       "sha256": "1dd8b0d07af5cd4f010a8cd72c80789eb49ce1d4589ec80ad301246b7e071feb"
+       "size": 14625,
+       "sha256": "8283c958bb123f20e933358a8f7f6edc654ad9e52803e6e1dff2772d287c65ad"
       }
      ],
      "other_files": [
@@ -817,23 +732,8 @@
       },
       {
        "path": "README.md",
-       "size": 2946,
-       "sha256": "b3a339206822bb8f082d7e25f9bf4883f4d4548d85c7194e9def4b8f4b260164"
-      },
-      {
-       "path": "alarm.png",
-       "size": 2995,
-       "sha256": "def947f927042cc6b83ca544ec7a62850cfa35932450a13d698d743d9321d86c"
-      },
-      {
-       "path": "running.png",
-       "size": 3309,
-       "sha256": "04ec2b05d6926c3081700ea495d7b705f9f835d9d277cb919e49f05e25029a5d"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 3547,
-       "sha256": "26c5739f5c64985e2fa6185704ae456eb12db0793a09bc0d2aefc6980451abf3"
+       "size": 2958,
+       "sha256": "1090b9b00d2651329a5a9558a99eae038edfd8e4ab59a20583a4389de4074b63"
       }
      ]
     }
@@ -847,19 +747,19 @@
    "needs_setup": false,
    "versions": [
     {
-     "version": "1.0.2",
+     "version": "1.0.3",
      "lua_api": 1,
-     "commit": "880845c172b73e3998c1b5c152520bad9540a675",
+     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
      "files": [
       {
        "path": "app.json",
        "size": 216,
-       "sha256": "f98fbdf7bffabe3f6d6b4879a84711766e124e6a7fe10851fbdbbc8d1106b96c"
+       "sha256": "f10a39f211c785289830221d2ad91020fabb58c49648dd736de1dd3f00d7166b"
       },
       {
        "path": "main.lua",
-       "size": 14935,
-       "sha256": "ecb847e97bd50819e2c37c99ee631682291f0233591931338797871558da4516"
+       "size": 14693,
+       "sha256": "a65dab84d32bafd31649f426da56bcf8219b6e67e72cfd2156d1bb0b01617c9e"
       }
      ],
      "other_files": [
@@ -870,18 +770,8 @@
       },
       {
        "path": "README.md",
-       "size": 2485,
-       "sha256": "1c6ee1f785e61edaca2f2270a642aa4d8fc96a9dd98179ee2d18dc8a812978a1"
-      },
-      {
-       "path": "days.png",
-       "size": 2359,
-       "sha256": "7db9d9fcc9a549fd7e2560fb682ae43be4fb1289e568e8f41bb0f0ad74514344"
-      },
-      {
-       "path": "screenshot.png",
-       "size": 2056,
-       "sha256": "cdd38bc888f2989dbf01e69e80506a61f688cdd8a341b49ef5938d09a578f777"
+       "size": 2493,
+       "sha256": "68f7b56cbf8a4fa38ed7d8d86be71e3e17d5da17974c0d4203f760b4c1f9e0ea"
       },
       {
        "path": "secrets.env.example",
