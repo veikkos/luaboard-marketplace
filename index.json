@@ -185,20 +185,20 @@
   },
   "football": {
    "title": "Football",
-   "description": "Live scores, today's games and the latest results for the football leagues and teams you choose. Needs your own free football-data.org key.",
+   "description": "Live scores, today's games and the latest results for the leagues and teams you choose.",
    "author": "Veikko",
    "license": "MIT",
    "needs_setup": true,
    "versions": [
     {
-     "version": "1.0.3",
+     "version": "1.0.4",
      "lua_api": 1,
-     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
+     "commit": "850ef153922cd15c8e9fd1e740b2339c607386ef",
      "files": [
       {
        "path": "app.json",
-       "size": 266,
-       "sha256": "f9145be90a1cdcb576419da531811a5a52d186e87eeee9fdff7ad9ff9917abc9"
+       "size": 214,
+       "sha256": "ba483719132c59096c1e8ab96d8915f734461ed0b2e7aff28a18ccc5b7c70286"
       },
       {
        "path": "games.lua",
@@ -243,15 +243,15 @@
   },
   "gcal": {
    "title": "Google Calendar",
-   "description": "Your next meetings from Google Calendar, quietly; a pulsing red banner when an event's notification comes due.",
+   "description": "Your next meetings from Google Calendar, quietly; a pulsing red banner when a reminder comes due.",
    "author": "Veikko",
    "license": "MIT",
    "needs_setup": true,
    "versions": [
     {
-     "version": "1.0.3",
+     "version": "1.0.4",
      "lua_api": 1,
-     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
+     "commit": "850ef153922cd15c8e9fd1e740b2339c607386ef",
      "files": [
       {
        "path": "agenda.lua",
@@ -260,8 +260,8 @@
       },
       {
        "path": "app.json",
-       "size": 244,
-       "sha256": "8e575d9564f7d506a5ba5904856566c346bfbc45ab655b274429d2c558d77960"
+       "size": 231,
+       "sha256": "ed6f2cebe51f857fee7ef7e480d947d1f54b824532ed156275c800d984eecb8d"
       },
       {
        "path": "gcal.lua",
@@ -296,20 +296,20 @@
   },
   "github": {
    "title": "GitHub",
-   "description": "Your GitHub repos on a desk board: the latest workflow run, open pull requests and reviews waiting for you. Needs your own GitHub App.",
+   "description": "Your GitHub repos at a glance: workflow runs, open pull requests and reviews waiting for you.",
    "author": "Veikko",
    "license": "MIT",
    "needs_setup": true,
    "versions": [
     {
-     "version": "1.0.2",
+     "version": "1.0.3",
      "lua_api": 1,
-     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
+     "commit": "850ef153922cd15c8e9fd1e740b2339c607386ef",
      "files": [
       {
        "path": "app.json",
-       "size": 259,
-       "sha256": "d059ffc4e997b8bbf1bcd3dff2cd5f74f2076265223cb80da967890364444498"
+       "size": 218,
+       "sha256": "41259d488476ded6aa2793079abfacb856b3cd07378a3ebabf278b4ee425b59a"
       },
       {
        "path": "github.lua",
@@ -660,20 +660,20 @@
   },
   "stocks": {
    "title": "Stocks",
-   "description": "US stock and ETF prices and the day's chart: S&P 500, Nasdaq 100, Dow and Russell 2000 by default. Needs your own free Alpaca keys.",
+   "description": "US stock and ETF prices with the day's chart: S&P 500, Nasdaq 100, Dow and Russell 2000 by default.",
    "author": "Veikko",
    "license": "MIT",
    "needs_setup": true,
    "versions": [
     {
-     "version": "1.0.2",
+     "version": "1.0.3",
      "lua_api": 1,
-     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
+     "commit": "850ef153922cd15c8e9fd1e740b2339c607386ef",
      "files": [
       {
        "path": "app.json",
-       "size": 256,
-       "sha256": "bb224c327407f2529aa7ebb7f2d00bcb866171b6291f9db2f2f17a22e7b45bc0"
+       "size": 224,
+       "sha256": "23c9c0724db6ea7deb75010ecce895b5fcb691d3b78cfc5452a13c6ec18ea3cf"
       },
       {
        "path": "main.lua",
@@ -703,20 +703,20 @@
   },
   "timer": {
    "title": "Timer",
-   "description": "A countdown that beeps when it's up. Keeps the time you set, the recent ones and a running timer across restarts, and saves the battery while it waits.",
+   "description": "A countdown that beeps when it's up. It keeps its times across restarts and saves the battery while it waits.",
    "author": "Veikko",
    "license": "MIT",
    "needs_setup": false,
    "versions": [
     {
-     "version": "1.0.2",
+     "version": "1.0.3",
      "lua_api": 1,
-     "commit": "e39b174e167935bab0b545dbf3193073fc63eed6",
+     "commit": "850ef153922cd15c8e9fd1e740b2339c607386ef",
      "files": [
       {
        "path": "app.json",
-       "size": 275,
-       "sha256": "129a2512ab4e14699abf13e33f87a201359b3d6e2c49998a0882e443437e40a6"
+       "size": 233,
+       "sha256": "c07169f7008b86af625db078043a217c323d7378c5b18bbd322322248ec8f0bd"
       },
       {
        "path": "main.lua",
