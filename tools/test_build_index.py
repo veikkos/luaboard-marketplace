@@ -94,13 +94,25 @@ class BuildIndexTest(unittest.TestCase):
         d = self.r.app("hello")
         a = self.r.commit()
         first = self.r.build()
-        (d / "main.lua").write_text("print('changed')\n")
+        (d / "README.md").write_text("# Hello, again\n")      # not a board file: no bump needed
         self.r.commit()
         second = self.r.build(first)
         v = second["apps"]["hello"]["versions"]
         self.assertEqual(len(v), 1)
         self.assertEqual(v[0]["commit"], a)
-        self.assertEqual(v[0]["files"][1]["sha256"], sha("print('hi')\n"))
+        self.assertEqual(v[0]["other_files"][1]["sha256"], sha("# hello\n"))
+
+    def test_changed_board_files_need_a_bump(self):
+        d = self.r.app("hello")
+        self.r.app("other")
+        self.r.commit()
+        first = self.r.build()
+        (d / "main.lua").write_text("print('changed')\n")
+        self.r.commit()
+        index, errors = build_index.build_index(self.r.root, git(self.r.root, "rev-parse", "HEAD"), first)
+        self.assertEqual(errors, ["hello: its files changed since version 1.0.0 was published:"
+                                  " bump the version in app.json"])
+        self.assertNotIn("hello", index["apps"])
 
     def test_bump_replaces_entry_same_lua_api(self):
         self.r.app("hello")
@@ -139,6 +151,22 @@ class BuildIndexTest(unittest.TestCase):
         self.assertEqual([f["path"] for f in v["files"]], ["Pic.JPG", "app.json", "logo.png", "main.lua", "s.wav"])
         self.assertEqual([f["path"] for f in v["other_files"]],
                          ["LICENSE", "README.md", "secrets.env.example", "sim_device.json"])
+
+    def test_needs_setup(self):
+        self.r.app("plain")
+        self.r.app("keys", extra={"secrets.env.example": "# where to get it\nkey=\nopt=default\n# more=x\n"})
+        self.r.app("quoted", extra={"secrets.env.example": 'k = ""\n'})
+        self.r.app("optional", extra={"secrets.env.example": "place=Helsinki\n# lat=60.1\n\n"})
+        self.r.commit()
+        apps = self.r.build()["apps"]
+        self.assertEqual({n: a["needs_setup"] for n, a in apps.items()},
+                         {"plain": False, "keys": True, "quoted": True, "optional": False})
+
+    def test_bad_secrets_example(self):
+        self.r.app("bad", extra={"secrets.env.example": "just text\n"})
+        self.r.commit()
+        _, errors = build_index.build_index(self.r.root, git(self.r.root, "rev-parse", "HEAD"), None)
+        self.assertEqual(errors, ["bad: secrets.env.example line 1: expected NAME=value"])
 
     def test_untracked_files_ignored(self):
         d = self.r.app("hello")
@@ -219,10 +247,22 @@ class BuildIndexTest(unittest.TestCase):
         a = self.r.commit()
         out = self.r.root / "index.json"
         self.assertEqual(build_index.main(["--root", str(self.r.root), "--commit", a]), 0)
-        (d / "main.lua").write_text("print('changed')\n")
+        (d / "README.md").write_text("# changed\n")
         b = self.r.commit()
         self.assertEqual(build_index.main(["--root", str(self.r.root), "--commit", b]), 0)
         self.assertEqual(json.loads(out.read_text())["apps"]["hello"]["versions"][0]["commit"], a)
+
+    def test_previous_from_another_file(self):
+        d = self.r.app("hello")
+        a = self.r.commit()
+        self.assertEqual(build_index.main(["--root", str(self.r.root), "--commit", a]), 0)
+        git(self.r.root, "add", "index.json")
+        (d / "main.lua").write_text("print('changed')\n")
+        b = self.r.commit()
+        other = str(self.r.root / "elsewhere.json")
+        args = ["--root", str(self.r.root), "--commit", b, "--out", other]
+        self.assertEqual(build_index.main(args), 0)                                    # nothing to compare with
+        self.assertEqual(build_index.main(args + ["--previous", str(self.r.root / "index.json")]), 1)
 
 
 if __name__ == "__main__":

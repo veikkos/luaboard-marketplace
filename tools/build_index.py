@@ -2,13 +2,16 @@
 """Build index.json: every app in this repository and the versions boards
 can install.
 
-    python3 tools/build_index.py [--root .] [--commit SHA] [--out index.json]
+    python3 tools/build_index.py [--root .] [--commit SHA] [--out index.json] [--previous index.json]
 
 Each app is a top-level folder. For each app the index keeps, per lua_api
 value, the newest version: its commit (boards download its files from that
-commit) and its files with size and sha256. A version already in the index
-keeps its entry, even if its files changed since: bump the version to
-publish a change. The previous index is read from --out. Only tracked files
+commit) and its files with size and sha256. needs_setup says whether the
+app's secrets.env.example has a key left empty: one users must set (a
+default value, or a key commented out, is optional). A version already in the index
+keeps its entry, so a change to an app's board files without a new version
+is an error: boards would never get it. The previous index is read from
+--previous (default: --out). Only tracked files
 count, so secrets.env never gets in. Standard library only.
 """
 
@@ -32,6 +35,24 @@ VERSION = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 def is_board_file(name: str) -> bool:
     """Whether a file goes to the board (the same rule as the luaboard CLI)."""
     return name == "app.json" or name.endswith(".lua") or name.lower().endswith(BOARD_EXTS)
+
+
+def required_secrets(text: str, app: str, err) -> list[str]:
+    """The keys of a secrets.env.example left empty: the ones users must set."""
+    keys = []
+    for i, line in enumerate(text.splitlines(), 1):
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if "=" not in line:
+            err(f"{app}: secrets.env.example line {i}: expected NAME=value")
+            continue
+        name, value = (s.strip() for s in line.split("=", 1))
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+            value = value[1:-1]
+        if not value:
+            keys.append(name)
+    return keys
 
 
 def parse_version(s) -> tuple | None:
@@ -81,6 +102,8 @@ def read_app(root: Path, app: str) -> tuple[dict, list[str]]:
         err(f"{app}: no LICENSE file")
     if "main.lua" not in names:
         err(f"{app}: no main.lua")
+    setup = "secrets.env.example" in names and required_secrets(
+        (root / app / "secrets.env.example").read_text(encoding="utf-8"), app, err)
     info = {
         "title": str(meta.get("title", "")),
         "description": str(meta.get("description", "")),
@@ -88,6 +111,7 @@ def read_app(root: Path, app: str) -> tuple[dict, list[str]]:
         "license": license_ if isinstance(license_, str) else "",
         "version": version,
         "lua_api": lua_api,
+        "needs_setup": bool(setup),
         "files": [file_entry(root / app / n, n) for n in names if is_board_file(n)],
         "other_files": [file_entry(root / app / n, n) for n in names if not is_board_file(n)],
     }
@@ -121,7 +145,15 @@ def build_index(root: Path, commit: str, previous: dict | None) -> tuple[dict, l
         if errs:
             continue
         versions = list(prev_apps.get(name, {}).get("versions", []))
-        if not any(v.get("version") == info["version"] for v in versions):
+        published = next((v for v in versions if v.get("version") == info["version"]), None)
+        if published is not None:
+            def board(files):
+                return sorted((f.get("path"), f.get("sha256")) for f in files)
+            if board(published.get("files", [])) != board(info["files"]):
+                errors.append(f"{name}: its files changed since version {info['version']} was published:"
+                              " bump the version in app.json")
+                continue
+        else:
             versions.append({"version": info["version"], "lua_api": info["lua_api"], "commit": commit,
                              "files": info["files"], "other_files": info["other_files"]})
         newest = {}
@@ -131,7 +163,7 @@ def build_index(root: Path, commit: str, previous: dict | None) -> tuple[dict, l
                 newest[v["lua_api"]] = v
         apps[name] = {
             "title": info["title"], "description": info["description"], "author": info["author"],
-            "license": info["license"],
+            "license": info["license"], "needs_setup": info["needs_setup"],
             "versions": sorted(newest.values(), key=lambda v: parse_version(v["version"]), reverse=True),
         }
     return {"format": FORMAT, "apps": apps}, errors
@@ -142,12 +174,14 @@ def main(argv) -> int:
     ap.add_argument("--root", default=".")
     ap.add_argument("--commit")
     ap.add_argument("--out")
+    ap.add_argument("--previous")
     a = ap.parse_args(argv)
     root = Path(a.root)
     out = Path(a.out) if a.out else root / "index.json"
+    prev = Path(a.previous) if a.previous else out
     commit = a.commit or subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, check=True,
                                         capture_output=True, text=True).stdout.strip()
-    previous = json.loads(out.read_text(encoding="utf-8")) if out.exists() else None
+    previous = json.loads(prev.read_text(encoding="utf-8")) if prev.exists() else None
     index, errors = build_index(root, commit, previous)
     for e in errors:
         print("error: " + e, file=sys.stderr)

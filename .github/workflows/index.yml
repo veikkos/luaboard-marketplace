@@ -20,8 +20,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Test the index script
         run: python3 -m unittest discover -s tools -v
-      - name: Check every app
-        run: python3 tools/build_index.py --out "$RUNNER_TEMP/index.json"
+      - name: Check every app (and that a changed app has a new version)
+        run: python3 tools/build_index.py --previous index.json --out "$RUNNER_TEMP/index.json"
 
   index:
     if: github.event_name != 'pull_request'
