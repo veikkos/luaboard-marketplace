@@ -221,14 +221,14 @@
    "license": "MIT",
    "versions": [
     {
-     "version": "1.0.1",
+     "version": "1.0.2",
      "lua_api": 1,
-     "commit": "954d614aafe214370acde474ca5fd64ec2ca3e7e",
+     "commit": "56fa20f9bf8a5b2fa01088867dde777b9956c255",
      "files": [
       {
        "path": "app.json",
        "size": 266,
-       "sha256": "57a4833a5bdf593962a308aaa647b63d7eb0aebb74626aa6f1e4fdc3973b5853"
+       "sha256": "df63e9beaf3439c8b78d44b53ba5831418794fa34e55e81d283668c63020262f"
       },
       {
        "path": "games.lua",
@@ -247,8 +247,8 @@
       },
       {
        "path": "web.lua",
-       "size": 2431,
-       "sha256": "aabb37d1541fcb66f8a0f6ac07fa5c4df6340deeaa6f53f591cf9292052060e7"
+       "size": 2616,
+       "sha256": "6041979475a20d417aaf7860e3bbdbfce8311e9ad8cc27c70aae9c00562f1799"
       }
      ],
      "other_files": [
