@@ -27,6 +27,10 @@ Only the `.lua` files, `app.json`, and the `.jpg`, `.jpeg`, `.png` and `.wav`
 files at the app's top level go to the board. Everything else, `img/`
 included, stays in the repository. Other subfolders are not used.
 
+The board takes at most 32 files of an app, each at most 256 KiB, with names
+of 1 to 31 characters from `A-Z a-z 0-9 _ . -` that don't start with a dot.
+The checks refuse an app past these, since boards would leave it out.
+
 ## app.json
 
 ```json

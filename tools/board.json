@@ -1,0 +1,19 @@
+{
+ "asset_types": ["jpg", "jpeg", "png", "wav"],
+ "limits": {
+  "apps": 128,
+  "index_bytes": 65536,
+  "app_name": 23,
+  "files": 32,
+  "file_name": 31,
+  "file_bytes": 262144,
+  "title_bytes": 31,
+  "author_bytes": 31,
+  "license_bytes": 23,
+  "description_bytes": 432,
+  "description_lines": 3,
+  "description_cols": 48,
+  "description_qr_lines": 4,
+  "description_qr_cols": 26
+ }
+}

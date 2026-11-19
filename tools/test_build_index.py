@@ -200,6 +200,49 @@ class BuildIndexTest(unittest.TestCase):
             "wordy: description takes 4 lines of 48 characters in its options, the board shows 3",
         ])
 
+    def test_files_the_board_takes(self):
+        most = build_index.LIMITS
+        long = "n" * (most["file_name"] - 4) + ".lua"                   # as long as a file name gets
+        self.r.app("ok", extra={long: "x\n", "pic.png": b"p" * most["file_bytes"],
+                                "img/a much longer name than the board takes.png": b"p",
+                                "notes of any length, in any words.txt": "x\n"})
+        self.r.app("names", extra={"n" + long: "x\n", "two words.lua": "x\n"})
+        self.r.app("big", extra={"pic.png": b"p" * (most["file_bytes"] + 1)})
+        self.r.app("many", extra={f"m{i}.lua": "x\n" for i in range(most["files"] - 1)})
+        self.r.commit()
+        index, errors = build_index.build_index(self.r.root, git(self.r.root, "rev-parse", "HEAD"), None)
+        self.assertEqual(sorted(errors), [
+            "big: pic.png is 262145 bytes, at most 262144",
+            "many: 33 files for the board, at most 32",
+            "names: " + "n" + long + " isn't a file name the board takes (1..31 characters, A-Z a-z 0-9 _ . -)",
+            "names: two words.lua isn't a file name the board takes (1..31 characters, A-Z a-z 0-9 _ . -)",
+        ])
+        self.assertEqual(list(index["apps"]), ["ok"])
+
+    def test_names_the_board_takes(self):
+        ok = build_index.valid_name
+        self.assertTrue(ok("a" * 23, 23) and ok("a.b-c_D9", 23))
+        self.assertFalse(ok("a" * 24, 23) or ok("", 23) or ok(".a", 23) or ok("a b", 23) or ok("a\n", 23)
+                         or ok("ä", 23) or ok("a/b", 23))
+
+    def test_an_index_the_board_reads(self):
+        self.r.app("hello")
+        c = self.r.commit()
+        out = self.r.root / "index.json"
+        self.assertEqual(build_index.main(["--root", str(self.r.root), "--commit", c]), 0)
+        size = out.stat().st_size
+        whole = dict(build_index.LIMITS)
+        try:
+            build_index.LIMITS["index_bytes"] = size - 1
+            out.unlink()
+            self.assertEqual(build_index.main(["--root", str(self.r.root), "--commit", c]), 1)
+            self.assertFalse(out.exists())
+            build_index.LIMITS.update(index_bytes=size, apps=0)
+            _, errors = build_index.build_index(self.r.root, c, None)
+            self.assertEqual(errors, ["1 apps, boards read at most 0"])
+        finally:
+            build_index.LIMITS.update(whole)
+
     def test_untracked_files_ignored(self):
         d = self.r.app("hello")
         self.r.commit()

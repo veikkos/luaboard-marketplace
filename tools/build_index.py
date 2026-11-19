@@ -13,6 +13,10 @@ keeps its entry, so a change to an app's board files without a new version
 is an error: boards would never get it. The previous index is read from
 --previous (default: --out). Only tracked files
 count, so secrets.env never gets in. Standard library only.
+
+What a board takes is in board.json, next to this file: an app or an index
+past a limit there is an error, since boards would leave the app out, or
+the whole index, without a word.
 """
 
 from __future__ import annotations
@@ -27,18 +31,26 @@ from pathlib import Path
 
 FORMAT = 1
 NOT_APPS = {"tools"}
-BOARD_EXTS = (".jpg", ".jpeg", ".png", ".wav")
-NAME = re.compile(r"^[A-Za-z0-9_.-]{1,23}$")
+NAME = re.compile(r"[A-Za-z0-9_-][A-Za-z0-9_.-]*")
 VERSION = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 
-# What the board keeps of app.json's text, in UTF-8 bytes, and the room
-# its screens give a description: lines of characters in the app's
-# options, and beside the QR code on the Marketplace page of an app that
-# needs setup. The same numbers as APP_*_MAX and APP_DESC_* in luaboard's
-# app/src/app_config.h.
-DESC_ROOM = (3, 48)
-DESC_QR_ROOM = (4, 26)
-TEXT_MAX = {"title": 31, "description": DESC_ROOM[0] * DESC_ROOM[1] * 3, "author": 31, "license": 23}
+# What a board takes. asset_types: the files that go to it besides .lua
+# files and app.json, as the luaboard CLI sends them. limits: the most its
+# firmware reads, of an index (apps, index_bytes), of an app (the length of
+# its name, its files and each one's name and size) and of app.json's text
+# in UTF-8 bytes, and the room its screens give a description: lines of
+# characters in the app's options, and beside the QR code on the
+# Marketplace page of an app that needs setup. luaboard's tests hold these
+# to its firmware (app/test/test_apps_index.c) and CLI: none may be more
+# than a firmware in use reads.
+BOARD = json.loads(Path(__file__).with_name("board.json").read_text(encoding="utf-8"))
+LIMITS = BOARD["limits"]
+BOARD_EXTS = tuple("." + t for t in BOARD["asset_types"])
+
+
+def valid_name(name: str, most: int) -> bool:
+    """Whether the board takes this as an app's or a file's name."""
+    return len(name) <= most and NAME.fullmatch(name) is not None
 
 
 def is_board_file(name: str) -> bool:
@@ -84,13 +96,15 @@ def board_lines(text: str, cols: int) -> int:
 
 def check_text(meta: dict, app: str, setup: bool, err) -> None:
     """app.json's text within what the board keeps and shows."""
-    for key, most in TEXT_MAX.items():
-        n = len(str(meta.get(key, "")).encode("utf-8"))
+    for key in ("title", "description", "author", "license"):
+        n, most = len(str(meta.get(key, "")).encode("utf-8")), LIMITS[key + "_bytes"]
         if n > most:
             err(f"{app}: {key} is {n} bytes, at most {most}")
     desc = str(meta.get("description", ""))
-    rooms = [(DESC_ROOM, "in its options")] + [(DESC_QR_ROOM, "beside the QR code on its Marketplace page")] * setup
-    for (lines, cols), where in rooms:
+    rooms = [("description", "in its options")]
+    rooms += [("description_qr", "beside the QR code on its Marketplace page")] * setup
+    for room, where in rooms:
+        lines, cols = LIMITS[room + "_lines"], LIMITS[room + "_cols"]
         n = board_lines(desc, cols)
         if n > lines:
             err(f"{app}: description takes {n} lines of {cols} characters {where}, the board shows {lines}")
@@ -112,6 +126,18 @@ def tracked_files(root: Path, app: str) -> list[str]:
     return sorted(p[len(prefix):] for p in git_files(root) if p.startswith(prefix) and "/" not in p[len(prefix):])
 
 
+def check_files(files: list[dict], app: str, err) -> None:
+    """The app's board files within what the board installs."""
+    if len(files) > LIMITS["files"]:
+        err(f"{app}: {len(files)} files for the board, at most {LIMITS['files']}")
+    for f in files:
+        if not valid_name(f["path"], LIMITS["file_name"]):
+            err(f"{app}: {f['path']} isn't a file name the board takes"
+                f" (1..{LIMITS['file_name']} characters, A-Z a-z 0-9 _ . -)")
+        if f["size"] > LIMITS["file_bytes"]:
+            err(f"{app}: {f['path']} is {f['size']} bytes, at most {LIMITS['file_bytes']}")
+
+
 def file_entry(path: Path, name: str) -> dict:
     data = path.read_bytes()
     return {"path": name, "size": len(data), "sha256": hashlib.sha256(data).hexdigest()}
@@ -121,8 +147,8 @@ def read_app(root: Path, app: str) -> tuple[dict, list[str]]:
     """The app's info from its folder, and what's wrong with it."""
     errors = []
     err = errors.append
-    if not NAME.match(app) or app.startswith("."):
-        err(f"{app}: not a valid app name (1..23 characters, A-Z a-z 0-9 _ . -)")
+    if not valid_name(app, LIMITS["app_name"]):
+        err(f"{app}: not a valid app name (1..{LIMITS['app_name']} characters, A-Z a-z 0-9 _ . -)")
     names = tracked_files(root, app)
     try:
         meta = json.loads((root / app / "app.json").read_text(encoding="utf-8"))
@@ -146,6 +172,8 @@ def read_app(root: Path, app: str) -> tuple[dict, list[str]]:
     setup = "secrets.env.example" in names and required_secrets(
         (root / app / "secrets.env.example").read_text(encoding="utf-8"), app, err)
     check_text(meta, app, bool(setup), err)
+    files = [file_entry(root / app / n, n) for n in names if is_board_file(n)]
+    check_files(files, app, err)
     info = {
         "title": str(meta.get("title", "")),
         "description": str(meta.get("description", "")),
@@ -154,7 +182,7 @@ def read_app(root: Path, app: str) -> tuple[dict, list[str]]:
         "version": version,
         "lua_api": lua_api,
         "needs_setup": bool(setup),
-        "files": [file_entry(root / app / n, n) for n in names if is_board_file(n)],
+        "files": files,
         "other_files": [file_entry(root / app / n, n) for n in names if not is_board_file(n)],
     }
     return info, errors
@@ -181,6 +209,8 @@ def build_index(root: Path, commit: str, previous: dict | None) -> tuple[dict, l
     prev_apps = (previous or {}).get("apps", {})
     names = app_names(root)
     apps, errors = {}, case_duplicates(names)
+    if len(names) > LIMITS["apps"]:
+        errors.append(f"{len(names)} apps, boards read at most {LIMITS['apps']}")
     for name in names:
         info, errs = read_app(root, name)
         errors += errs
@@ -225,14 +255,17 @@ def main(argv) -> int:
                                         capture_output=True, text=True).stdout.strip()
     previous = json.loads(prev.read_text(encoding="utf-8")) if prev.exists() else None
     index, errors = build_index(root, commit, previous)
+    text = json.dumps(index, indent=1, ensure_ascii=False) + "\n"
+    size = len(text.encode("utf-8"))
+    if size > LIMITS["index_bytes"]:
+        errors.append(f"the index is {size} bytes, boards read at most {LIMITS['index_bytes']}")
     for e in errors:
         print("error: " + e, file=sys.stderr)
     if errors:
         return 1
-    text = json.dumps(index, indent=1, ensure_ascii=False) + "\n"
     if not out.exists() or out.read_text(encoding="utf-8") != text:
         out.write_text(text, encoding="utf-8")
-        print(f"wrote {out}: {len(index['apps'])} apps")
+        print(f"wrote {out}: {len(index['apps'])} apps, {size} of {LIMITS['index_bytes']} bytes")
     else:
         print(f"{out} unchanged")
     return 0
