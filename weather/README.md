@@ -21,12 +21,14 @@ luaboard secrets set weather place Tampere
 
 ## Usage
 
-| Button | |
-|---|---|
-| `‹‹` (A) | now and the next 24 hours |
-| `○` (B) | fetch now |
-| `››` (C) | the next 7 days |
-| hold `○` | back to the menu |
+| Button | By touch | |
+|---|---|---|
+| `‹‹` (A) | swipe right | now and the next 24 hours |
+| `○` (B) | swipe down | fetch now |
+| `››` (C) | swipe left | the next 7 days |
+| hold `○` | the power key | back to the menu |
+
+A tap on a hint at the bottom of the screen does the same as its button.
 
 The screen stays on while the app runs. In the chart the orange line is the
 temperature, the white dot is now, and the blue bars are the rain of each

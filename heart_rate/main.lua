@@ -257,18 +257,24 @@ local function draw_status()
   disp.text(W // 2, 228, hint, DIM, 1, nil, "center")
 end
 
--- Settings: A / C change the max heart rate (held: by 5), B is done, the
--- button at the bottom forgets the strap.
-local FORGET = { x = 60, y = 168, w = 200, h = 36 }
+-- Settings: A / C change the max heart rate (held: by 5), B is done. By
+-- touch the same: the left and the right of the number are -1 and +1 (held:
+-- by 5), and a tap elsewhere is done. The two at the bottom start a new
+-- session and forget the strap.
+local NEW = { x = 8, y = 168, w = 148, h = 36 }
+local FORGET = { x = 164, y = 168, w = 148, h = 36 }
+local STEP_Y = 140                              -- above it: the number, with -1 and +1 at its sides
 
 local function draw_settings()
   disp.text(W // 2, 20, "Max heart rate", FG, 2, nil, "center")
   disp.text(W // 2, 56, tostring(HR.max_hr), ACCENT, 6, nil, "center")
   disp.text(W // 2, 110, "<< -1      o done      +1 >>", DIM, 1, nil, "center")
   disp.text(W // 2, 124, "hold << or >> for 5", DIMMER, 1, nil, "center")
+  disp.rect(NEW.x, NEW.y, NEW.w, NEW.h, GRID, true)
+  disp.text(NEW.x + NEW.w // 2, NEW.y + 14, "New session", FG, 1, nil, "center")
   disp.rect(FORGET.x, FORGET.y, FORGET.w, FORGET.h, GRID, true)
   local forget = store.get("addr") and "Forget this strap" or "No strap remembered"
-  disp.text(W // 2, FORGET.y + 14, forget, FG, 1, nil, "center")
+  disp.text(FORGET.x + FORGET.w // 2, FORGET.y + 14, forget, FG, 1, nil, "center")
   disp.text(W // 2, 220, "zones: 50 60 70 80 90 % of max", DIMMER, 1, nil, "center")
 end
 
@@ -290,27 +296,42 @@ local function change_max(d)
   dirty = true
 end
 
+local function new_session()
+  session = { start = HR.phase == "live" and sys.millis() or nil, sum = 0, n = 0, max = 0 }
+  history = {}
+  dirty = true
+end
+
+local function inside(r, x, y) return x >= r.x and x < r.x + r.w and y >= r.y and y < r.y + r.h end
+
+-- In the settings, the side of the number at (x, y): -1, 1, or nil elsewhere.
+local function side(x, y)
+  if y < STEP_Y then return x < W // 3 and -1 or x >= 2 * W // 3 and 1 or nil end
+end
+
 touch.on("press", function(b)
   if HR.settings then
     if b == "A" then change_max(-1) elseif b == "C" then change_max(1)
     else HR.settings = false; dirty = true end
-  elseif b == "B" then                         -- a new session
-    session = { start = HR.phase == "live" and sys.millis() or nil, sum = 0, n = 0, max = 0 }
-    history = {}
-    dirty = true
+  elseif b == "B" then
+    new_session()
   end
 end)
 touch.on("long", function(b)
   if HR.settings then change_max(b == "A" and -5 or 5) end
 end)
-touch.on("hold", function()
-  if not HR.settings then HR.settings = true; dirty = true end
+touch.on("hold", function(x, y)
+  if not HR.settings then HR.settings = true; dirty = true
+  elseif side(x, y) then change_max(5 * side(x, y)) end
 end)
 touch.on("tap", function(x, y)
   if not HR.settings then return end
-  if x >= FORGET.x and x < FORGET.x + FORGET.w and y >= FORGET.y and y < FORGET.y + FORGET.h then
+  if side(x, y) then change_max(side(x, y)); return end
+  if inside(FORGET, x, y) then
     HR.forget = true
     HR.bpm, history = nil, {}
+  elseif inside(NEW, x, y) then
+    new_session()
   end
   HR.settings = false
   dirty = true

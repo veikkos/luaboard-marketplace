@@ -1,7 +1,8 @@
 # Dashboard
 
 Gauges for a knob on Port B and the battery, lights for USB power and
-charging, and the three touch buttons lighting up when pressed. The gauges
+charging, and the three touch buttons lighting up when pressed (or when
+their boxes on the screen are touched). The gauges
 come from `widgets.lua`, so it also shows how an app is split into modules
 with `require`.
 

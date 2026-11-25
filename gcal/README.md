@@ -66,6 +66,10 @@ client ID and secret, so set those again after it.
 | `○` | calendar picker (or log in again, when asked) | dismiss | tick / untick, or Done |
 | `››` | tomorrow | | down |
 
+By touch: a tap on a hint at the bottom of the screen does the same as its
+button, a swipe to the right and to the left shows today and tomorrow, and
+in the picker a tap on a row ticks it (or is Done).
+
 The picker lists your calendars, with the primary one ticked at first. Done
 saves the choice on the device.
 

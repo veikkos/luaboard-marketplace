@@ -346,7 +346,7 @@ local function scroll_list(to)
   draw()
 end
 
-touch.on("press", function(b)
+local function button(b)
   last_touch = sys.millis()
   if b == "B" then
     if UI.view == "detail" then close()
@@ -367,7 +367,8 @@ touch.on("press", function(b)
     elseif UI.scroll > at then scroll_list(at)
     else scroll_list(at - ROW_H) end
   end
-end)
+end
+touch.on("press", button)
 
 touch.on("tap", function(x, y)
   last_touch = sys.millis()
@@ -377,12 +378,25 @@ touch.on("tap", function(x, y)
   if sy >= 0 then open(sy // ROW_H + 1) end
 end)
 
+local pulled                             -- the drag began in the list at its top
 touch.on("drag", function(x, y, x0, y0, ended)
   last_touch = sys.millis()
   if UI.view ~= "list" then return end
+  if not drag_base then pulled = UI.scroll == 0 end
   drag_base = drag_base or UI.scroll
   scroll_list(drag_base - (y - y0))
   if ended then drag_base = nil end
+end)
+
+-- The buttons by touch, for a board without them: in a game's details a
+-- swipe to the side is the next or the previous game, and the list pulled
+-- down at its top fetches now.
+touch.on("swipe", function(dir)
+  if UI.view == "detail" then
+    if dir == "left" then button("C") elseif dir == "right" then button("A") end
+  elseif dir == "down" and pulled then
+    button("B")
+  end
 end)
 
 timer.every(1000, function()             -- untouched for a while: back to the top

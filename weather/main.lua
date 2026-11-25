@@ -347,5 +347,14 @@ end
 touch.on("press", button)
 touch.on("long", button)                          -- a slow press of A or C counts too
 
+-- The same by touch, for a board without the buttons: a swipe to the side
+-- for the other view, down to refresh, or a tap on a hint at the bottom.
+touch.on("swipe", function(dir)
+  button(dir == "right" and "A" or dir == "left" and "C" or dir == "down" and "B")
+end)
+touch.on("tap", function(x, y)
+  if y >= 204 then button(x < W // 3 and "A" or x < 2 * W // 3 and "B" or "C") end
+end)
+
 disp.keep_awake(true)
 draw()

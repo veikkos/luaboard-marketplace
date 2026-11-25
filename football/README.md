@@ -42,14 +42,16 @@ luaboard secrets set football teams Arsenal,Bayern
 
 ## Usage
 
-| Button | |
-|---|---|
-| `‹‹` (A) | previous game |
-| `○` (B) | refresh now, or back from a game |
-| `››` (C) | next game |
-| tap a game | its detail, tap again to go back |
-| drag | scroll |
-| hold `○` | back to the menu |
+| Button | By touch | |
+|---|---|---|
+| `‹‹` (A) | drag | previous game |
+| `○` (B) | pull the list down at its top | refresh now |
+| `››` (C) | drag | next game |
+| | tap a game | its detail, tap again (or `○`) to go back |
+| hold `○` | the power key | back to the menu |
+
+In a game's detail, `‹‹` and `››`, or a swipe to the right and to the left,
+go to the previous and next game.
 
 The list has the games in progress first, then today's games still to
 come, then the finished ones, then the other days of the window (yesterday

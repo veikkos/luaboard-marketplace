@@ -33,13 +33,15 @@ missing slots of today, up to 8 at a time.
 
 ## Usage
 
-| Button | |
-|---|---|
-| `‹‹` (A) | today |
-| `○` (B) | fetch now |
-| `››` (C) | tomorrow |
-| tap a bar | that quarter hour's price, for 5 s |
-| hold `○` | back to the menu |
+| Button | By touch | |
+|---|---|---|
+| `‹‹` (A) | swipe right | today |
+| `○` (B) | swipe down | fetch now |
+| `››` (C) | swipe left | tomorrow |
+| | tap a bar | that quarter hour's price, for 5 s |
+| hold `○` | the power key | back to the menu |
+
+A tap on a hint at the bottom of the screen does the same as its button.
 
 Bars are blue for zero or negative prices, green under 5 c, then yellow,
 orange and red, deep red from 25 c/kWh. The dashed line is the day's average

@@ -1,7 +1,7 @@
 {
   "title": "Google Calendar",
   "description": "Your next meetings from Google Calendar, quietly; a pulsing red banner when a reminder comes due.",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "author": "Veikko",
   "license": "MIT",
   "lua_api": 1

@@ -17,6 +17,8 @@ function loop(dt)
   local pct, charging, usb = sys.battery()
   local up = (sys.millis() - start) // 1000
   local btn = touch.button()                       -- A or C while held
+  local tx, ty = touch.read()                      -- or a finger on a button's box on the screen
+  if tx and ty >= 190 then btn = ({ "A", "B", "C" })[tx * 3 // disp.W + 1] end
 
   disp.clear(disp.rgb(8, 12, 20))
   ui.gauge(80, 110, 70, knob, "KNOB", string.format("%d%%", math.floor(knob * 100)))

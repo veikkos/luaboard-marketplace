@@ -26,6 +26,10 @@ minutes stay). The recent times are below: tap one to set it. Up to
 | `››` (C) | a minute more, 5 when held |
 | hold `○` | back to the menu |
 
+A tap on a hint at the bottom of the screen does the same as its button,
+here and while it runs. On a board without the buttons, the power key goes
+back to the menu.
+
 ## Running
 
 The time left, a bar, and the clock time it ends. The screen stays on

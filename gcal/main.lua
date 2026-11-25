@@ -207,6 +207,8 @@ local function open_picker()
   UI.mode, UI.cursor = "picker", 1
 end
 
+local function picker_first() return math.max(1, UI.cursor - 6) end   -- the first row shown: 7 fit
+
 local function picker_press(b)
   local n = #UI.calendars + 1                     -- the last row is "Done"
   if b == "A" then UI.cursor = (UI.cursor - 2) % n + 1
@@ -238,7 +240,7 @@ local function draw_picker()
   local rows = {}
   for _, c in ipairs(UI.calendars) do rows[#rows + 1] = (picks[c.id] and "[x] " or "[ ] ") .. agenda.fit(c.name, 20) end
   rows[#rows + 1] = "Done"
-  local first = math.max(1, UI.cursor - 6)        -- 7 rows fit
+  local first = picker_first()
   for i = first, math.min(#rows, first + 6) do
     local y = 36 + (i - first) * 24
     if i == UI.cursor then disp.rect(4, y - 4, 312, 22, 0x2a2a2a, true) end
@@ -336,7 +338,24 @@ end
 touch.on("press", button)
 touch.on("long", button)                       -- a slow press of A or C counts too
 
-touch.on("tap", function() dismiss() end)      -- a tap on the screen dismisses too
+-- By touch, for a board without the buttons: a tap on the screen dismisses
+-- an alert, and otherwise a tap on a hint at the bottom is its button, a tap
+-- on a row of the picker ticks it, and a swipe to the side changes the day.
+touch.on("tap", function(x, y)
+  if alert then dismiss()
+  elseif y >= 216 then button(x < 107 and "A" or x < 214 and "B" or "C")
+  elseif UI.mode == "picker" and y >= 32 then
+    local i = picker_first() + (y - 32) // 24
+    if i <= #UI.calendars + 1 then
+      UI.cursor = i
+      button("B")
+    end
+  end
+end)
 touch.on("hold", function() dismiss() end)
+touch.on("swipe", function(dir)
+  if alert or UI.mode == "picker" then return end
+  if dir == "right" then button("A") elseif dir == "left" then button("C") end
+end)
 
 draw(sys.time())

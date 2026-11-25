@@ -328,7 +328,7 @@ local function scroll_list(to)
   draw()
 end
 
-touch.on("press", function(b)
+local function button(b)
   last_touch = sys.millis()
   if b == "B" and UI.view == "summary" then
     close()
@@ -351,7 +351,8 @@ touch.on("press", function(b)
       scroll_list(strip_y(i - 1))
     end
   end
-end)
+end
+touch.on("press", button)
 
 touch.on("tap", function(x, y)
   last_touch = sys.millis()
@@ -361,9 +362,11 @@ touch.on("tap", function(x, y)
   open(sy < HERO_H and 1 or 2 + (sy - HERO_H) // ROW_H)
 end)
 
+local pulled                              -- the drag began in the list at its top
 touch.on("drag", function(x, y, x0, y0, ended)
   last_touch = sys.millis()
   local summary = UI.view == "summary"
+  if not drag_base then pulled = not summary and UI.scroll == 0 end
   drag_base = drag_base or (summary and UI.sscroll or UI.scroll)
   local to = drag_base - (y - y0)
   if summary then
@@ -373,6 +376,17 @@ touch.on("drag", function(x, y, x0, y0, ended)
     scroll_list(to)
   end
   if ended then drag_base = nil end
+end)
+
+-- The buttons by touch, for a board without them: in a summary a swipe to
+-- the side is the next or the previous story, and the list pulled down at
+-- its top fetches now.
+touch.on("swipe", function(dir)
+  if UI.view == "summary" then
+    if dir == "left" then button("C") elseif dir == "right" then button("A") end
+  elseif dir == "down" and pulled then
+    button("B")
+  end
 end)
 
 timer.every(1000, function()              -- untouched for a while: back to the top

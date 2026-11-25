@@ -23,16 +23,16 @@ the end. The feed's address usually ends in `.xml`, `/rss` or `/feed`.
 
 ## Usage
 
-| Button | |
-|---|---|
-| `‹‹` (A) | previous story |
-| `○` (B) | refresh now, or back from a summary |
-| `››` (C) | next story |
-| tap a story | its summary, tap again to go back |
-| drag | scroll |
-| hold `○` | back to the menu |
+| Button | By touch | |
+|---|---|---|
+| `‹‹` (A) | drag | previous story |
+| `○` (B) | pull the list down at its top | refresh now |
+| `››` (C) | drag | next story |
+| | tap a story | its summary, tap again (or `○`) to go back |
+| hold `○` | the power key | back to the menu |
 
-In a summary, `‹‹` and `››` go to the previous and next story's summary.
+In a summary, `‹‹` and `››`, or a swipe to the right and to the left, go to
+the previous and next story's summary.
 Left alone for a minute, the app goes back to the top of the list. A story
 that came after the app started shows NEW for an hour: an orange tag on the
 first story, an orange bar on the others.

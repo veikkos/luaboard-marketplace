@@ -1,7 +1,8 @@
 # Paint
 
-Finger painting. Pick a color from the row at the top and draw. A clears the
-canvas and B switches to a big brush.
+Finger painting. Pick a color from the row at the top and draw. At the end
+of the row, the dot switches to a big brush and back, and the cross clears
+the canvas. The buttons B and A do the same.
 
 ![a few strokes](img/screenshot.png)
 

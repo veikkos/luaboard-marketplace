@@ -280,11 +280,11 @@ function redraw()
   disp.clear(BG)
   if UI.confirm_at and UI.mode ~= "car" and UI.mode ~= "error" then UI.confirm_at = nil end
   if UI.confirm_at then
-    draw_message("Log out?", { "Press o to log out, << or >> to cancel." }, TEXT)
+    draw_message("Log out?", { "Hold again or press o to log out.", "A tap cancels." }, TEXT)
   elseif UI.mode == "setup" then draw_setup()
   elseif UI.mode == "login" then draw_login()
   elseif UI.mode == "code_expired" then
-    draw_message("Not logged in", { UI.status:gsub("^%l", string.upper) .. ".", "Press o for a new code." }, TEXT)
+    draw_message("Not logged in", { UI.status:gsub("^%l", string.upper) .. ".", "Tap or press o for a new code." }, TEXT)
   elseif UI.mode == "error" then draw_message("Can't go on", { UI.status }, WARN)
   elseif UI.mode == "car" then draw_car()
   else draw_message("Starting", {}, SUB) end
@@ -355,12 +355,19 @@ touch.on("swipe", function(dir)
   elseif dir == "right" then set_page(math.max(1, UI.page - 1))
   else last_touch = sys.millis() end
 end)
+-- By touch what o does too, for a board without the buttons: a tap asks for
+-- a new code, and a second hold logs out.
 touch.on("tap", function()
-  if UI.confirm_at then cancel() else last_touch = sys.millis() end
+  if UI.confirm_at then cancel()
+  elseif UI.mode == "code_expired" then new_code = true
+  else last_touch = sys.millis() end
 end)
 touch.on("hold", function()
   last_touch = sys.millis()
-  if not UI.confirm_at and (UI.mode == "car" or UI.mode == "error") then
+  if UI.confirm_at then
+    UI.confirm_at, logout_req = nil, true
+    redraw()
+  elseif UI.mode == "car" or UI.mode == "error" then
     UI.confirm_at = sys.millis()
     redraw()
   end

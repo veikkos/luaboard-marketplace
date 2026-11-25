@@ -284,11 +284,17 @@ local function button(b)
 end
 touch.on("press", button)
 touch.on("long", button)
+-- By touch, for a board without the buttons: a swipe scrolls, and a swipe
+-- down at the top, or a tap on the lines at the bottom, refreshes.
 touch.on("swipe", function(dir)
-  if dir == "up" then scroll(3) elseif dir == "down" then scroll(-3) end
+  if dir == "up" then scroll(3)
+  elseif dir == "down" then
+    if UI.top == 1 then button("B") else scroll(-3) end
+  end
 end)
 touch.on("tap", function(x, y)
   if not gh or logging_in then return end
+  if y >= 212 then button("B"); return end
   local i = UI.top + (y - ROW_Y) // ROW_H
   local r = y >= ROW_Y and (y - ROW_Y) // ROW_H < ROWS and UI.rows[i]
   if r then

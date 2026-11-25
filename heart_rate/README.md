@@ -25,14 +25,16 @@ that app's Bluetooth sensor while using this one.
 
 ## Usage
 
-| Button | |
-|---|---|
-| `○` (B) | a new session: time, average and max start over |
-| hold the screen | settings |
-| hold `○` | back to the menu |
+| Button | By touch | |
+|---|---|---|
+| `○` (B) | "New session" in the settings | a new session: time, average and max start over |
+| | hold the screen | settings |
+| hold `○` | the power key | back to the menu |
 
 In the settings `‹‹` (A) and `››` (C) change the max heart rate by 1, by 5
-when held, and B is done. Tap "Forget this strap" to look for another one.
+when held, and B is done. By touch, tap or hold the left or the right of
+the number for the same, and tap elsewhere when done. Tap "Forget this
+strap" to look for another one.
 
 ## Zones
 

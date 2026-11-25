@@ -1,6 +1,7 @@
 -- clock: the time and date, digital or analog, in the device's time zone
 -- (`luaboard tz`). A = digital, C = analog, B = seconds on/off. The button
--- hints go after a few seconds; a touch anywhere brings them back.
+-- hints go after a few seconds; a touch anywhere brings them back. By touch:
+-- a swipe to the side changes the face, and a tap on a hint does what it says.
 
 local W, H = disp.W, disp.H
 local BG = disp.rgb(8, 10, 16)
@@ -127,8 +128,15 @@ local function button(b)
 end
 touch.on("press", button)
 touch.on("long", button)                        -- a slow press of A or C counts too
--- On the screen a touch only brings the hints back.
-for _, ev in ipairs({ "tap", "hold", "drag" }) do touch.on(ev, wake) end
+-- On the screen a touch brings the hints back; a tap on one that shows is
+-- its button, and so is a swipe to the side (A or C).
+for _, ev in ipairs({ "hold", "drag" }) do touch.on(ev, wake) end
+touch.on("tap", function(x, y)
+  if hinted and y >= H - 30 then button(x < W // 3 and "A" or x < 2 * W // 3 and "B" or "C") else wake() end
+end)
+touch.on("swipe", function(dir)
+  if dir == "right" then button("A") elseif dir == "left" then button("C") else wake() end
+end)
 
 function loop()
   -- A finger down counts at once, before it's let go.

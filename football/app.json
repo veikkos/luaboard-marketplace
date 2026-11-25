@@ -1,7 +1,7 @@
 {
   "title": "Football",
   "description": "Live scores, today's games and the latest results for the leagues and teams you choose.",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "author": "Veikko",
   "license": "MIT",
   "lua_api": 1

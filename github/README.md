@@ -66,14 +66,13 @@ which). Reviews waiting for you are counted in the repos the app can see.
 
 ## Usage
 
-| Button | |
-|---|---|
-| `‹‹` (A) | scroll up |
-| `○` (B) | fetch now, the list of repos too |
-| `››` (C) | scroll down |
-| swipe | scroll |
-| tap a repo | its latest run: workflow, branch, result, who started it |
-| hold `○` | back to the menu |
+| Button | By touch | |
+|---|---|---|
+| `‹‹` (A) | swipe down | scroll up |
+| `○` (B) | swipe down at the top, or tap the lines at the bottom | fetch now, the list of repos too |
+| `››` (C) | swipe up | scroll down |
+| | tap a repo | its latest run: workflow, branch, result, who started it |
+| hold `○` | the power key | back to the menu |
 
 The board is fetched every 2 minutes, and the list of repos every 30. Each
 fetch asks for the latest run and the open pull requests of each repo and

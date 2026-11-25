@@ -353,7 +353,15 @@ local function pick_bar(x, y)                   -- a bar: its price for a while
     end
   end
 end
-touch.on("tap", pick_bar)
 touch.on("hold", pick_bar)
+
+-- The buttons by touch, for a board without them: a swipe to the side for
+-- the other day, down to refresh, or a tap on a hint at the bottom.
+touch.on("swipe", function(dir)
+  button(dir == "right" and "A" or dir == "left" and "C" or dir == "down" and "B")
+end)
+touch.on("tap", function(x, y)
+  if y >= 210 then button(x < W // 3 and "A" or x < 2 * W // 3 and "B" or "C") else pick_bar(x, y) end
+end)
 
 draw_all()

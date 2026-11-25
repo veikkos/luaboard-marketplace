@@ -330,9 +330,12 @@ end
 touch.on("press", function(b) button(b, false) end)
 touch.on("long", function(b) button(b, true) end)
 
+-- A tap on a hint at the bottom is its button (for a board without them).
 touch.on("tap", function(x, y)
   local m = T.mode
-  if m == "set" then
+  if m ~= "done" and y >= H - 22 then
+    button(x < W // 3 and "A" or x < 2 * W // 3 and "B" or "C", false)
+  elseif m == "set" then
     local id = zone_at(x, y)
     if id then tap_zone(id) end
   elseif m == "run" then pause()

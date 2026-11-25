@@ -34,13 +34,13 @@ luaboard secrets set stocks symbols SPY,QQQ,NVDA,AAPL
 
 ## Usage
 
-| Button | |
-|---|---|
-| `‹‹` (A) | previous symbol |
-| `○` (B) | fetch now |
-| `››` (C) | next symbol |
-| tap a tile | that symbol |
-| hold `○` | back to the menu |
+| Button | By touch | |
+|---|---|---|
+| `‹‹` (A) | swipe right | previous symbol |
+| `○` (B) | swipe down | fetch now |
+| `››` (C) | swipe left | next symbol |
+| | tap a tile | that symbol |
+| hold `○` | the power key | back to the menu |
 
 The chart is the regular session, 9:30 to 16:00 New York time. The dashed
 line is the previous close: the area above it is green, below it red. While

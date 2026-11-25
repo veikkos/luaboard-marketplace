@@ -90,8 +90,8 @@ values arrive.
 ![login](img/login.png)
 
 The board renews the login itself. After 14 days without the app running,
-it asks for a new code. Press `○` if a code ran out. To log out, hold the
-screen and press `○`.
+it asks for a new code. Press `○` or tap the screen if a code ran out. To
+log out, hold the screen, then press `○` or hold it again.
 
 ## Development
 

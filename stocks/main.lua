@@ -407,6 +407,14 @@ touch.on("tap", function(x, y)
   if y >= TY then pick(math.min(x // (W // #SYMBOLS) + 1, #SYMBOLS)) end
 end)
 
+-- The buttons by touch, for a board without them: a swipe to the side for
+-- the next or the previous symbol, down to fetch now.
+touch.on("swipe", function(dir)
+  if dir == "left" then pick(UI.sel + 1)
+  elseif dir == "right" then pick(UI.sel - 1)
+  elseif dir == "down" and not fetching and sys.millis() - last_ms >= 5000 then force = true end
+end)
+
 timer.every(1000, function()                      -- the clock in the status line
   local t = now()
   if t and t // 60 ~= drawn_minute then draw_top() end
