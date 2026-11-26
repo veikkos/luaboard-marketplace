@@ -809,19 +809,19 @@
    "needs_setup": false,
    "versions": [
     {
-     "version": "1.1.0",
+     "version": "1.1.1",
      "lua_api": 1,
-     "commit": "a79de8857f4358c479b2e3c3a1d6cac3f1f66728",
+     "commit": "c8c4323df862db1619e83457a999d2821e7c6ad1",
      "files": [
       {
        "path": "app.json",
        "size": 216,
-       "sha256": "361d47842f3ea0d05976300d8d79efac5322a56388767b633a72fe6bfeccc5f6"
+       "sha256": "59ce193c24530eee9df266e2d92085d8954de8c4ab61e4be1c24933c2e657e2c"
       },
       {
        "path": "main.lua",
-       "size": 15082,
-       "sha256": "b4597d088d35edff83f3c7f2c7524c347e42c9a934fae7292a4f08e78dd94dfd"
+       "size": 15376,
+       "sha256": "93b66146b0e1decc03b21ae2468c1caaa97eaee7a488bdfaaf56d8aad6e33e68"
       }
      ],
      "other_files": [
