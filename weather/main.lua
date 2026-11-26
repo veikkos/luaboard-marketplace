@@ -16,7 +16,7 @@ local REFRESH_MS = 15 * 60 * 1000    -- Open-Meteo's current values change every
 local W, H = disp.W, disp.H
 local BG, FG = disp.rgb(12, 16, 24), disp.WHITE
 local DIM, DIMMER = disp.rgb(150, 160, 175), disp.rgb(75, 85, 100)
-local GRID = disp.rgb(34, 42, 56)
+local GRID = disp.rgb(72, 84, 104)                 -- the chart's lines: seen on the panel, under the data
 local ACCENT = disp.rgb(90, 180, 255)
 local WARM = disp.rgb(255, 170, 60)               -- the temperature line
 local RAIN = disp.rgb(70, 140, 255)
@@ -151,7 +151,8 @@ end
 
 local function draw_header(title)
   disp.text(8, 6, title, FG, 1)
-  local right = UI.status ~= "ok" and UI.status or (wx and ("updated " .. hhmm(wx.current.time)) or "")
+  if not wx then return end                          -- nothing to show yet: the status is in the middle
+  local right = UI.status ~= "ok" and UI.status or "updated " .. hhmm(wx.current.time)
   disp.text(312, 6, right, UI.status ~= "ok" and disp.ORANGE or DIMMER, 1, nil, "right")
 end
 
@@ -189,7 +190,7 @@ local function draw_chart()
   for v = vmin, vmax, step do                       -- grid with labels
     local y = y_of(v)
     disp.line(CX0, y, CX1, y, GRID)
-    disp.text(CX0 - 4, y - 3, deg(v), DIMMER, 1, nil, "right")
+    disp.text(CX0 - 4, y - 3, deg(v), DIM, 1, nil, "right")
   end
   local bw = math.max(2, (CX1 - CX0) // (n - 1) - 3)
   for i = 1, n do                                   -- rain: blue bars from the bottom
@@ -201,8 +202,8 @@ local function draw_chart()
     end
     local s = local_secs(hr.time[i]) % 86400 // 3600
     if s % 6 == 0 then                              -- hour labels: 00, 06, 12, 18
-      disp.line(x_of(i), CY1 + 1, x_of(i), CY1 + 3, DIMMER)
-      disp.text(x_of(i) - 5, CY1 + 6, string.format("%02d", s), DIMMER, 1)
+      disp.line(x_of(i), CY1 + 1, x_of(i), CY1 + 3, DIM)
+      disp.text(x_of(i) - 5, CY1 + 6, string.format("%02d", s), DIM, 1)
     end
   end
   for i = 1, n - 1 do                               -- temperature: a thick line
@@ -225,8 +226,10 @@ local function draw_now()
   local t = deg(c.temperature_2m)
   local x = 112
   local w = disp.text(x, 26, t, FG, 6)
-  disp.circle(x + w + 6, 30, 5, FG); disp.circle(x + w + 6, 30, 4, FG)
-  disp.text(x + w + 16, 26, "C", DIM, 3)
+  local r, gap = 5, 3                               -- the degree sign: a ring, as far from the number as from the C
+  local cx = x + w + gap + r
+  disp.circle(cx, 30, r, FG); disp.circle(cx, 30, r - 1, FG)
+  disp.text(cx + r + 1 + gap, 26, "C", DIM, 3)
   disp.text(x, 78, info[1], FG, 2)
   disp.text(x, 100, string.format("feels %s   wind %d m/s %s", deg(c.apparent_temperature),
                                   round(c.wind_speed_10m), compass(c.wind_direction_10m)), DIM, 1)
