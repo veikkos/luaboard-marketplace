@@ -567,6 +567,44 @@
     }
    ]
   },
+  "sensors": {
+   "title": "Sensors",
+   "description": "The board's own sensors, a page each: motion, compass, light and proximity, and the camera. Swipe for the next one.",
+   "author": "Veikko",
+   "license": "MIT",
+   "needs_setup": false,
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 2,
+     "commit": "33719a561517bb3ae1db9816b3ce76c005fceeff",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 241,
+       "sha256": "e4f0de69ff41361ac55f60051398fbc5943d0ea0720e2b92fdceb0f448bade18"
+      },
+      {
+       "path": "main.lua",
+       "size": 9037,
+       "sha256": "8e580eb8c163c37ccff55bcaa9fe85523281ab7b56bac4f21e5d20344999615d"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 1366,
+       "sha256": "4b4ffb7b3aa85099bed3ba55b1447cc551e1c14db2cae2dd30782b66bc370ae0"
+      }
+     ]
+    }
+   ]
+  },
   "spot_price_fi": {
    "title": "Spot Price Finland",
    "description": "Electricity spot price in Finland, c/kWh incl. VAT, today and tomorrow. Data: porssisahko.net",
