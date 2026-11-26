@@ -575,6 +575,35 @@
    "needs_setup": false,
    "versions": [
     {
+     "version": "1.0.1",
+     "lua_api": 1,
+     "commit": "b6c7835690fca63dc03d623becedfa1cd235da74",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 241,
+       "sha256": "f50313115991a3f318b6009af8961b09916c7a49d75b90ac166dbc71cf8f8791"
+      },
+      {
+       "path": "main.lua",
+       "size": 9037,
+       "sha256": "8e580eb8c163c37ccff55bcaa9fe85523281ab7b56bac4f21e5d20344999615d"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 1366,
+       "sha256": "4b4ffb7b3aa85099bed3ba55b1447cc551e1c14db2cae2dd30782b66bc370ae0"
+      }
+     ]
+    },
+    {
      "version": "1.0.0",
      "lua_api": 2,
      "commit": "33719a561517bb3ae1db9816b3ce76c005fceeff",
