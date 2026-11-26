@@ -1,8 +1,8 @@
 {
   "title": "Sensors",
   "description": "The board's own sensors, a page each: motion, compass, light and proximity, and the camera. Swipe for the next one.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Veikko",
   "license": "MIT",
-  "lua_api": 2
+  "lua_api": 1
 }
