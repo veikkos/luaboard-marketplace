@@ -567,6 +567,49 @@
     }
    ]
   },
+  "samsung_tv": {
+   "title": "Samsung TV",
+   "description": "A remote for a Samsung TV on your network: power, volume, arrows, playback and its apps.",
+   "author": "Veikko",
+   "license": "MIT",
+   "needs_setup": false,
+   "versions": [
+    {
+     "version": "1.0.0",
+     "lua_api": 2,
+     "commit": "2fdc95a872f852e223c67b3dacbd928141f017f9",
+     "files": [
+      {
+       "path": "app.json",
+       "size": 217,
+       "sha256": "3e9eb2b03bf189ab19275275ddf36061c408c756595cc87de235747ddcaae705"
+      },
+      {
+       "path": "main.lua",
+       "size": 17920,
+       "sha256": "fe039aacc1565b320fedfb336ce578afd444ae7361cc11c33c58cc656dac422a"
+      }
+     ],
+     "other_files": [
+      {
+       "path": "LICENSE",
+       "size": 1072,
+       "sha256": "bd3e6e0cb7d5e8e37ebe2584bbc04e55525428b7218bfee9181971fb5596c39c"
+      },
+      {
+       "path": "README.md",
+       "size": 2829,
+       "sha256": "67bd0e0d4433d0866afcbd527af8c9ababbf73a8498d60f2ef0f6de07a63e491"
+      },
+      {
+       "path": "secrets.env.example",
+       "size": 202,
+       "sha256": "46a692dc3147e2be54c5f4d5e46fbdfce5c7de7b5b20d59119879b80271fba0c"
+      }
+     ]
+    }
+   ]
+  },
   "sensors": {
    "title": "Sensors",
    "description": "The board's own sensors, a page each: motion, compass, light and proximity, and the camera. Swipe for the next one.",
