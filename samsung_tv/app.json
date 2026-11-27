@@ -1,0 +1,8 @@
+{
+  "title": "Samsung TV",
+  "description": "A remote for a Samsung TV on your network: power, volume, arrows, playback and its apps.",
+  "version": "1.0.0",
+  "author": "Veikko",
+  "license": "MIT",
+  "lua_api": 2
+}
